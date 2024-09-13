@@ -4,25 +4,29 @@ import React, { useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import app from "../config";
-import { getAuth, User } from "firebase/auth"; // Import User type
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,  } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
+
 const SignupMain = () => {
-  const [user, setUser] = useState<User | null>(null); // Allow both User and null
-  const [loading, setLoading] = useState(true); // Add loading state
+
+  const [user, setUser] = useState<firebase.User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user); // Set User object when authenticated
-       
+        setUser(user);
       } else {
-        setUser(null); // Set null if no user is authenticated
+        setUser(null);
       }
-      setLoading(false); // Stop loading
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -32,15 +36,25 @@ const SignupMain = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      router.push("/"); // Redirect after sign-in
-    } catch (error:any) {
-      console.log("Error signing with Google:", error.message);
+      router.push("/");
+    } catch (error: any) {
+      console.log("Error signing in with Google:", error.message);
     }
   };
 
-  // While checking auth state, show a loading state or nothing
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const auth = getAuth(app);
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/");
+    } catch (error: any) {
+      setError(error.message); 
+    }
+  };
+
   if (loading) {
-    return <div>Loading...</div>; // Or show a loading spinner
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -57,33 +71,47 @@ const SignupMain = () => {
           <p className="md:text-5xl text-3xl">Create an account</p>
           <p className="md:text-xl text-base">Enter your details below</p>
         </div>
-        <div className="md:flex md:flex-col md:w-full md:gap-8 flex flex-col gap-8">
+        <form onSubmit={handleSignUp} className="md:flex md:flex-col md:w-full md:gap-8 flex flex-col gap-8">
           <input
             className="md:border-b md:text-lg text-sm md:border-black md:w-9/12 md:outline-none border-b border-black outline-none"
             placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
           />
           <input
             className="md:border-b md:text-lg text-sm md:border-black md:w-9/12 md:outline-none border-b border-black outline-none"
-            placeholder="Email or Phone Number"
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <input
             className="md:border-b md:text-lg text-sm md:border-black md:w-9/12 md:outline-none border-b border-black outline-none"
             type="password"
             placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-        </div>
-        <div className="md:flex md:justify-between md:gap-5 md:w-9/12 flex gap-4">
-          <button className="md:text-white md:bg-red-600 md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm">
-            Create Account
-          </button>
-          <button
-            onClick={signInWithGoogle}
-            className="md:border md:border-black md:h-10 md:flex md:justify-center md:items-center gap-1 md:gap-2 flex justify-center items-center border border-black whitespace-nowrap rounded-sm p-1 text-sm"
-          >
-            <FaGoogle />
-            Sign up with Google
-          </button>
-        </div>
+          {error && <p className="text-red-500">{error}</p>}
+          <div className="md:flex md:justify-between md:gap-5 md:w-9/12 flex gap-4">
+            <button
+              type="submit"
+              className="md:text-white md:bg-red-600 md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm"
+            >
+              Create Account
+            </button>
+            <button
+              onClick={signInWithGoogle}
+              className="md:border md:border-black md:h-10 md:flex md:justify-center md:items-center gap-1 md:gap-2 flex justify-center items-center border border-black whitespace-nowrap rounded-sm p-1 text-sm"
+            >
+              <FaGoogle />
+              Sign up with Google
+            </button>
+          </div>
+        </form>
         <div className="md:flex md:gap-2 md:w-9/12 md:justify-center flex items-center justify-center gap-2">
           <p>Already have an account?</p>
           <Link
