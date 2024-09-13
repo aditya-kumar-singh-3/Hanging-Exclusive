@@ -6,11 +6,12 @@ import Link from "next/link";
 import app from "../config";
 import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,  } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import {User} from 'firebase/auth'
 
 
 const SignupMain = () => {
+  const [user, setUser] = useState<User | null>(null);
 
-  const [user, setUser] = useState<firebase.User | null>(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
