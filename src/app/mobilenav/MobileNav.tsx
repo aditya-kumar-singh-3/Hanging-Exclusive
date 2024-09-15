@@ -9,9 +9,15 @@ import { IoCartOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";  // Import RootState to type your state correctly
+import { MdManageAccounts } from "react-icons/md";
+import { LuShoppingBag } from "react-icons/lu";
+import { MdCancel } from "react-icons/md";
+import { IoMdStarOutline } from "react-icons/io";
+import { SlLogout } from "react-icons/sl";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown visibility
 
   // Type the state using RootState
   const number = useSelector((state: RootState) => state.cart.totalProductInCart);
@@ -23,17 +29,18 @@ const MobileNav = () => {
     setIsOpen(!isOpen);
   };
 
-  return (
-    <nav className="flex justify-between items-center h-14 py-4 px-6  border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50 ">
-      {/* Logo Section */}
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
-      <div className="lg:hidden flex items-center h-[4rem] py-8  absolute left-5    ">
-        <p className="text-2xl font-bold md:hidden   w-[20rem]  ">
-          Exclusive
-        </p>
+  return (
+    <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      {/* Logo Section */}
+      <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
+        <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>
         <button
           onClick={toggleNavbar}
-          className="focus:outline-none  absolute -right-12 p-4 cursor-pointer"
+          className="focus:outline-none absolute -right-12 p-4 cursor-pointer"
         >
           {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
@@ -42,7 +49,7 @@ const MobileNav = () => {
       {/* Main navigation for desktop */}
       <div className="lg:flex hidden justify-between items-center gap-4 w-full">
         <div className="flex items-center justify-around space-x-5 whitespace-nowrap text-sm font-normal w-full">
-          <p className="text-3xl font-semibold ">Exclusive</p>
+          <p className="text-3xl font-semibold">Exclusive</p>
           <div className="flex gap-12">
             <Link
               href="/"
@@ -64,7 +71,7 @@ const MobileNav = () => {
             </Link>
             <Link
               href="/signup"
-              className=" text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
             >
               Sign Up
             </Link>
@@ -74,17 +81,17 @@ const MobileNav = () => {
               <input
                 type="text"
                 placeholder="What are you looking for?"
-                className="flex-grow text-center bg-[#f5f5f5] rounded-[4px] text-xs border-none focus:outline-none focus:ring-0  font-normal leading-4 font-poppins"
+                className="flex-grow text-center bg-[#f5f5f5] rounded-[4px] text-xs border-none focus:outline-none focus:ring-0 font-normal leading-4 font-poppins"
               />
               <IoSearch className="text-gray-500 cursor-pointer" />
             </div>
-           
-            <div className="relative gap-4 ">
+
+            <div className="relative gap-4">
               <Link href="/Wishlist" className="text-2xl">
                 <FiHeart />
               </Link>
               {totalwish > 0 && (
-                <span className="absolute -top-2 -right-2  bg-red-500 text-white text-sm w-5 h-5 flex items-center justify-center rounded-full">
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-sm w-5 h-5 flex items-center justify-center rounded-full">
                   {totalwish}
                 </span>
               )}
@@ -100,11 +107,35 @@ const MobileNav = () => {
                 </span>
               )}
             </div>
-              
-            <div>
-              <Link href="/Account" className="text-2xl">
+
+            <div className="relative">
+              <button
+                onClick={toggleDropdown}
+                className="text-2xl"
+              >
                 <VscAccount />
-              </Link>
+              </button>
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48  bg-palette-mutedPurple text-white
+                 shadow-lg rounded-lg">
+         
+                  <Link href="/Account" className=" flex gap-2  h-10 justify-start px-2 items-center text-gray-800 hover:bg-gray-500">
+               <span className="text-2xl text-white"> <MdManageAccounts /></span> <span className="text-sm font-normal text-white">Manage My Account</span>
+                  </Link>
+                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
+                <span className="text-2xl text-white"><LuShoppingBag /></span><span className="text-sm font-normal text-white">My Order</span>
+                  </Link>
+                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
+                  <span className="text-2xl text-white"><MdCancel/></span><span className="text-sm font-normal text-white">My Cancellations</span>
+                  </Link>
+                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
+                 <span className="text-2xl text-white"><IoMdStarOutline /></span ><span className="text-sm font-normal text-white">My Reviews</span> 
+                  </Link>
+                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
+                  <span className="text-2xl text-white"><SlLogout /></span><span className="text-sm font-normal text-white">Logout</span> 
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -116,8 +147,8 @@ const MobileNav = () => {
           isOpen ? "translate-x-0" : "translate-x-full"
         } duration-300 ease-in-out w-64`}
       >
-        <div className="flex flex-col items-center mt-6 space-y-3 ">
-          <p className="text-3xl font-semibold text-white  ">Exclusive</p>
+        <div className="flex flex-col items-center mt-6 space-y-3">
+          <p className="text-3xl font-semibold text-white">Exclusive</p>
 
           <>
             <Link href="/" className="text-lg font-semibold text-white">
@@ -136,7 +167,7 @@ const MobileNav = () => {
               Cart
             </Link>
             <Link href="/signup" className="text-lg font-semibold text-white">
-              Sign Up
+             Sign Up
             </Link>
           </>
         </div>

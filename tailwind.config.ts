@@ -10,7 +10,16 @@ const config: Config = {
     extend: {
       colors:{
           'custom-green':'#00FF66',
+          palette: {
+            dark: '#2B202C',  // Dominant dark tone
+            mutedPurple: '#573F59',  // Muted purple shade
+            lightTone: '#F2EFF2',  // Light, almost white tone
+            lavender: '#96699B',  // Lavender-like hue
+            deepPurple: '#865F8A',  // Deep purple tone
+            darkPurple: '#3A202D',  // Dark purple, near black
+          },
       },
+     
       fontFamily:{
         Pop:['Poppins','...defaultTheme.fontFamily.sans'],
         
