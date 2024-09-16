@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { AppDispatch, RootState } from "@/Redux/Store";
 import { loginWithEmailPassword, loginWithGoogle } from "@/Redux/LoginThunk";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { getCookie } from "cookies-next";
 
-const welcome = () => toast.success('Welcome to Exclusive!');
+const welcome = () => toast.success("Welcome to Exclusive!");
 
 const LoginMain = () => {
   const [email, setEmail] = useState("");
@@ -20,10 +20,9 @@ const LoginMain = () => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
 
-  const { loading, error, user } = useSelector((state: RootState) => state.auth);
-
-
-
+  const { loading, error, user } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,35 +33,30 @@ const LoginMain = () => {
     dispatch(loginWithGoogle());
   };
 
-  useEffect(()=>{
-    console.log("User",user);
-    console.log("Loading",loading);
-    const token = getCookie('token');
-    if(token){
-     setTimeout(()=>{
-      welcome();
-     },1000);
-      router.push('/');
+  useEffect(() => {
+    console.log("User", user);
+    console.log("Loading", loading);
+    const token = getCookie("token");
+    if (token) {
+      setTimeout(() => {
+        welcome();
+      }, 1000);
+      router.push("/");
     }
-    
-  },)
+  });
 
   // useEffect(() => {
   //   if (user) {
   //     welcome();
   //     setPassword("");
   //     setEmail("");
-     
-      
-     
+
   //   }
   // }, [user, router]);
 
-  
-  
   return (
     <div className="md:flex md:mb-20 m-10">
-      <Toaster/>
+      <Toaster />
       <div className="md:object-contain md:mt-20 md:ml-24 md:w-1/2 mt-20">
         <img
           className="md:h-full md:w-full"

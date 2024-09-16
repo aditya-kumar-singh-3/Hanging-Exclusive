@@ -6,13 +6,20 @@ import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { ImCross } from "react-icons/im";
 import { FaPlus, FaMinus } from "react-icons/fa";
-import { addtocartData, deleteFromCart, ProductInCart, info, UPquantity, DownQuantity } from "@/Redux/CreateSlice";
-import toast, { Toaster } from 'react-hot-toast';
+import {
+  addtocartData,
+  deleteFromCart,
+  ProductInCart,
+  info,
+  UPquantity,
+  DownQuantity,
+} from "@/Redux/CreateSlice";
+import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
-import Image from 'next/image';
+import Image from "next/image";
 
-const delNotify = () => toast.success('Removed from cart!');
-const ExNotify = () => toast.error('Maximum product can be 10!');
+const delNotify = () => toast.success("Removed from cart!");
+const ExNotify = () => toast.error("Maximum product can be 10!");
 
 interface Product {
   id: number;
@@ -20,22 +27,33 @@ interface Product {
   price: number;
   rating: number;
   image: string;
-  quantity: number;  // Represents the quantity of this product in the cart
-  subtotal: number;  // Represents the subtotal for the product (price * quantity)
+  quantity: number; // Represents the quantity of this product in the cart
+  subtotal: number; // Represents the subtotal for the product (price * quantity)
 }
 
 const CartContent = () => {
   const dispatch = useDispatch();
-  const cartProduct: Product[] = useSelector((state: RootState) => state.cart.cartData);
+  const cartProduct: Product[] = useSelector(
+    (state: RootState) => state.cart.cartData
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, product: Product) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    product: Product
+  ) => {
     const newQuantity = parseInt(e.target.value);
     if (isNaN(newQuantity) || newQuantity < 1) return; // Ignore invalid input
     if (newQuantity > 10) {
       ExNotify();
       return;
     }
-    dispatch(info({ ...product, quantity: newQuantity, subtotal: newQuantity * product.price }));
+    dispatch(
+      info({
+        ...product,
+        quantity: newQuantity,
+        subtotal: newQuantity * product.price,
+      })
+    );
   };
 
   const deletefromcart = (product: Product) => {
@@ -47,7 +65,13 @@ const CartContent = () => {
   const increaseQuantity = (product: Product) => {
     const newQuantity = product.quantity + 1;
     if (newQuantity <= 10) {
-      dispatch(UPquantity({ ...product, quantity: newQuantity, subtotal: newQuantity * product.price }));
+      dispatch(
+        UPquantity({
+          ...product,
+          quantity: newQuantity,
+          subtotal: newQuantity * product.price,
+        })
+      );
     } else {
       ExNotify();
     }
@@ -56,7 +80,13 @@ const CartContent = () => {
   const lowQuantity = (product: Product) => {
     const newQuantity = product.quantity - 1;
     if (newQuantity >= 1) {
-      dispatch(DownQuantity({ ...product, quantity: newQuantity, subtotal: newQuantity * product.price }));
+      dispatch(
+        DownQuantity({
+          ...product,
+          quantity: newQuantity,
+          subtotal: newQuantity * product.price,
+        })
+      );
     }
   };
 
@@ -65,23 +95,34 @@ const CartContent = () => {
   return (
     <>
       <div>
-        <Toaster/>
+        <Toaster />
         <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20">
           Home / <b>Cart</b>
         </p>
       </div>
 
       <div className="md:flex md:h-20 md:items-center md:justify-center md:mb-10 md:ml-36 md:mr-60 shadow-lg flex h-10 items-center justify-center mb-10  mr-10 mt-10 gap-10 md:w-4/5 p-6 w-full ">
-        <p className="w-1/4 md:text-base md:font-medium md:ml-5 text-sm ">Product</p>
-        <p className="w-1/4 md:text-base md:font-medium md:mr-8 text-sm md:ml-8">Price</p>
-        <p className="w-1/4 md:text-base md:font-medium text-sm md:ml-10">Quantity</p>
+        <p className="w-1/4 md:text-base md:font-medium md:ml-5 text-sm ">
+          Product
+        </p>
+        <p className="w-1/4 md:text-base md:font-medium md:mr-8 text-sm md:ml-8">
+          Price
+        </p>
+        <p className="w-1/4 md:text-base md:font-medium text-sm md:ml-10">
+          Quantity
+        </p>
         <p className="w-1/4 md:text-base md:font-medium text-sm ">Subtotal</p>
-        <p className="md:mr-8 md:text-base md:font-medium hidden md:block">Del</p>
+        <p className="md:mr-8 md:text-base md:font-medium hidden md:block">
+          Del
+        </p>
       </div>
 
       <div className="md:mb-10 md:ml-28 md:w-4/5  ">
         {cartProduct.map((product) => (
-          <div key={product.id} className="md:flex md:items-center md:text-start shadow-lg md:h-20 md:mt-10 flex  mt-10 mr-10 md:mr-20 w-full  md:ml-8">
+          <div
+            key={product.id}
+            className="md:flex md:items-center md:text-start shadow-lg md:h-20 md:mt-10 flex  mt-10 mr-10 md:mr-20 w-full  md:ml-8"
+          >
             <div className="md:flex md:items-center md:gap-1 md:w-1/4 w-1/4 ml-5">
               <img src={product.image} className="w-10 h-10 md:ml-5 " alt="" />
               <p className="md:text-base md:font-normal text-[10px] ">
@@ -93,7 +134,10 @@ const CartContent = () => {
               ${product.price}
             </p>
             <div className="flex justify-around w-1/4 items-center md:px-8 box-border md:mr-8 mt-5   mr-2 ">
-              <p className="rounded-full md:text-xl shadow-2xl md:h-0 h-5 md:mb-10 w-fit mb-5 " onClick={() => lowQuantity(product)}>
+              <p
+                className="rounded-full md:text-xl shadow-2xl md:h-0 h-5 md:mb-10 w-fit mb-5 "
+                onClick={() => lowQuantity(product)}
+              >
                 <FaMinus />
               </p>
               <p className="md:mr-12">
@@ -106,7 +150,10 @@ const CartContent = () => {
                   className="md:border md:border-blue-300 md:h-11 md:w-16 w-8 md:ml-10 md:text-center mb-5 "
                 />
               </p>
-              <p className="md:mr-32 rounded-full md:text-xl shadow-2xl md:h-0 h-5 md:mb-10 mb-5" onClick={() => increaseQuantity(product)}>
+              <p
+                className="md:mr-32 rounded-full md:text-xl shadow-2xl md:h-0 h-5 md:mb-10 mb-5"
+                onClick={() => increaseQuantity(product)}
+              >
                 <FaPlus />
               </p>
             </div>
@@ -116,7 +163,10 @@ const CartContent = () => {
             </p>
 
             <div className="relative ">
-              <span className="md:mr-24 absolute  right-6 -top-4 md:ml-5 md:-top-3 md:-right-8 " onClick={() => deletefromcart(product)}>
+              <span
+                className="md:mr-24 absolute  right-6 -top-4 md:ml-5 md:-top-3 md:-right-8 "
+                onClick={() => deletefromcart(product)}
+              >
                 <ImCross />
               </span>
             </div>
@@ -124,7 +174,10 @@ const CartContent = () => {
         ))}
 
         <div className="md:mt-7 md:flex md:justify-between flex gap-20 ml-7 mr-4 mt-10">
-          <Link href="/" className="rounded h-14 md:text-center border border-blue-300 md:w-52 w-32 text-base font-medium md:flex md:justify-center md:items-center flex justify-center items-center md:ml-16 ">
+          <Link
+            href="/"
+            className="rounded h-14 md:text-center border border-blue-300 md:w-52 w-32 text-base font-medium md:flex md:justify-center md:items-center flex justify-center items-center md:ml-16 "
+          >
             Return to Shop
           </Link>
           <button className="rounded h-14 md:w-52 md:text-center border border-blue-300 w-32 text-base font-medium mr-18 md:mr-4">

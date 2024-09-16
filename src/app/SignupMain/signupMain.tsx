@@ -22,6 +22,10 @@ import {
 } from "@/Redux/SignupSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
+import toast, { Toaster } from "react-hot-toast";
+
+const accountCreation = () =>
+  toast.success("Account Created Successfully! Login into the App");
 
 const SignupMain = () => {
   const dispatch = useDispatch();
@@ -48,7 +52,8 @@ const SignupMain = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      router.push("/");
+      router.push("/login");
+      accountCreation();
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
       dispatch(setError(error.message));
@@ -60,7 +65,8 @@ const SignupMain = () => {
     const auth = getAuth(app);
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push("/");
+      router.push("/login");
+      accountCreation();
     } catch (error: any) {
       dispatch(setError(error.message));
     }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -8,24 +8,36 @@ import { FiHeart } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { useSelector } from "react-redux";
-import { RootState } from "@/Redux/Store";  // Import RootState to type your state correctly
+import { RootState } from "@/Redux/Store";
 import { MdManageAccounts } from "react-icons/md";
 import { LuShoppingBag } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
 import { IoMdStarOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
-import toast, { Toaster } from 'react-hot-toast';
-import { deleteCookie } from 'cookies-next';
+import toast, { Toaster } from "react-hot-toast";
+import { getCookie, deleteCookie } from "cookies-next";
 
-const logout = () => toast.success('Logged Out Successfully');
+const logout = () => toast.success("Logged Out Successfully");
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false); 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  
-  const number = useSelector((state: RootState) => state.cart.totalProductInCart);
-  const totalwish = useSelector((state: RootState) => state.cart.totalProductInWishlist);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = getCookie("token");
+    if (token) {
+      setLoggedIn(true);
+    }
+  });
+
+  const number = useSelector(
+    (state: RootState) => state.cart.totalProductInCart
+  );
+  const totalwish = useSelector(
+    (state: RootState) => state.cart.totalProductInWishlist
+  );
 
   const pathname = usePathname();
 
@@ -37,16 +49,17 @@ const MobileNav = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  function loggout(){
-    deleteCookie('token');
-       setTimeout(()=>{
-        logout();
-       },1000)
+  function loggout() {
+    deleteCookie("token");
+    window.location.reload();
+    setTimeout(() => {
+      logout();
+    }, 1000);
   }
 
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-      <Toaster/>
+      <Toaster />
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
         <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>
@@ -81,12 +94,15 @@ const MobileNav = () => {
             >
               About
             </Link>
-            <Link
-              href="/signup"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
-            >
-              Sign Up
-            </Link>
+
+            {!loggedIn ? (
+              <Link
+                href="/signup"
+                className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+              >
+                Sign Up
+              </Link>
+            ) : null}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center w-[250px] h-[38px] bg-[#f5f5f5] rounded-[4px] px-[12px] gap-2">
@@ -121,30 +137,70 @@ const MobileNav = () => {
             </div>
 
             <div className="relative">
-              <button
-                onClick={toggleDropdown}
-                className="text-2xl"
-              >
+              <button onClick={toggleDropdown} className="text-2xl">
                 <VscAccount />
               </button>
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48  bg-palette-mutedPurple text-white
-                 shadow-lg rounded-lg">
-         
-                  <Link href="/Account" className=" flex gap-2  h-10 justify-start px-2 items-center text-gray-800 hover:bg-gray-500">
-               <span className="text-2xl text-white"> <MdManageAccounts /></span> <span className="text-sm font-normal text-white">Manage My Account</span>
+                <div
+                  className="absolute right-0 mt-2 w-48  bg-palette-mutedPurple text-white
+                 shadow-lg rounded-lg"
+                >
+                  <Link
+                    href="/Account"
+                    className=" flex gap-2  h-10 justify-start px-2 items-center text-gray-800 hover:bg-gray-500"
+                  >
+                    <span className="text-2xl text-white">
+                      {" "}
+                      <MdManageAccounts />
+                    </span>{" "}
+                    <span className="text-sm font-normal text-white">
+                      Manage My Account
+                    </span>
                   </Link>
-                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
-                <span className="text-2xl text-white"><LuShoppingBag /></span><span className="text-sm font-normal text-white">My Order</span>
+                  <Link
+                    href="/"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                  >
+                    <span className="text-2xl text-white">
+                      <LuShoppingBag />
+                    </span>
+                    <span className="text-sm font-normal text-white">
+                      My Order
+                    </span>
                   </Link>
-                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
-                  <span className="text-2xl text-white"><MdCancel/></span><span className="text-sm font-normal text-white">My Cancellations</span>
+                  <Link
+                    href="/"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                  >
+                    <span className="text-2xl text-white">
+                      <MdCancel />
+                    </span>
+                    <span className="text-sm font-normal text-white">
+                      My Cancellations
+                    </span>
                   </Link>
-                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
-                 <span className="text-2xl text-white"><IoMdStarOutline /></span ><span className="text-sm font-normal text-white">My Reviews</span> 
+                  <Link
+                    href="/"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                  >
+                    <span className="text-2xl text-white">
+                      <IoMdStarOutline />
+                    </span>
+                    <span className="text-sm font-normal text-white">
+                      My Reviews
+                    </span>
                   </Link>
-                  <Link href="/" onClick={loggout} className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
-                  <span className="text-2xl text-white"><SlLogout /></span><span className="text-sm font-normal text-white">Logout</span> 
+                  <Link
+                    href="/"
+                    onClick={loggout}
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                  >
+                    <span className="text-2xl text-white">
+                      <SlLogout />
+                    </span>
+                    <span className="text-sm font-normal text-white">
+                      Logout
+                    </span>
                   </Link>
                 </div>
               )}
@@ -178,11 +234,20 @@ const MobileNav = () => {
             <Link href="/Cart" className="text-lg font-semibold text-white">
               Cart
             </Link>
-            <Link href="/signup" className="text-lg font-semibold text-white">
-             Sign Up
-            </Link>
-            <Link href="/" onClick={loggout} className="text-lg font-semibold text-white">
-             Logout
+            {!loggedIn ? (
+              <Link
+                href="/signup"
+                className="text-lg font-semibold text-white"
+              >
+                Sign Up
+              </Link>
+            ) : null}
+            <Link
+              href="/"
+              onClick={loggout}
+              className="text-lg font-semibold text-white"
+            >
+              Logout
             </Link>
           </>
         </div>

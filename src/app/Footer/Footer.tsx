@@ -6,7 +6,7 @@ import {
   FaLinkedinIn,
 } from "react-icons/fa";
 
-import Image from 'next/image';
+import Image from "next/image";
 
 import Link from "next/link";
 const Footer = () => {
@@ -14,7 +14,9 @@ const Footer = () => {
     <>
       <div className="flex flex-col md:flex-row justify-evenly bg-black text-white p-4 md:p-8 overflow-hidden">
         <div className="flex flex-col gap-4 mt-10 md:mt-20 md:items-start ">
-          <p className=" md:text-left text-2xl font-bold md:ml-0 ml-2">Exclusive</p>
+          <p className=" md:text-left text-2xl font-bold md:ml-0 ml-2">
+            Exclusive
+          </p>
           <p className=" md:text-left md:ml-0 ml-2 ">Subscribe</p>
           <p className=" md:text-left md:ml-0 ml-2">
             Get 10% off your first order
@@ -56,11 +58,13 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-col gap-4 mt-10 md:mt-20 md:items-start  md:text-left md:ml-0 ml-2">
-          <Link href='/Account' className="text-2xl font-bold">Account</Link>
+          <Link href="/Account" className="text-2xl font-bold">
+            Account
+          </Link>
           <p>My Account</p>
-          <Link href='/login'>Login/Register</Link>
-          <Link href='Cart'>Cart</Link>
-          <Link href='Wishlist'>WishList</Link>
+          <Link href="/login">Login/Register</Link>
+          <Link href="Cart">Cart</Link>
+          <Link href="Wishlist">WishList</Link>
           <p>Shop</p>
         </div>
 
@@ -76,7 +80,6 @@ const Footer = () => {
           <p className="text-2xl font-bold">Download App</p>
           <p>Save $3 with App New User Only</p>
           <div className="flex  items-center md:flex-row md:items-start">
-           
             <div className="h-32 w-36 flex flex-col gap-1  mt-5 md:ml-0 md:mt-0 ">
               <div>
                 <img src="playstore.png" className=" w-36" alt="Playstore" />

@@ -6,7 +6,7 @@ const AccountContent = () => {
     <>
       <div className="md:flex md:justify-between ">
         <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20 flex justify-center items-center mt-10">
-         <Link href="/"> Home</Link>/ <b>My Account</b>
+          <Link href="/"> Home</Link>/ <b>My Account</b>
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-2xl">
           <b>Welcome!</b>
@@ -21,12 +21,16 @@ const AccountContent = () => {
             <p className="ml-8 text-base font-normal text-red-700 mt-1 cursor-pointer">
               My Profile
             </p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer ">Address Book</p>
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer ">
+              Address Book
+            </p>
             <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer">
-              My Payment 
+              My Payment
             </p>
             <p className="text-base font-medium md:mt-2">My Orders</p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer">My Returns</p>
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer">
+              My Returns
+            </p>
             <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer">
               My Cancellations
             </p>
