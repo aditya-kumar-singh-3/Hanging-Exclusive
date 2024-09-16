@@ -7,12 +7,12 @@ import Link from "next/link";
 import { ImCross } from "react-icons/im";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { addtocartData, deleteFromCart, ProductInCart, info, UPquantity, DownQuantity } from "@/Redux/CreateSlice";
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { motion } from "framer-motion";
 import Image from 'next/image';
 
-const delNotify = () => toast.success('Deleted!');
-const ExNotify = () => toast.success('Maximum product can be 10!');
+const delNotify = () => toast.success('Removed from cart!');
+const ExNotify = () => toast.error('Maximum product can be 10!');
 
 interface Product {
   id: number;
@@ -65,6 +65,7 @@ const CartContent = () => {
   return (
     <>
       <div>
+        <Toaster/>
         <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20">
           Home / <b>Cart</b>
         </p>

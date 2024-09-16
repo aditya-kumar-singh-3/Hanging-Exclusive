@@ -14,12 +14,14 @@ import { LuShoppingBag } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
 import { IoMdStarOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
+import toast, { Toaster } from 'react-hot-toast';
+const logout = () => toast.success('Logged Out Successfully');
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for dropdown visibility
+  const [dropdownOpen, setDropdownOpen] = useState(false); 
 
-  // Type the state using RootState
+  
   const number = useSelector((state: RootState) => state.cart.totalProductInCart);
   const totalwish = useSelector((state: RootState) => state.cart.totalProductInWishlist);
 
@@ -33,8 +35,15 @@ const MobileNav = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
+  function loggout(){
+       setTimeout(()=>{
+        logout();
+       },1000)
+  }
+
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+      <Toaster/>
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
         <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>
@@ -81,7 +90,7 @@ const MobileNav = () => {
               <input
                 type="text"
                 placeholder="What are you looking for?"
-                className="flex-grow text-center bg-[#f5f5f5] rounded-[4px] text-xs border-none focus:outline-none focus:ring-0 font-normal leading-4 font-poppins"
+                className="flex-grow  bg-[#f5f5f5] rounded-md text-xs border-none focus:outline-none focus:ring-0 font-normal leading-4 font-poppins"
               />
               <IoSearch className="text-gray-500 cursor-pointer" />
             </div>
@@ -131,7 +140,7 @@ const MobileNav = () => {
                   <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
                  <span className="text-2xl text-white"><IoMdStarOutline /></span ><span className="text-sm font-normal text-white">My Reviews</span> 
                   </Link>
-                  <Link href="/" className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
+                  <Link href="/" onClick={loggout} className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500">
                   <span className="text-2xl text-white"><SlLogout /></span><span className="text-sm font-normal text-white">Logout</span> 
                   </Link>
                 </div>
@@ -168,6 +177,9 @@ const MobileNav = () => {
             </Link>
             <Link href="/signup" className="text-lg font-semibold text-white">
              Sign Up
+            </Link>
+            <Link href="/" onClick={(e)=>{e.preventDefault(); loggout();}} className="text-lg font-semibold text-white">
+             Logout
             </Link>
           </>
         </div>

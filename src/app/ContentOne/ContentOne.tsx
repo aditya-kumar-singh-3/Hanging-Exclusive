@@ -60,7 +60,7 @@ const ContentOne = () => {
               <p>{info[count]}</p>
             </div >
             <p className="md:w-[300px] md:text-[48px] font-semibold leading-[60px] md:ml-[35px]">{biginfo[count]}</p>
-            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px]">Shop Now &rarr;</a>
+            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px] cursor-">Shop Now &rarr;</a>
           </div>
           <div className="md:mt-[16px]">
             <img  src={Imagesrc[count]}  alt='Imagesrc[count]' id='main-image' className="md:h-[330px] md:w-[496px] object-contain "/>

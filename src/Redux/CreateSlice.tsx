@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// Define types for the product and cart states
 interface Product {
   id: number;
   name: string;
@@ -20,7 +19,6 @@ interface CartState {
   totalProductInWishlist: number;
 }
 
-// Initial state type
 const initialState: CartState = {
   cartData: [],
   wishListData: [],
@@ -34,13 +32,11 @@ const cartSlice = createSlice({
   name: "cartItems",
   initialState,
   reducers: {
-    // Toggles the added state (used for UI notifications, etc.)
     addToCart(state) {
       state.added = !state.added;
       console.log("redux called", state.added);
     },
 
-    // Adds the product to the cartData array
     addtocartData(state, action: PayloadAction<Product>) {
       const item = action.payload;
       const isThere = state.cartData.find((itemm) => itemm.id === item.id);
@@ -49,20 +45,19 @@ const cartSlice = createSlice({
       }
     },
 
-    // Deletes a product from the cart
     deleteFromCart(state, action: PayloadAction<Product>) {
       const item = action.payload;
       state.cartData = state.cartData.filter((itemm) => itemm.id !== item.id);
       state.totalProductInCart -= 1;
     },
 
-    // Deletes a product from the wishlist
     deleteFromWishlist(state, action: PayloadAction<Product>) {
       const item = action.payload;
-      state.wishListData = state.wishListData.filter((itemm) => itemm.id !== item.id);
+      state.wishListData = state.wishListData.filter(
+        (itemm) => itemm.id !== item.id
+      );
     },
 
-    // Adds a product to the wishlist
     addtoWishlistData(state, action: PayloadAction<Product>) {
       const item = action.payload;
       const inWish = state.wishListData.find((items) => items.id === item.id);
@@ -71,7 +66,6 @@ const cartSlice = createSlice({
       }
     },
 
-    // Moves all wishlist products to the cart
     moveToCart(state) {
       state.wishListData.forEach((wishlistItem) => {
         const itemInCart = state.cartData.find(
@@ -85,7 +79,6 @@ const cartSlice = createSlice({
       state.totalProductInWishlist = 0;
     },
 
-    // Moves a single product from the wishlist to the cart
     singlemovetocart(state, action: PayloadAction<Product>) {
       const item = action.payload;
       const cartItem = state.cartData.find((itemm) => item.id === itemm.id);
@@ -98,7 +91,6 @@ const cartSlice = createSlice({
       state.totalProductInWishlist -= 1;
     },
 
-    // Increments the quantity of a product in the cart
     UPquantity(state, action: PayloadAction<Product>) {
       const item = action.payload;
       const existingItem = state.cartData.find(
@@ -111,7 +103,6 @@ const cartSlice = createSlice({
       }
     },
 
-    // Decrements the quantity of a product in the cart
     DownQuantity(state, action: PayloadAction<Product>) {
       const item = action.payload;
       const existingItem = state.cartData.find(
@@ -130,12 +121,10 @@ const cartSlice = createSlice({
       console.log("HIIIIIIIIIIIIIII", item);
     },
 
-    // Updates the total number of products in the wishlist
     productInWishlist(state) {
       state.totalProductInWishlist = state.wishListData.length;
     },
 
-    // Updates the total number of products in the cart
     ProductInCart(state) {
       state.totalProductInCart = state.cartData.length;
       console.log("total product", state.totalProductInCart);

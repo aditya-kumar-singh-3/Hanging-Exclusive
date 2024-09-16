@@ -4,33 +4,44 @@ import React, { useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
 import app from "../config";
-import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider,  } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { useRouter } from "next/navigation";
-import {User} from 'firebase/auth'
-
+import { User } from "firebase/auth";
+import {
+  setEmail,
+  setPassword,
+  setName,
+  setError,
+  setLoading,
+  setUser,
+} from "@/Redux/SignupSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/Redux/Store";
 
 const SignupMain = () => {
-  const [user, setUser] = useState<User | null>(null);
-
-  const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [error, setError] = useState<string>("");
+  const dispatch = useDispatch();
+  const { email, password, name, user, error, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
   const router = useRouter();
 
   useEffect(() => {
     const auth = getAuth(app);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user);
+        dispatch(setUser(user));
       } else {
-        setUser(null);
+        dispatch(setUser(null));
       }
-      setLoading(false);
+      dispatch(setLoading(false));
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
@@ -40,6 +51,7 @@ const SignupMain = () => {
       router.push("/");
     } catch (error: any) {
       console.log("Error signing in with Google:", error.message);
+      dispatch(setError(error.message));
     }
   };
 
@@ -50,12 +62,12 @@ const SignupMain = () => {
       await createUserWithEmailAndPassword(auth, email, password);
       router.push("/");
     } catch (error: any) {
-      setError(error.message); 
+      dispatch(setError(error.message));
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
@@ -72,12 +84,15 @@ const SignupMain = () => {
           <p className="md:text-5xl text-3xl">Create an account</p>
           <p className="md:text-xl text-base">Enter your details below</p>
         </div>
-        <form onSubmit={handleSignUp} className="md:flex md:flex-col md:w-full md:gap-8 flex flex-col gap-8">
+        <form
+          onSubmit={handleSignUp}
+          className="md:flex md:flex-col md:w-full md:gap-8 flex flex-col gap-8"
+        >
           <input
             className="md:border-b md:text-lg text-sm md:border-black md:w-9/12 md:outline-none border-b border-black outline-none"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => dispatch(setName(e.target.value))}
             required
           />
           <input
@@ -85,7 +100,7 @@ const SignupMain = () => {
             placeholder="Email"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => dispatch(setEmail(e.target.value))}
             required
           />
           <input
@@ -93,7 +108,7 @@ const SignupMain = () => {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => dispatch(setPassword(e.target.value))}
             required
           />
           {error && <p className="text-red-500">{error}</p>}
