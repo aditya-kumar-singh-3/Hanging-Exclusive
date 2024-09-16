@@ -15,6 +15,8 @@ import { MdCancel } from "react-icons/md";
 import { IoMdStarOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
 import toast, { Toaster } from 'react-hot-toast';
+import { deleteCookie } from 'cookies-next';
+
 const logout = () => toast.success('Logged Out Successfully');
 
 const MobileNav = () => {
@@ -36,6 +38,7 @@ const MobileNav = () => {
   };
 
   function loggout(){
+    deleteCookie('token');
        setTimeout(()=>{
         logout();
        },1000)
@@ -178,7 +181,7 @@ const MobileNav = () => {
             <Link href="/signup" className="text-lg font-semibold text-white">
              Sign Up
             </Link>
-            <Link href="/" onClick={(e)=>{e.preventDefault(); loggout();}} className="text-lg font-semibold text-white">
+            <Link href="/" onClick={loggout} className="text-lg font-semibold text-white">
              Logout
             </Link>
           </>

@@ -10,7 +10,7 @@ const AccountContent = () => {
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-2xl">
           <b>Welcome!</b>
-          <span className="text-red-500 ">Md Rimel</span>
+          <span className="text-red-500 "> Aditya</span>
         </p>
       </div>
 
@@ -46,11 +46,11 @@ const AccountContent = () => {
           </div>
           <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0">
             <input
-              placeholder="rimel"
+              placeholder="Aditya"
               className="md:h-12 md:w-96  text-sm bg-gray-200 p-2   md:text-base  "
             />
             <input
-              placeholder="fgghffjpdoweefg"
+              placeholder="Kumar Singh"
               className="md:h-12 md:w-96   text-sm md:text-base p-2  bg-gray-200 "
             />
           </div>
@@ -60,11 +60,11 @@ const AccountContent = () => {
           </div>
           <div className="md:flex md:justify-between md:w-full flex gap-3 ml-2 md:ml-0 ">
             <input
-              placeholder="@gmail.com"
+              placeholder="singhaditya43777@gmail.com"
               className="md:h-12 md:w-96  text-sm p-2 bg-gray-200   md:text-base "
             />
             <input
-              placeholder="Kingston, 5236, United State"
+              placeholder="Hanging Panda , Sector-63"
               className="md:h-12 md:w-96  text-sm p-2 bg-gray-200 md:text-base "
             />
           </div>
