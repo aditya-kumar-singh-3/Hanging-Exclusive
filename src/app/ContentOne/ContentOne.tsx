@@ -42,7 +42,7 @@ const ContentOne = () => {
   return (
     <>
       <div className="flex justify-around md:mr-40 md:flex-row flex-col gap-10 items-center mt-10 md:mt-0  md:ml-3 ml-1  -mr-1 max:w-dvw  ">
-        <div className="flex flex-col justify-center md:w-[217px]  md:h-[420px] gap-4 md:ml-32 -ml-5  md:border-r  md:border-blue-100 pr-10  mt-10 mr-32 md:mr-0  ">
+        <div className="flex flex-col justify-center md:w-[217px]  md:h-[420px] gap-4 md:ml-36 -ml-5  md:border-r  md:border-blue-100 pr-10  mt-10 mr-32 md:mr-0  ">
           <select className="border-none font-poppins md:text-base font-normal outline-none  w-44  ml-1">
             <option>Electronics</option>
             <option>Audio Devices (Headphones, Speakers)</option>

@@ -24,7 +24,7 @@ const Music = () => {
    <div className="flex justify-center  md:mr-10 md:ml-2 md:p-3  ">
         
           
-        <div className=" md:w-full h-96  md:mx-0 mx-10  md:ml-32  bg-black mt-12 text-white flex items-center  md:flex-row flex-col-reverse md:mr-20 w-[350px] ">
+        <div className=" md:w-full h-96  md:mx-0 mx-10  md:ml-36  bg-black mt-12 text-white flex items-center  md:flex-row flex-col-reverse md:mr-20 w-[350px] ">
           <div className="flex flex-col items-center md:h-[250px] md:w-[350px] gap-7 justify-center mb-4 w-96 md:ml-0 ">
             <div className="flex justify-start  items-center mr-40 text-green-500   ">
               <p>Categories</p>

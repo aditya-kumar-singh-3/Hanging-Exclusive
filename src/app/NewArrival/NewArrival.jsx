@@ -5,16 +5,16 @@ const NewArrival = () => {
   return (
     <>
       <div className="mt-36 md:ml-0 ml-2 md:mr-0 mr-2">
-        <div className="flex items-center gap-4 justify-center md:justify-start md:ml-36 md:p-1 mr-60 md:mr-0">
+        <div className="flex items-center gap-4 justify-center md:justify-start md:ml-40 md:p-1 mr-60 md:mr-0">
           <img src="/Category Rectangle.png" alt="Category" className="w-auto h-auto" />
           <p className="text-center md:text-left">Featured</p>
         </div>
 
-        <div className="flex items-center justify-center md:justify-between md:ml-36 md:p-1 md:mr-40 mt-8 mr-52">
+        <div className="flex items-center justify-center md:justify-between md:ml-40 md:p-1 md:mr-40 mt-8 mr-52">
           <p className="text-2xl md:text-4xl font-semibold text-center md:text-left">New Arrival</p>
         </div>
 
-        <div className="flex flex-col md:flex-row md:w-4/5 w-full h-auto md:h-[550px] gap-4 mx-auto text-white mt-20 mb-32 px-4 md:px-0 md:ml-36 md:pl-1 ">
+        <div className="flex flex-col md:flex-row md:w-4/5 w-full h-auto md:h-[550px] gap-4 mx-auto text-white mt-20 mb-32 px-4 md:px-0 md:ml-40 md:pl-1 ">
           <div className="md:w-2/4 w-full h-auto bg-black bg-custom-image bg-cover bg-center flex items-center">
             <div className="flex flex-col mx-auto md:ml-10 mt-10 md:mt-72 gap-4 md:gap-10 text-center md:text-left px-4 md:px-0">
               <p className="text-xl md:text-2xl font-semibold">PlayStation 5</p>

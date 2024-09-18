@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -7,8 +7,8 @@ import { IoSearch } from "react-icons/io5";
 import { FiHeart } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
-import { useSelector } from "react-redux";
-import { RootState } from "@/Redux/Store";
+import { useDispatch, useSelector } from "react-redux";
+import store, { RootState } from "@/Redux/Store";
 import { MdManageAccounts } from "react-icons/md";
 import { LuShoppingBag } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
@@ -17,13 +17,21 @@ import { SlLogout } from "react-icons/sl";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie, deleteCookie } from "cookies-next";
 
+import { saveUserCartAndWishlist } from "@/Redux/CreateSlice";
+
 const logout = () => toast.success("Logged Out Successfully");
+
+
+
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const dropdownRef =useRef(null);
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const token = getCookie("token");
@@ -31,6 +39,21 @@ const MobileNav = () => {
       setLoggedIn(true);
     }
   });
+
+
+  // useEffect(() => {
+  //   const handleOutsideClick = (event: MouseEvent) => {
+  //     if (dropdownOpen && !dropdownRef.current?.contains(event.target as Node)) {
+  //       setDropdownOpen(false);
+  //     }
+  //   };
+  
+  //   document.addEventListener("mousedown", handleOutsideClick);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleOutsideClick);
+  //   };
+  // }, [dropdownOpen]);
+  
 
   const number = useSelector(
     (state: RootState) => state.cart.totalProductInCart
@@ -49,17 +72,49 @@ const MobileNav = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  function loggout() {
+  async function loggout() {
+   
+   console.log("i am c")
+    const token = getCookie('token');
+    nclick()
     deleteCookie("token");
-    window.location.reload();
+     window.location.reload();
+   
     setTimeout(() => {
       logout();
-    }, 1000);
+    }, 3000);
+  }
+
+
+
+  const wishListData = useSelector((state: RootState) => state.cart.wishListData);
+  const cartData = useSelector((state: RootState) => state.cart.cartData);
+
+
+
+  async function nclick(){
+    console.log("i am c")
+    const token = getCookie('token');
+    if (token) {
+      try {
+      
+
+      console.log(cartData);
+      console.log(wishListData);
+
+
+      
+        await dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
+      } catch (error) {
+        console.error("Error saving cart and wishlist:", error);
+      }
+    }
   }
 
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
       <Toaster />
+     
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
         <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>

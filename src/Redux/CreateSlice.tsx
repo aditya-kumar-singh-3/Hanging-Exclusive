@@ -1,4 +1,7 @@
+import { db } from "@/app/config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getCookie } from "cookies-next";
+import { doc, getDoc, setDoc, collection } from "firebase/firestore";
 
 interface Product {
   id: number;
@@ -32,6 +35,15 @@ const cartSlice = createSlice({
   name: "cartItems",
   initialState,
   reducers: {
+
+
+    setUserCartAndWishlist(state, action: PayloadAction<{ cartData: Product[], wishListData: Product[] }>) {
+      state.cartData = action.payload.cartData;
+      state.wishListData = action.payload.wishListData;
+      state.totalProductInCart = action.payload.cartData.length;
+      state.totalProductInWishlist = action.payload.wishListData.length;
+    },
+
     addToCart(state) {
       state.added = !state.added;
       console.log("redux called", state.added);
@@ -129,8 +141,50 @@ const cartSlice = createSlice({
       state.totalProductInCart = state.cartData.length;
       console.log("total product", state.totalProductInCart);
     },
+    
   },
 });
+
+export const fetchUserCartAndWishlist = (userId: string) => async (dispatch: any) => {
+  const cartRef = doc(db, "users", userId, "cart", "data");
+  const wishlistRef = doc(db, "users", userId, "wishlist", "data");
+
+  try{
+
+  const cartSnap = await getDoc(cartRef);
+  console.log("CartSnap :", cartSnap.data());
+  const wishlistSnap = await getDoc(wishlistRef);
+  console.log("WishlistSnap:", wishlistSnap.data());
+
+  const cartData = cartSnap.exists() ? cartSnap.data().items : [];
+  const wishListData = wishlistSnap.exists() ? wishlistSnap.data().items : [];
+
+
+  console.log("Fetched Cart Data:", cartData);
+  console.log("Fetched Wishlist Data:", wishListData);
+
+  dispatch(setUserCartAndWishlist({ cartData, wishListData }));
+  }catch(error){
+    console.log("Error fetching cart  and wishlist data");
+  }
+  
+}; 
+export const saveUserCartAndWishlist = (userId: string, cartData: Product[], wishListData: Product[]) => async () => {
+ 
+  try {
+    const userId = getCookie('token');
+    const cartRef = doc(db, "users", userId, "cart", "data");
+    const wishlistRef = doc(db, "users", userId, "wishlist", "data");
+    console.log("inside redux")
+
+    await setDoc(cartRef, { items: cartData });
+    await setDoc(wishlistRef, { items: wishListData });
+    
+    console.log("Documents created successfully.");
+  } catch (error) {
+    console.error("Error creating document:", error);
+  }
+};
 
 export const {
   addToCart,
@@ -145,5 +199,7 @@ export const {
   singlemovetocart,
   info,
   DownQuantity,
+  setUserCartAndWishlist,
+  
 } = cartSlice.actions;
 export default cartSlice.reducer;

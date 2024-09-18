@@ -12,11 +12,11 @@ const Category = () => {
   return (
     <>
       <div className="container mx-auto px-4 ">
-        <div className="flex items-center gap-4 justify-start md:ml-32 md:p-1 ml-2  mt-4 ">
+        <div className="flex items-center gap-4 justify-start md:ml-36 md:p-1 ml-2  mt-4 ">
           <img src="/Category Rectangle.png" alt="Category Rectangle" />
           <p>Categories</p>
         </div>
-        <div className="flex items-center justify-between md:ml-32 md:p-1  md:mr-40 mr-4 mt-8 ml-2  md:w-auto w-full">
+        <div className="flex items-center justify-between md:ml-36 md:p-1  md:mr-40 mr-4 mt-8 ml-2  md:w-auto w-full">
           <p className="md:text-4xl text-2xl font-semibold ">
             Browse By Category
           </p>

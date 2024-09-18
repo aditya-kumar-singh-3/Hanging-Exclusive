@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from "@/Redux/Store";
 import { loginWithEmailPassword, loginWithGoogle } from "@/Redux/LoginThunk";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie } from "cookies-next";
+import { fetchUserCartAndWishlist } from "@/Redux/CreateSlice";
 
 const welcome = () => toast.success("Welcome to Exclusive!");
 
@@ -38,12 +39,13 @@ const LoginMain = () => {
     console.log("Loading", loading);
     const token = getCookie("token");
     if (token) {
+      dispatch(fetchUserCartAndWishlist(token)); 
       setTimeout(() => {
         welcome();
       }, 1000);
       router.push("/");
     }
-  },[user,router]);
+  },[user,dispatch,router]);
 
   // useEffect(() => {
   //   if (user) {

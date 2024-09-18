@@ -15,8 +15,7 @@ import {
   DownQuantity,
 } from "@/Redux/CreateSlice";
 import toast, { Toaster } from "react-hot-toast";
-import { motion } from "framer-motion";
-import Image from "next/image";
+
 
 const delNotify = () => toast.success("Removed from cart!");
 const ExNotify = () => toast.error("Maximum product can be 10!");

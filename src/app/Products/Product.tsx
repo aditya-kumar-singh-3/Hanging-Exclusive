@@ -83,7 +83,7 @@ const Product: React.FC = () => {
   return (
     <>
       <div className="container mx-auto px-4 mt-36 w-full flex flex-col justify-center">
-        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-32 md:mr-0 mr-56 md:p-1">
+        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-36 md:mr-0 mr-56 md:p-1">
           <div className="flex items-center gap-4">
             <img
               src="/Category Rectangle.png"
@@ -108,7 +108,7 @@ const Product: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 md:mx-auto mt-12 w-full md:w-9/12 items-center justify-center md:ml-32 ml-1 md:p-1  ">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 md:mx-auto mt-12 w-full md:w-9/12 items-center justify-center md:ml-36 ml-1 md:p-1  ">
           {products.map((product, index) => (
             <div
               key={index}
