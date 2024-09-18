@@ -30,7 +30,7 @@ const Music = () => {
               <p>Categories</p>
             </div>
             <p className="w-42 md:text-3xl text-2xl font-semibold md:leading-[60px] whitespace-nowrap ml-32 mr-40 md:ml-44">Enhance Your <br />Music Experience</p>
-            <a className="mr-24 bg-custom-green w-36 h-10 flex items-center justify-center">Buy Now</a>
+            <a className="mr-24 bg-custom-green w-36 h-10 flex items-center justify-center cursor-pointer">Buy Now</a>
           </div>
         
           <div className="md:mb-16   ">

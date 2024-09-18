@@ -1,8 +1,12 @@
 import { AppDispatch } from "./Store";
 import { getAuth,signInWithEmailAndPassword,signInWithPopup ,GoogleAuthProvider } from "firebase/auth";
 import { loginStart,loginSuccess,loginFailure } from "./SignupSlice";
-import app from '../app/config';
+import {app} from '../app/config';
 import { getCookie, setCookie } from "cookies-next";
+import toast, { Toaster } from "react-hot-toast";
+
+
+const loginFailed = () => toast.error("Login failed");
 
 
 export const loginWithEmailPassword = (email: string, password: string) => async (dispatch: AppDispatch) => {
@@ -27,11 +31,16 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
   const provider = new GoogleAuthProvider();
   dispatch(loginStart());
   try {
+    console.log("Starting login");
     const result = await signInWithPopup(auth, provider);
-    const { uid, email } = result.user; // Extract only serializable data
+    console.log("Successful login");
+    const { uid, email } = result.user;
+    setCookie('token',uid); // Extract only serializable data
     dispatch(loginSuccess({ uid, email }));
   } catch (error: any) {
+    console.log("Login failed");
     dispatch(loginFailure(error.message));
+    loginFailed();
   }
 };
 

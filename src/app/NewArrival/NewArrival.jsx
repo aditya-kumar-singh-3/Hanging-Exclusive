@@ -21,7 +21,7 @@ const NewArrival = () => {
               <p className="text-sm md:text-base">
                 Black and White version of the PS5<br /> coming out on sale.
               </p>
-              <p className="text-base">Shop Now</p>
+              <p className="text-base hover:underline hover:underline-offset-4 cursor-pointer">Shop Now</p>
             </div>
           </div>
           
@@ -30,7 +30,7 @@ const NewArrival = () => {
               <div className="flex flex-col mx-auto md:ml-10 mt-12 md:mt-16 gap-4 md:gap-8 text-center md:text-left px-4 md:px-0">
                 <p className="text-xl md:text-2xl font-semibold">Women’s Collections</p>
                 <p className="text-sm md:text-base">Featured woman collections that<br /> give you another vibe.</p>
-                <p>Shop Now</p>
+                <p className="text-base hover:underline hover:underline-offset-4 cursor-pointer">Shop Now</p>
               </div>
             </div>
 
@@ -39,7 +39,7 @@ const NewArrival = () => {
                 <div className="flex flex-col mx-auto md:ml-10 mt-8 md:mt-14 gap-4 md:gap-8 text-center md:text-left px-4 md:px-0">
                   <p className="text-xl md:text-2xl font-semibold">Speakers</p>
                   <p className="text-sm md:text-base">Amazon wireless speakers</p>
-                  <p className="text-base">Shop Now</p>
+                  <p className="text-base hover:underline hover:underline-offset-4 cursor-pointer">Shop Now</p>
                 </div>
               </div>
               
@@ -47,7 +47,7 @@ const NewArrival = () => {
                 <div className="flex flex-col mx-auto md:ml-10 mt-8 md:mt-14 gap-4 md:gap-8 text-center md:text-left px-4 md:px-0">
                   <p className="text-xl md:text-2xl font-semibold">Perfume</p>
                   <p className="text-sm md:text-base">GUCCI INTENSE OUD EDP</p>
-                  <p className="text-base">Shop Now</p>
+                  <p className="text-base hover:underline hover:underline-offset-4 cursor-pointer transition-all duration-300 ease-in-out ">Shop Now</p>
                 </div>
               </div>
             </div>

@@ -108,11 +108,11 @@ const CartContent = () => {
         <p className="w-1/4 md:text-base md:font-medium md:mr-8 text-sm md:ml-8">
           Price
         </p>
-        <p className="w-1/4 md:text-base md:font-medium text-sm md:ml-10">
+        <p className="w-1/4 md:text-base md:font-medium text-sm md:ml-5">
           Quantity
         </p>
         <p className="w-1/4 md:text-base md:font-medium text-sm ">Subtotal</p>
-        <p className="md:mr-8 md:text-base md:font-medium hidden md:block">
+        <p className="md:mr-9 md:text-base md:font-medium hidden md:block">
           Del
         </p>
       </div>
@@ -193,7 +193,7 @@ const CartContent = () => {
             type="text"
             className="h-14 md:w-80  rounded border-2 p-1 border-black"
           />
-          <p className="h-14 md:w-52 text-white bg-red-500 flex justify-center items-center text-base font-medium rounded p-2">
+          <p className="h-14 md:w-52 text-white bg-red-500 flex justify-center items-center text-base font-medium rounded p-2 cursor-pointer">
             Apply Coupon
           </p>
         </div>

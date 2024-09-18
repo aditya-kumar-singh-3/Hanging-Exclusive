@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
@@ -9,7 +9,9 @@ import { FaHeart } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { RootState } from "@/Redux/Store";
 import Image from 'next/image';
- // Adjust to your store path
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../config";
+ 
 
 const notify = () => toast.success("Item added Successfully");
 const wishnotify = () => toast.success("Added to Wishlist");
@@ -28,6 +30,8 @@ const Today = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
+  
+  let[products,setProducts] = useState<Product[]>([]);
   const cartdata = useSelector((state: RootState) => state.cart.cartData);
   const wishlistdata = useSelector((state: RootState) => state.cart.wishListData);
 
@@ -40,81 +44,24 @@ const Today = () => {
     }
   };
 
-  const products: Product[] = [
-    {
-      id: 13,
-      name: "ASUS FHD Gaming Laptop",
-      price: 700,
-      rating: 5,
-      image: "/Product-images/laptop.png",
-      quantity: 1,
-      subtotal: 700,
-    },
-    {
-      id: 14,
-      name: "Quilted Satin Jacket",
-      price: 660,
-      rating: 5,
-      image: "/Product-images/jacket.png",
-      quantity: 1,
-      subtotal: 660,
-    },
-    {
-      id: 15,
-      name: "GP11 USB Gamepad",
-      price: 660,
-      rating: 5,
-      image: "/Product-images/gamepad.png",
-      quantity: 1,
-      subtotal: 660,
-    },
-    {
-      id: 16,
-      name: "Breed Dry Dog Food",
-      price: 100,
-      rating: 5,
-      image: "/Product-images/dog food.jpeg",
-      quantity: 1,
-      subtotal: 100,
-    },
-    {
-      id: 17,
-      name: "Curology Product Set",
-      price: 500,
-      rating: 4,
-      image: "/Product-images/curology.png",
-      quantity: 1,
-      subtotal: 500,
-    },
-    {
-      id: 18,
-      name: "Kids Electric Car",
-      price: 120,
-      rating: 5,
-      image: "/Product-images/car.png",
-      quantity: 1,
-      subtotal: 120,
-    },
-    {
-      id: 19,
-      name: "Canon DSLR Camera",
-      price: 360,
-      rating: 5,
-      image: "/Product-images/camera.png",
-      quantity: 1,
-      subtotal: 360,
-    },
-    {
-      id: 20,
-      name: "Jr. Zoom Soccer Cleats",
-      price: 120,
-      rating: 5,
-      image: "/Product-images/boots.png",
-      quantity: 1,
-      subtotal: 120,
-    },
-  ];
 
+
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const querySnapshot = await getDocs(collection(db, "TodayProducts"));
+      const productsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as unknown as Product[];
+      
+      setProducts(productsList);
+    };
+
+    fetchProducts();
+  }, []);
+
+  
   function handleClick(idx: number) {
     const data = products.find((item) => item.id === idx);
     if (data) {
@@ -223,3 +170,103 @@ const Today = () => {
 };
 
 export default Today;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const products: Product[] = [
+  //   {
+  //     id: 13,
+  //     name: "ASUS FHD Gaming Laptop",
+  //     price: 700,
+  //     rating: 5,
+  //     image: "/Product-images/laptop.png",
+  //     quantity: 1,
+  //     subtotal: 700,
+  //   },
+  //   {
+  //     id: 14,
+  //     name: "Quilted Satin Jacket",
+  //     price: 660,
+  //     rating: 5,
+  //     image: "/Product-images/jacket.png",
+  //     quantity: 1,
+  //     subtotal: 660,
+  //   },
+  //   {
+  //     id: 15,
+  //     name: "GP11 USB Gamepad",
+  //     price: 660,
+  //     rating: 5,
+  //     image: "/Product-images/gamepad.png",
+  //     quantity: 1,
+  //     subtotal: 660,
+  //   },
+  //   {
+  //     id: 16,
+  //     name: "Breed Dry Dog Food",
+  //     price: 100,
+  //     rating: 5,
+  //     image: "/Product-images/dog food.jpeg",
+  //     quantity: 1,
+  //     subtotal: 100,
+  //   },
+  //   {
+  //     id: 17,
+  //     name: "Curology Product Set",
+  //     price: 500,
+  //     rating: 4,
+  //     image: "/Product-images/curology.png",
+  //     quantity: 1,
+  //     subtotal: 500,
+  //   },
+  //   {
+  //     id: 18,
+  //     name: "Kids Electric Car",
+  //     price: 120,
+  //     rating: 5,
+  //     image: "/Product-images/car.png",
+  //     quantity: 1,
+  //     subtotal: 120,
+  //   },
+  //   {
+  //     id: 19,
+  //     name: "Canon DSLR Camera",
+  //     price: 360,
+  //     rating: 5,
+  //     image: "/Product-images/camera.png",
+  //     quantity: 1,
+  //     subtotal: 360,
+  //   },
+  //   {
+  //     id: 20,
+  //     name: "Jr. Zoom Soccer Cleats",
+  //     price: 120,
+  //     rating: 5,
+  //     image: "/Product-images/boots.png",
+  //     quantity: 1,
+  //     subtotal: 120,
+  //   },
+  // ];

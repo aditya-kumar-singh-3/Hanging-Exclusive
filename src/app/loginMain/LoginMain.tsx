@@ -43,7 +43,7 @@ const LoginMain = () => {
       }, 1000);
       router.push("/");
     }
-  });
+  },[user,router]);
 
   // useEffect(() => {
   //   if (user) {
@@ -70,7 +70,8 @@ const LoginMain = () => {
           <p className="md:text-xl text-base">Enter your details below</p>
         </div>
 
-        {error && <p className="text-red-500">{error}</p>}
+        
+        
 
         <form
           onSubmit={handleLogin}

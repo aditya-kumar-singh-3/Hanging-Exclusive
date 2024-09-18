@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import app from "../config";
+import {app} from "../config";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -38,7 +38,7 @@ const SignupMain = () => {
     const auth = getAuth(app);
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        dispatch(setUser(user));
+        dispatch(setUser({ uid: user.uid, email: user.email }));
       } else {
         dispatch(setUser(null));
       }
@@ -46,6 +46,7 @@ const SignupMain = () => {
     });
     return () => unsubscribe();
   }, [dispatch]);
+
 
   const signInWithGoogle = async () => {
     const auth = getAuth(app);

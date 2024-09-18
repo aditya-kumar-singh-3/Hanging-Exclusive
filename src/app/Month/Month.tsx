@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState , useEffect} from "react";
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, addtocartData, ProductInCart, addtoWishlistData, productInWishlist } from "@/Redux/CreateSlice";
 import { FaHeart } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../config";
 
 
-// Notifications
+
 const notify = () => toast.success('Item added Successfully');
 const wishnotify = () => toast.success('Added to Wishlist');
 
@@ -26,47 +28,27 @@ interface Product {
 const Month = () => {
   const dispatch = useDispatch();
 
+  let[monthProducts,setMonthProducts] = useState<Product[]>([]);
   const cartdata = useSelector((state: any) => state.cart.cartData);
   const wishlistdata = useSelector((state: any) => state.cart.wishListData);
 
-  const monthProducts: Product[] = [
-    {
-      id: 9,
-      name: "The north coat",
-      price: 260,
-      rating: 5,
-      image: "/Month-images/jacket.png",
-      quantity: 1,
-      subtotal: 260,
-    },
-    {
-      id: 10,
-      name: "Gucci duffle bag",
-      price: 960,
-      rating: 5,
-      image: "/Month-images/gucci.png",
-      quantity: 1,
-      subtotal: 960,
-    },
-    {
-      id: 11,
-      name: "RGB liquid CPU Cooler",
-      price: 160,
-      rating: 5,
-      image: "/Month-images/cpu.png",
-      quantity: 1,
-      subtotal: 160,
-    },
-    {
-      id: 12,
-      name: "Small BookSelf",
-      price: 360,
-      rating: 5,
-      image: "/Month-images/bookself.png",
-      quantity: 1,
-      subtotal: 360,
-    },
-  ];
+  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const querySnapshot = await getDocs(collection(db, "Monthproducts"));
+      const productsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as unknown as Product[];
+      
+      setMonthProducts(productsList);
+    };
+
+    fetchProducts();
+  }, []);
+
+
+
 
   function handleClick(idx: number) {
     const data = monthProducts.find((item) => item.id === idx);
@@ -163,3 +145,71 @@ const Month = () => {
 };
 
 export default Month;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const monthProducts: Product[] = [
+  //   {
+  //     id: 9,
+  //     name: "The north coat",
+  //     price: 260,
+  //     rating: 5,
+  //     image: "/Month-images/jacket.png",
+  //     quantity: 1,
+  //     subtotal: 260,
+  //   },
+  //   {
+  //     id: 10,
+  //     name: "Gucci duffle bag",
+  //     price: 960,
+  //     rating: 5,
+  //     image: "/Month-images/gucci.png",
+  //     quantity: 1,
+  //     subtotal: 960,
+  //   },
+  //   {
+  //     id: 11,
+  //     name: "RGB liquid CPU Cooler",
+  //     price: 160,
+  //     rating: 5,
+  //     image: "/Month-images/cpu.png",
+  //     quantity: 1,
+  //     subtotal: 160,
+  //   },
+  //   {
+  //     id: 12,
+  //     name: "Small BookSelf",
+  //     price: 360,
+  //     rating: 5,
+  //     image: "/Month-images/bookself.png",
+  //     quantity: 1,
+  //     subtotal: 360,
+  //   },
+  // ];
