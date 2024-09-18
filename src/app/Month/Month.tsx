@@ -81,11 +81,11 @@ const Month = () => {
     <>
       <div>
         <Toaster />
-        <div className="flex items-center gap-4 md:justify-items md:start md:ml-40 md:p-1 ml-6">
+        <div className="flex items-center gap-4 md:justify-items md:start md:ml-36  ml-6">
           <img src="Category Rectangle.png" alt="Category" />
           <p>This Month</p>
         </div>
-        <div className="flex items-center justify-between md:ml-40 md:p-1  md:mr-40 md:mt-8 ml-6 mr-8 mt-10 ">
+        <div className="flex items-center justify-between md:ml-36   md:mr-40 md:mt-8 ml-6 mr-8 mt-10 ">
           <p className="md:text-4xl text-2xl font-semibold">Best Selling Products</p>
           <div className="md:flex md:gap-3 ">
             <button className="h-12 w-20 bg-red-500 text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden">
@@ -94,7 +94,7 @@ const Month = () => {
           </div>
         </div>
 
-        <div className="md:flex md:ml-36 md:gap-10 md:mt-16 ml-12  mt-10 ">
+        <div className="md:flex md:ml-32 md:gap-10 md:mt-16 ml-12  mt-10 ">
           {monthProducts.map((product, index) => (
             <div
               key={index}

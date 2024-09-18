@@ -27,7 +27,7 @@ const logout = () => toast.success("Logged Out Successfully");
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  // const dropdownRef =useRef(null);
+
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -41,19 +41,7 @@ const MobileNav = () => {
   });
 
 
-  // useEffect(() => {
-  //   const handleOutsideClick = (event: MouseEvent) => {
-  //     if (dropdownOpen && !dropdownRef.current?.contains(event.target as Node)) {
-  //       setDropdownOpen(false);
-  //     }
-  //   };
-  
-  //   document.addEventListener("mousedown", handleOutsideClick);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleOutsideClick);
-  //   };
-  // }, [dropdownOpen]);
-  
+
 
   const number = useSelector(
     (state: RootState) => state.cart.totalProductInCart
@@ -82,7 +70,7 @@ const MobileNav = () => {
    
     setTimeout(() => {
       logout();
-    }, 3000);
+    }, 1000);
   }
 
 
