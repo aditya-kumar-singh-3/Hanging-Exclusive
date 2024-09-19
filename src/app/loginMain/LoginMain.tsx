@@ -39,7 +39,7 @@ const LoginMain = () => {
     console.log("Loading", loading);
     const token = getCookie("token");
     if (token) {
-      dispatch(fetchUserCartAndWishlist(token)); 
+      dispatch(fetchUserCartAndWishlist(token as string)); 
       setTimeout(() => {
         welcome();
       }, 1000);
