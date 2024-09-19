@@ -61,8 +61,11 @@ const MobileNav = () => {
     nclick();
     deleteCookie("token");
      router.push('/');
-    // window.location.reload();
-    logout();
+     logout();
+     setTimeout(()=>{
+       window.location.reload();
+
+    },1000)
     
     
    
@@ -136,7 +139,7 @@ const MobileNav = () => {
               >
                 Sign Up
               </Link>
-            ) :   <Link href='/signup' className=" opacity-0 text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointe">Sign Up</Link>}
+            ) :   <Link href='/signup' className=" opacity-0 text-base font-normal hover:underline hover:underline-offset-[5px]  pointer-events-none">Sign Up</Link>}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center w-[250px] h-[38px] bg-[#f5f5f5] rounded-[4px] px-[12px] gap-2">
@@ -242,6 +245,7 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
+      <p className="flex flex-row w-24 absolute right-10">Hi! Sir/Mam</p>
 
       {/* Mobile navigation menu */}
       <div
