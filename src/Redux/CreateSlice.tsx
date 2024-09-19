@@ -110,8 +110,17 @@ const cartSlice = createSlice({
     deleteFromWishlist(state, action: PayloadAction<Product>) {
       const item = action.payload;
       state.wishListData = state.wishListData.filter(
-        (itemm) => itemm.id !== item.id
-      );
+        (itemm) => itemm.id !== item.id);
+        
+        const userId = getCookie('token');
+        const wishlistRef = doc(db, "users", userId as string, "wishlist", "data");
+
+        setDoc(wishlistRef,{items:state.wishListData}).then(()=>{
+          console.log("Wishlist updated in firebase after deletion");
+        })
+        .catch((error)=>{
+          console.log("Error in updating wishlist after deletion",error)
+        })
     },
 
     addtoWishlistData(state, action: PayloadAction<Product>) {
@@ -119,6 +128,19 @@ const cartSlice = createSlice({
       const inWish = state.wishListData.find((items) => items.id === item.id);
       if (!inWish) {
         state.wishListData = [...state.wishListData, item];
+
+        const userId = getCookie('token');
+        if(userId){
+          const wishlistRef = doc(db,"users",userId as string, "wishlist","data");
+
+          setDoc(wishlistRef,{items:state.wishListData})
+          .then(()=>{
+            console.log("Wishlist updated in firebase.")
+          })
+          .catch((error)=>{
+            console.log("Error in updating wishlist",error);
+          })
+        }
       }
     },
 
