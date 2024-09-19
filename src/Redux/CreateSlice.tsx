@@ -1,7 +1,7 @@
 import { db } from "@/app/config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
-import { doc, getDoc, setDoc, collection } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 interface Product {
   id: number;
@@ -35,8 +35,6 @@ const cartSlice = createSlice({
   name: "cartItems",
   initialState,
   reducers: {
-
-
     setUserCartAndWishlist(state, action: PayloadAction<{ cartData: Product[], wishListData: Product[] }>) {
       state.cartData = action.payload.cartData;
       state.wishListData = action.payload.wishListData;
@@ -44,7 +42,38 @@ const cartSlice = createSlice({
       state.totalProductInWishlist = action.payload.wishListData.length;
     },
 
-    addToCart(state) {
+    addToCart(state, action: PayloadAction<Product>) {
+      const item = action.payload;
+
+      // Check if item is defined and has an id property
+      if (!item || !item.id) {
+        console.error("Invalid item:", item);
+        return;
+      }
+
+      const isThere = state.cartData.find((itemm) => itemm.id === item.id);
+      
+     
+      if (!isThere) {
+        state.cartData = [...state.cartData, item];
+
+        
+        const userId = getCookie('token');  
+        if (userId) {
+          const cartRef = doc(db, "users", userId as string, "cart", "data");
+
+          
+          setDoc(cartRef, { items: state.cartData })
+            .then(() => {
+              console.log("Cart updated in Firebase");
+            })
+            .catch((error) => {
+              console.error("Error updating cart in Firebase:", error);
+            });
+        }
+      }
+      
+      
       state.added = !state.added;
       console.log("redux called", state.added);
     },
@@ -61,6 +90,21 @@ const cartSlice = createSlice({
       const item = action.payload;
       state.cartData = state.cartData.filter((itemm) => itemm.id !== item.id);
       state.totalProductInCart -= 1;
+      
+      
+      const userId = getCookie('token');  
+      if (userId) {
+        const cartRef = doc(db, "users", userId as string, "cart", "data");
+
+        
+        setDoc(cartRef, { items: state.cartData })
+          .then(() => {
+            console.log("Cart updated in Firebase after deletion");
+          })
+          .catch((error) => {
+            console.error("Error updating cart in Firebase after deletion:", error);
+          });
+      }
     },
 
     deleteFromWishlist(state, action: PayloadAction<Product>) {
@@ -89,6 +133,29 @@ const cartSlice = createSlice({
       });
       state.wishListData = [];
       state.totalProductInWishlist = 0;
+
+      
+      const userId = getCookie('token');  
+      if (userId) {
+        const cartRef = doc(db, "users", userId as string, "cart", "data");
+        const wishlistRef = doc(db, "users", userId as string, "wishlist", "data");
+
+        setDoc(cartRef, { items: state.cartData })
+          .then(() => {
+            console.log("Cart updated in Firebase after moving items");
+          })
+          .catch((error) => {
+            console.error("Error updating cart in Firebase after moving items:", error);
+          });
+
+        setDoc(wishlistRef, { items: state.wishListData })
+          .then(() => {
+            console.log("Wishlist updated in Firebase after moving items");
+          })
+          .catch((error) => {
+            console.error("Error updating wishlist in Firebase after moving items:", error);
+          });
+      }
     },
 
     singlemovetocart(state, action: PayloadAction<Product>) {
@@ -101,6 +168,29 @@ const cartSlice = createSlice({
         (itum) => itum.id !== item.id
       );
       state.totalProductInWishlist -= 1;
+
+     
+      const userId = getCookie('token');  
+      if (userId) {
+        const cartRef = doc(db, "users", userId as string, "cart", "data");
+        const wishlistRef = doc(db, "users", userId as string, "wishlist", "data");
+
+        setDoc(cartRef, { items: state.cartData })
+          .then(() => {
+            console.log("Cart updated in Firebase after moving single item");
+          })
+          .catch((error) => {
+            console.error("Error updating cart in Firebase after moving single item:", error);
+          });
+
+        setDoc(wishlistRef, { items: state.wishListData })
+          .then(() => {
+            console.log("Wishlist updated in Firebase after moving single item");
+          })
+          .catch((error) => {
+            console.error("Error updating wishlist in Firebase after moving single item:", error);
+          });
+      }
     },
 
     UPquantity(state, action: PayloadAction<Product>) {
@@ -112,6 +202,20 @@ const cartSlice = createSlice({
         existingItem.quantity += 1;
         existingItem.subtotal = existingItem.quantity * existingItem.price;
         console.log(existingItem.subtotal);
+
+        
+        const userId = getCookie('token');  
+        if (userId) {
+          const cartRef = doc(db, "users", userId as string, "cart", "data");
+
+          setDoc(cartRef, { items: state.cartData })
+            .then(() => {
+              console.log("Cart updated in Firebase after quantity change");
+            })
+            .catch((error) => {
+              console.error("Error updating cart in Firebase after quantity change:", error);
+            });
+        }
       }
     },
 
@@ -124,10 +228,23 @@ const cartSlice = createSlice({
         existingItem.quantity -= 1;
         existingItem.subtotal = existingItem.quantity * existingItem.price;
         console.log(existingItem.subtotal);
+
+      
+        const userId = getCookie('token');  
+        if (userId) {
+          const cartRef = doc(db, "users", userId as string, "cart", "data");
+
+          setDoc(cartRef, { items: state.cartData })
+            .then(() => {
+              console.log("Cart updated in Firebase after quantity change");
+            })
+            .catch((error) => {
+              console.error("Error updating cart in Firebase after quantity change:", error);
+            });
+        }
       }
     },
 
-    // Logs product info (for debugging)
     info(state, action: PayloadAction<Product>) {
       const item = action.payload;
       console.log("HIIIIIIIIIIIIIII", item);
@@ -141,7 +258,6 @@ const cartSlice = createSlice({
       state.totalProductInCart = state.cartData.length;
       console.log("total product", state.totalProductInCart);
     },
-    
   },
 });
 
@@ -149,33 +265,28 @@ export const fetchUserCartAndWishlist = (userId: string) => async (dispatch: any
   const cartRef = doc(db, "users", userId, "cart", "data");
   const wishlistRef = doc(db, "users", userId, "wishlist", "data");
 
-  try{
-
-  const cartSnap = await getDoc(cartRef);
-  console.log("CartSnap :", cartSnap.data());
-  const wishlistSnap = await getDoc(wishlistRef);
-  console.log("WishlistSnap:", wishlistSnap.data());
-
-  const cartData = cartSnap.exists() ? cartSnap.data().items : [];
-  const wishListData = wishlistSnap.exists() ? wishlistSnap.data().items : [];
-
-
-  console.log("Fetched Cart Data:", cartData);
-  console.log("Fetched Wishlist Data:", wishListData);
-
-  dispatch(setUserCartAndWishlist({ cartData, wishListData }));
-  }catch(error){
-    console.log("Error fetching cart  and wishlist data");
-  }
-  
-}; 
-export const saveUserCartAndWishlist = (userId: string, cartData: Product[], wishListData: Product[]) => async () => {
- 
   try {
-    const userId = getCookie('token');
+    const cartSnap = await getDoc(cartRef);
+    console.log("CartSnap :", cartSnap.data());
+    const wishlistSnap = await getDoc(wishlistRef);
+    console.log("WishlistSnap:", wishlistSnap.data());
+
+    const cartData = cartSnap.exists() ? cartSnap.data().items : [];
+    const wishListData = wishlistSnap.exists() ? wishlistSnap.data().items : [];
+
+    console.log("Fetched Cart Data:", cartData);
+    console.log("Fetched Wishlist Data:", wishListData);
+
+    dispatch(setUserCartAndWishlist({ cartData, wishListData }));
+  } catch (error) {
+    console.log("Error fetching cart and wishlist data");
+  }
+};
+
+export const saveUserCartAndWishlist = (userId: string, cartData: Product[], wishListData: Product[]) => async () => {
+  try {
     const cartRef = doc(db, "users", userId, "cart", "data");
     const wishlistRef = doc(db, "users", userId, "wishlist", "data");
-    console.log("inside redux")
 
     await setDoc(cartRef, { items: cartData });
     await setDoc(wishlistRef, { items: wishListData });
@@ -200,6 +311,6 @@ export const {
   info,
   DownQuantity,
   setUserCartAndWishlist,
-  
 } = cartSlice.actions;
+
 export default cartSlice.reducer;

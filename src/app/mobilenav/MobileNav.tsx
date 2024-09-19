@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -16,18 +16,16 @@ import { IoMdStarOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie, deleteCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 
 import { saveUserCartAndWishlist } from "@/Redux/CreateSlice";
 
 const logout = () => toast.success("Logged Out Successfully");
 
-
-
-
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const router = useRouter();
 
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -39,9 +37,6 @@ const MobileNav = () => {
       setLoggedIn(true);
     }
   });
-
-
-
 
   const number = useSelector(
     (state: RootState) => state.cart.totalProductInCart
@@ -61,38 +56,34 @@ const MobileNav = () => {
   };
 
   async function loggout() {
-   
-   console.log("i am c")
-    const token = getCookie('token');
-    nclick()
+    console.log("i am c");
+    const token = getCookie("token");
+    nclick();
     deleteCookie("token");
-     window.location.reload();
+     router.push('/');
+    // window.location.reload();
+    logout();
+    
+    
    
-    setTimeout(() => {
-      logout();
-    }, 1000);
   }
 
-
-
-  const wishListData = useSelector((state: RootState) => state.cart.wishListData);
+  const wishListData = useSelector(
+    (state: RootState) => state.cart.wishListData
+  );
   const cartData = useSelector((state: RootState) => state.cart.cartData);
 
-
-
-  async function nclick(){
-    console.log("i am c")
-    const token = getCookie('token');
+  async function nclick() {
+    console.log("i am c");
+    const token = getCookie("token");
     if (token) {
       try {
-      
+        console.log(cartData);
+        console.log(wishListData);
 
-      console.log(cartData);
-      console.log(wishListData);
-
-
-      
-        await dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
+        await dispatch(
+          saveUserCartAndWishlist(token, cartData, wishListData) as any
+        );
       } catch (error) {
         console.error("Error saving cart and wishlist:", error);
       }
@@ -102,7 +93,7 @@ const MobileNav = () => {
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
       <Toaster />
-     
+
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
         <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>
@@ -145,7 +136,7 @@ const MobileNav = () => {
               >
                 Sign Up
               </Link>
-            ) : null}
+            ) :   <Link href='/signup' className=" opacity-0 text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointe">Sign Up</Link>}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center w-[250px] h-[38px] bg-[#f5f5f5] rounded-[4px] px-[12px] gap-2">
@@ -278,10 +269,7 @@ const MobileNav = () => {
               Cart
             </Link>
             {!loggedIn ? (
-              <Link
-                href="/signup"
-                className="text-lg font-semibold text-white"
-              >
+              <Link href="/signup" className="text-lg font-semibold text-white">
                 Sign Up
               </Link>
             ) : null}

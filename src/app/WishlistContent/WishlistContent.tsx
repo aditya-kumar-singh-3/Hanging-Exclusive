@@ -96,7 +96,7 @@ const WishlistContent: React.FC = () => {
                 <span className="md:text-2xl md:h-6 md:w-6">
                   <IoCartOutline />
                 </span>
-                Add to Cart
+                Move to cart
               </p>
             </div>
 
