@@ -99,7 +99,7 @@ const MobileNav = () => {
 
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
-        <p className="text-2xl font-bold md:hidden w-[20rem]">Exclusive</p>
+        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem]">Exclusive</p>
         <button
           onClick={toggleNavbar}
           className="focus:outline-none absolute -right-12 p-4 cursor-pointer"
@@ -111,23 +111,23 @@ const MobileNav = () => {
       {/* Main navigation for desktop */}
       <div className="lg:flex hidden justify-between items-center gap-4 w-full">
         <div className="flex items-center justify-around space-x-5 whitespace-nowrap text-sm font-normal w-full">
-          <p className="text-3xl font-semibold">Exclusive</p>
+          <p className="text-2xl font-bold leading-24 tracking-3">Exclusive</p>
           <div className="flex gap-12">
             <Link
               href="/"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
             >
               Home
             </Link>
             <Link
               href="/Contact"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
             >
               Contact
             </Link>
             <Link
               href="/About"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
             >
               About
             </Link>
@@ -135,7 +135,7 @@ const MobileNav = () => {
             {!loggedIn ? (
               <Link
                 href="/signup"
-                className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer"
+                className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
               >
                 Sign Up
               </Link>

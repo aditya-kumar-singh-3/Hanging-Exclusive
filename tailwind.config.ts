@@ -8,8 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      letterSpacing: {
+        '3': '3%', // Adding 3% letter-spacing
+      },
+      lineHeight: {
+        '28': '28px', 
+        '24':'24px',
+        '21':'21px',
+      },
       colors:{
           'custom-green':'#00FF66',
+          'whitesmoke':'#F5F5F5',
           palette: {
             dark: '#2B202C',  // Dominant dark tone
             mutedPurple: '#573F59',  // Muted purple shade

@@ -95,8 +95,8 @@ const CartContent = () => {
     <>
       <div>
         <Toaster />
-        <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20">
-          Home / <b>Cart</b>
+        <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20 ">
+          <span className="opacity-50">Home / </span><b>Cart</b>
         </p>
       </div>
 
