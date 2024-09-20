@@ -59,7 +59,7 @@ const authSlice = createSlice({
         displayName: action.payload.displayName||"",
       };
     
-      localStorage.setItem("username",action.payload.displayName)
+      
       state.loading = false;
     },
     

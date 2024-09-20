@@ -73,7 +73,7 @@ const MobileNav = () => {
     deleteCookie("token");
      router.push('/');
      logout();
-      localStorage.clear();
+     
      setTimeout(()=>{
        window.location.reload();
 
@@ -89,10 +89,9 @@ const MobileNav = () => {
   const cartData = useSelector((state: RootState) => state.cart.cartData);
 
   const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
-  localStorage.setItem("username",displayName);
+ 
 
-  const username = JSON.stringify(localStorage.getItem('username'));
-
+ 
  
 
   async function nclick() {
@@ -115,14 +114,12 @@ const MobileNav = () => {
   useEffect(() => {
     try {
       const token = getCookie("token");
-      if (displayName) {
-        localStorage.setItem("username", displayName);
-      }
+     
       if (token) {
         dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
       }
     } catch (error) {
-      console.error("Error interacting with localStorage:", error);
+      console.error("Error interacting with !!:", error);
     }
   }, [displayName, cartData, wishListData]);
   
@@ -279,7 +276,7 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
-      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden">Hi! {displayName? username.replace(/(^"+|"+$)/g, '').split(" ")[0] : ""}</p>
+      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden">Hi! {displayName? displayName.split(" ")[0] : " "}</p>
 
       {/* Mobile navigation menu */}
       <div

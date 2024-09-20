@@ -7,7 +7,7 @@ import { RootState } from "@/Redux/Store";
 const AccountContent = () => {
   const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
   const useremail = useSelector((state: RootState) => state.auth.user?.email);
-  const username = JSON.stringify(localStorage.getItem('username'));
+ 
 
   useEffect(()=>{
     console.log(useremail);
