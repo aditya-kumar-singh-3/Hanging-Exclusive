@@ -18,7 +18,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
-import { saveUserCartAndWishlist } from "@/Redux/CreateSlice";
+import { fetchUserCartAndWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
 
 const logout = () => toast.success("Logged Out Successfully");
 
@@ -36,7 +36,18 @@ const MobileNav = () => {
     if (token) {
       setLoggedIn(true);
     }
-  });
+  },[]);
+
+  
+  
+
+  useEffect(()=>{
+    const token = getCookie("token");
+    if(token){
+      console.log("JAi shree ram")
+      dispatch(saveUserCartAndWishlist(token,cartData,wishListData) as any);
+    }
+  },[])
 
   const number = useSelector(
     (state: RootState) => state.cart.totalProductInCart
@@ -58,14 +69,15 @@ const MobileNav = () => {
   async function loggout() {
     console.log("i am c");
     const token = getCookie("token");
-    nclick();
+     nclick();
     deleteCookie("token");
      router.push('/');
      logout();
+    //  localStorage.clear();
      setTimeout(()=>{
        window.location.reload();
 
-    },1000)
+    },500)
     
     
    
@@ -75,6 +87,13 @@ const MobileNav = () => {
     (state: RootState) => state.cart.wishListData
   );
   const cartData = useSelector((state: RootState) => state.cart.cartData);
+
+  const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
+  localStorage.setItem("username",displayName);
+
+  const username = JSON.stringify(localStorage.getItem('username'));
+
+ 
 
   async function nclick() {
     console.log("i am c");
@@ -245,7 +264,7 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
-      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden">Hi! Sir/Mam</p>
+      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden">Hi! {displayName? username.replace(/(^"+|"+$)/g, '').split(" ")[0] : ""}</p>
 
       {/* Mobile navigation menu */}
       <div

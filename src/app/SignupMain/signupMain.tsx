@@ -9,6 +9,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  updateProfile,
+  sendEmailVerification
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
@@ -65,9 +67,13 @@ const SignupMain = () => {
     e.preventDefault();
     const auth = getAuth(app);
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+     const userCredential =   await createUserWithEmailAndPassword(auth, email, password);
+    await updateProfile(userCredential.user , {displayName : name});
+
+    await sendEmailVerification(userCredential.user);
       router.push("/login");
-      accountCreation();
+      
+      toast.success("Verfication email sent! Please check your inbox");
     } catch (error: any) {
       dispatch(setError(error.message));
     }

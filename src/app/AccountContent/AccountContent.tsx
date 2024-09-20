@@ -1,7 +1,17 @@
-import React from "react";
+"use client"
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Redux/Store";
 
 const AccountContent = () => {
+  const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
+  const useremail = useSelector((state: RootState) => state.auth.user?.email);
+  const username = JSON.stringify(localStorage.getItem('username'));
+
+  useEffect(()=>{
+    console.log(useremail);
+  })
   return (
     <>
       <div className="md:flex md:justify-between ">
@@ -10,7 +20,7 @@ const AccountContent = () => {
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-sm font-normal leading-21">
           <b>Welcome!</b>
-          <span className="text-red-500 leading-21 "> Aditya</span>
+          <span className="text-red-500 leading-21 whitespace-break-spaces ">  {displayName ? username.replace(/(^"+|"+$)/g, '') : ""}</span>
         </p>
       </div>
 
@@ -50,11 +60,11 @@ const AccountContent = () => {
           </div>
           <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0">
             <input
-              placeholder="Aditya"
+              placeholder={ displayName ? username.replace(/(^"+|"+$)/g, '').split(" ")[0] : "FirstName"}
               className="md:h-12 md:w-96  text-sm bg-whitesmoke p-2   md:text-base  "
             />
             <input
-              placeholder="Kumar Singh"
+              placeholder={displayName ? username.replace(/(^"+|"+$)/g, '').split(" ").slice(1).join(" ") : "LastName"}
               className="md:h-12 md:w-96   text-sm md:text-base p-2  bg-whitesmoke "
             />
           </div>
@@ -64,7 +74,7 @@ const AccountContent = () => {
           </div>
           <div className="md:flex md:justify-between md:w-full flex gap-3 ml-2 md:ml-0 ">
             <input
-              placeholder="singhaditya43777@gmail.com"
+              placeholder= { useremail || "Email"}
               className="md:h-12 md:w-96  text-sm p-2 bg-whitesmoke   md:text-base "
             />
             <input

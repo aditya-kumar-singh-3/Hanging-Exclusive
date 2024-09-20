@@ -1,7 +1,8 @@
 import { db } from "@/app/config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, } from "firebase/firestore";
+
 
 interface Product {
   id: number;
@@ -35,6 +36,7 @@ const cartSlice = createSlice({
   name: "cartItems",
   initialState,
   reducers: {
+
     setUserCartAndWishlist(state, action: PayloadAction<{ cartData: Product[], wishListData: Product[] }>) {
       state.cartData = action.payload.cartData;
       state.wishListData = action.payload.wishListData;
@@ -55,7 +57,8 @@ const cartSlice = createSlice({
       
      
       if (!isThere) {
-        state.cartData = [...state.cartData, item];
+        state.cartData.push(item);
+       state.totalProductInCart +=1;
 
         
         const userId = getCookie('token');  
@@ -111,6 +114,7 @@ const cartSlice = createSlice({
       const item = action.payload;
       state.wishListData = state.wishListData.filter(
         (itemm) => itemm.id !== item.id);
+        state.totalProductInWishlist -= 1;
         
         const userId = getCookie('token');
         const wishlistRef = doc(db, "users", userId as string, "wishlist", "data");
@@ -127,7 +131,8 @@ const cartSlice = createSlice({
       const item = action.payload;
       const inWish = state.wishListData.find((items) => items.id === item.id);
       if (!inWish) {
-        state.wishListData = [...state.wishListData, item];
+        state.wishListData.push(item);
+        state.totalProductInWishlist += 1;
 
         const userId = getCookie('token');
         if(userId){

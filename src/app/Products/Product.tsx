@@ -6,7 +6,7 @@ import { CiHeart } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
  // Ensure this path is correct for your store
-import { addToCart, addtocartData, ProductInCart, addtoWishlistData, productInWishlist } from "@/Redux/CreateSlice";
+import { addToCart, addtocartData, ProductInCart, addtoWishlistData, productInWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
 import { FaHeart } from "react-icons/fa";
 import toast, { Toaster } from 'react-hot-toast';
 import { RootState } from "@/Redux/Store";
@@ -14,6 +14,8 @@ import Image from 'next/image';
 import { useState,useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config";
+import { getCookie } from "cookies-next";
+
 
 const notify = () => toast.success('Item added Successfully');
 const wishnotify = () => toast.success('Added to Wishlist');
@@ -51,7 +53,35 @@ const Product: React.FC = () => {
     fetchProducts();
   }, []);
 
-  
+  const wishListData = useSelector(
+    (state: RootState) => state.cart.wishListData
+  );
+  const cartData = useSelector((state: RootState) => state.cart.cartData);
+
+  async function nclick() {
+    console.log("i am c");
+    const token = getCookie("token");
+    if (token) {
+      try {
+        console.log(cartData);
+        console.log(wishListData);
+
+        await dispatch(
+          saveUserCartAndWishlist(token, cartData, wishListData) as any
+        );
+      } catch (error) {
+        console.error("Error saving cart and wishlist:", error);
+      }
+    }
+  }
+
+  useEffect(()=>{
+    nclick();
+  },[cartData,wishListData])
+
+
+
+ 
 
   function handleClick(idx: number) {
     const data = products.find((item) => item.id === idx);
@@ -59,6 +89,8 @@ const Product: React.FC = () => {
       dispatch(addtocartData(data));
       dispatch(addToCart());
       dispatch(ProductInCart());
+      console.log("Hi this nclick");
+      nclick();
       notify();
     }
   }

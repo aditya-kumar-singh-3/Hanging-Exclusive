@@ -15,9 +15,9 @@ export const loginWithEmailPassword = (email: string, password: string) => async
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-    const { uid, email: userEmail } = userCredential.user; // Extract only serializable data
+    const { uid, email: userEmail } = userCredential.user; 
     setCookie("token",uid)
-    console.log("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    console.log("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",userCredential);
     
     dispatch(loginSuccess({ uid, email: userEmail }));
    
@@ -33,11 +33,16 @@ export const loginWithGoogle = () => async (dispatch: AppDispatch) => {
   try {
     console.log("Starting login");
     const result = await signInWithPopup(auth, provider);
+    console.log("holololololololol",result);
+
+    
+
     console.log("Successful login");
-    const { uid, email } = result.user;
-    setCookie('token',uid); // Extract only serializable data
-    dispatch(loginSuccess({ uid, email }));
-  } catch (error: any) {
+    const { uid, email, displayName } = result.user;
+    setCookie('token',uid);
+    dispatch(loginSuccess({ uid, email,displayName }));
+  }
+   catch (error: any) {
     console.log("Login failed");
     dispatch(loginFailure(error.message));
     loginFailed();

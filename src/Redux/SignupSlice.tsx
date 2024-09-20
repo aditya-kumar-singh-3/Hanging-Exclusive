@@ -5,13 +5,14 @@ interface AuthState {
   user: {
     uid: string;
     email?: string | null;
-    // Add other serializable user properties you need
+    displayName?: string | null;
   } | null;
   email: string;
   password: string;
   name: string;
   error: string | null;
   loading: boolean;
+ 
 }
 
 
@@ -22,6 +23,7 @@ const initialState: AuthState = {
   name: "",
   error: "",
   loading: false,
+ 
 };
 
 const authSlice = createSlice({
@@ -50,10 +52,17 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess(state, action: PayloadAction<{ uid: string; email?: string | null }>) {
-      state.user = action.payload;
+    loginSuccess(state, action: PayloadAction<{ uid: string; email?: string | null; displayName?: string | null }>) {
+      state.user = {
+        uid: action.payload.uid,
+        email: action.payload.email,
+        displayName: action.payload.displayName||"",
+      };
+    
+      localStorage.setItem("username",action.payload.displayName)
       state.loading = false;
     },
+    
     loginFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;
       state.loading = false;

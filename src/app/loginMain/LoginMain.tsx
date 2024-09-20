@@ -10,7 +10,7 @@ import { AppDispatch, RootState } from "@/Redux/Store";
 import { loginWithEmailPassword, loginWithGoogle } from "@/Redux/LoginThunk";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie } from "cookies-next";
-import { fetchUserCartAndWishlist } from "@/Redux/CreateSlice";
+import { fetchUserCartAndWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
 
 const welcome = () => toast.success("Welcome to Exclusive!");
 
@@ -34,12 +34,37 @@ const LoginMain = () => {
     dispatch(loginWithGoogle());
   };
 
+
+  const wishListData = useSelector(
+    (state: RootState) => state.cart.wishListData
+  );
+  const cartData = useSelector((state: RootState) => state.cart.cartData);
+
+  // async function nclick() {
+  //   console.log("i am c");
+  //   const token = getCookie("token");
+  //   if (token) {
+  //     try {
+  //       console.log(cartData);
+  //       console.log(wishListData);
+
+  //       await dispatch(
+  //         saveUserCartAndWishlist(token, cartData, wishListData) as any
+  //       );
+  //     } catch (error) {
+  //       console.error("Error saving cart and wishlist:", error);
+  //     }
+  //   }
+  // }
+
   useEffect(() => {
     console.log("User", user);
     console.log("Loading", loading);
     const token = getCookie("token");
     if (token) {
+      
       dispatch(fetchUserCartAndWishlist(token as string)); 
+      
       setTimeout(() => {
         welcome();
       }, 1000);
