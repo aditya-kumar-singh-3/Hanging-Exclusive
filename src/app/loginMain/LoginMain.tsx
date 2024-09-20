@@ -137,7 +137,7 @@ const LoginMain = () => {
           </div>
         </form>
 
-        <Link href="/" className="text-red-500">
+        <Link href="/ForgotPassword" className="text-red-500">
           Forgot Password?
         </Link>
       </div>
