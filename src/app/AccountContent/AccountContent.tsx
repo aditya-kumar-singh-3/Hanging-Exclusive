@@ -20,7 +20,7 @@ const AccountContent = () => {
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-sm font-normal leading-21">
           <b>Welcome!</b>
-          <span className="text-red-500 leading-21 whitespace-break-spaces ">  {displayName ? username.replace(/(^"+|"+$)/g, '') : ""}</span>
+          <span className="text-red-500 leading-21 whitespace-break-spaces ">   {displayName || ""}  </span>
         </p>
       </div>
 
@@ -60,11 +60,11 @@ const AccountContent = () => {
           </div>
           <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0">
             <input
-              placeholder={ displayName ? username.replace(/(^"+|"+$)/g, '').split(" ")[0] : "FirstName"}
+             placeholder={displayName?.split(" ")[0] || "First Name"}
               className="md:h-12 md:w-96  text-sm bg-whitesmoke p-2   md:text-base  "
             />
             <input
-              placeholder={displayName ? username.replace(/(^"+|"+$)/g, '').split(" ").slice(1).join(" ") : "LastName"}
+              placeholder={displayName?.split(" ").slice(1).join(" ") || "Last Name"}
               className="md:h-12 md:w-96   text-sm md:text-base p-2  bg-whitesmoke "
             />
           </div>

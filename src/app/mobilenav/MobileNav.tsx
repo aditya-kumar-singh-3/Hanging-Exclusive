@@ -73,7 +73,7 @@ const MobileNav = () => {
     deleteCookie("token");
      router.push('/');
      logout();
-    //  localStorage.clear();
+      localStorage.clear();
      setTimeout(()=>{
        window.location.reload();
 
@@ -111,6 +111,21 @@ const MobileNav = () => {
       }
     }
   }
+
+  useEffect(() => {
+    try {
+      const token = getCookie("token");
+      if (displayName) {
+        localStorage.setItem("username", displayName);
+      }
+      if (token) {
+        dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
+      }
+    } catch (error) {
+      console.error("Error interacting with localStorage:", error);
+    }
+  }, [displayName, cartData, wishListData]);
+  
 
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
