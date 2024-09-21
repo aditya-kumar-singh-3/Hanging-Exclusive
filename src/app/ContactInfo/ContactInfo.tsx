@@ -14,9 +14,9 @@ const ContactInfo = () => {
           </div>
         </div>
 
-        <div className=" md:flex md:gap-4 md:ml-10 md:mt-20 md:mr-14 md:mb-20 mt-10  ">
-          <div className=" md:flex md:flex-col md:gap-10 md:shadow-xl  md:pr-6 md:pt-5 md:pb-5 md:ml-28 ">
-            <div className="  md:p-2 md:mb-0 mb-10 ml-6  ">
+        <div className=" md:flex md:gap-4 md:ml-36 md:mt-20 md:mr-14 md:mb-20 mt-10  md:p-1  ">
+          <div className=" md:flex md:flex-col md:gap-10 md:shadow-xl  md:pr-6 md:pt-5 md:pb-5  ">
+            <div className="  md:p-2 md:mb-0 mb-10 ml-6 ">
               <div className="md:flex md:items-center md:gap-2 flex items-center gap-2    ">
                 <img src="\Contact-images\call.png" alt="" />
                 <p className="md:text-base md:font-medium">Call To Us</p>
@@ -26,7 +26,7 @@ const ContactInfo = () => {
                   We are available 24/7, 7 days a week.
                 </p>
                 <p className="md:font-normal md:text-sm">
-                  Phone:<span className="text-blue-700"> +8801611112222</span>
+                  Phone:<a href="tel:+8801611112222" className="text-blue-700"> +8801611112222</a>
                 </p>
               </div>
             </div>
@@ -45,7 +45,7 @@ const ContactInfo = () => {
                 <div>
                   Email:
                   <a
-                    href="https://mail.google.com/mail"
+                    href="mailto:customer@exclusive.com"
                     className="md:font-normal md:text-sm text-blue-700"
                   >
                     {" "}
@@ -55,7 +55,7 @@ const ContactInfo = () => {
                 <div>
                   Email:{" "}
                   <a
-                    href="https://mail.google.com/mail"
+                    href="mailto:support@exclusive.com"
                     className="md:font-normal md:text-sm text-blue-700"
                   >
                     {" "}
@@ -68,25 +68,25 @@ const ContactInfo = () => {
           <div className=" md:w-4/5  md:shadow-xl md:p-2 mt-20 md:mt-0 ">
             <div className="md:flex  md:gap-10 md:justify-evenly md:h-16 flex flex-col md:flex-row ml-6 md:ml-0 gap-3  md:mt-4  ">
               <input
-                className=" p-2  bg-whitesmoke w-80 md:w-64  outline-none md:ml-6 md:h-auto h-12   "
+                className=" p-2  bg-whitesmoke w-[348px] md:w-64  outline-none md:ml-6 md:h-auto h-12 select-none  "
                 placeholder="Your Name *"
               />
               <input
-                className=" p-2 bg-whitesmoke w-80 md:w-64 outline-none md:h-auto h-12  "
+                className=" p-2 bg-whitesmoke w-[348px] md:w-64 outline-none md:h-auto h-12 select-none "
                 placeholder="Your Email *"
               />
               <input
-                className=" p-2 bg-whitesmoke w-80 md:w-64 outline-none md:h-auto h-12  md:mr-6 "
+                className=" p-2 bg-whitesmoke w-[348px] md:w-64 outline-none md:h-auto h-12  md:mr-6 select-none"
                 placeholder="Your Phone *"
               />
             </div>
             <div className="md:ml-12 md:flex md:flex-col md:mt-10 md:mr-12 md:h-4/6 ml-6 mt-3  ">
               <textarea
-                className="bg-whitesmoke md:h-full md:text-start md:p-4 p-2 outline-none md:w-full w-80   h-32"
+                className="bg-whitesmoke md:h-full md:text-start md:p-4 p-2 outline-none md:w-full w-[348px]   h-32"
                 placeholder="Your message"
               ></textarea>
               <div className="md:flex md:justify-end md:mt-5  ">
-                <p className="bg-red-500 md:w-36 md:flex md:items-center md:justify-center md:mt-0 mt-8 md:mb-0 mb-10 rounded-sm  text-white md:h-10 h-12 text-lg justify-center flex md:text-base w-36 items-center md:ml-12 ml-20 text-center ">
+                <p className="bg-red-500 md:w-36 md:flex md:items-center md:justify-center md:mt-0 mt-8 md:mb-0 mb-10 rounded-sm active:scale-105 cursor-pointer text-white md:h-10 h-12 text-lg justify-center flex md:text-base w-36 items-center md:ml-12 ml-20 text-center select-none">
                   Send Message
                 </p>
               </div>

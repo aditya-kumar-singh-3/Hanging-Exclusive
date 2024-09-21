@@ -3,8 +3,12 @@
 import React, { useState } from "react";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa6";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ContentOne = () => {
+
+  const router = useRouter();
   let [Imagesrc, setImagesrc] = useState([
     "/Month-images/gucci.png",
     "/Month-images/jacket.png",
@@ -39,6 +43,13 @@ const ContentOne = () => {
     );
   }
 
+  const handleSelect = (event) =>{
+    const selectedvalue = event.target.value;
+    if(selectedvalue){
+      router.push(selectedvalue);
+    }
+  }
+
   return (
     <>
       <div className="flex justify-around md:mr-40 md:flex-row flex-col gap-10 items-center mt-10 md:mt-0  md:ml-3 ml-1  -mr-1 max:w-dvw  ">
@@ -50,37 +61,37 @@ const ContentOne = () => {
             <option>Home Appliances (Microwaves, Refrigerators)</option>
             <option>Cameras & Photography Equipment</option>
           </select>
-          <select className="border-none font-poppins md:text-[16px] font-normal outline-none  w-44 ml-1 ">
-            <option>Men&apos;s Fashion</option>
-            <option>T-Shirts & Polos</option>
+          <select className="border-none font-poppins md:text-[16px] font-normal outline-none  w-44 ml-1 " onChange={handleSelect}>
+        <option >Men&apos;s Fashion</option>
+            <option value="/About">T-Shirts & Polos</option>
             <option>Jeans & Trousers</option>
             <option>Sunglasses & Eyewear</option>
-            <option>Shoes (Sneakers, Formal, Boots)</option>
+            <option value="/Contact">Shoes (Sneakers, Formal, Boots)</option>
           </select>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none hover:font-bold">
             Electronics
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Home & Lifestyle
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Medicine
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Sports and Outdoor
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Baby&apos;s Toys
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Groceries & Pets
-          </a>
-          <a className="font-poppins md:text-[16px] font-normal cursor-pointer ml-2">
+          </Link>
+          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
             Health and Beauty
-          </a>
+          </Link>
         </div>
 
-        <div className="md:w-[892px] md:h-[360px] bg-black md:mt-[50px] text-white flex items-center gap-5 md:flex-row flex-col mt:10 ml-5 mr-6">
+        <div className="md:w-[850px]  md:h-[360px] bg-black md:mt-[50px] text-white flex items-center gap-5 md:flex-row flex-col mt:10 ml-5 mr-6 md:ml-10">
           <div className="flex flex-col items-center md:h-[250px] md:w-[350px] gap-7 justify-center  ">
             <div className="flex justify-center items-center md:mr-[80px] mt-5">
               <img
@@ -93,7 +104,7 @@ const ContentOne = () => {
             <p className="md:w-[300px] md:text-[48px] font-semibold leading-[60px] md:ml-[35px]">
               {biginfo[count]}
             </p>
-            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px] cursor-">
+            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px] cursor-pointer ">
               Shop Now &rarr;
             </a>
           </div>
@@ -105,18 +116,32 @@ const ContentOne = () => {
               className="md:h-[330px] md:w-[496px] object-contain "
             />
           </div>
-          <span
+          {/* <span
             onClick={() => changeBack()}
-            className="md:flex md:justify-center md:items-center md:bg-blue-50 md:text-black md:text-xl md:rounded-full md:h-12 md:w-16 md:hover:bg-blue-100 md:mt-72 hidden"
+            className="md:flex md:justify-center md:items-center md:bg-blue-50 md:text-black md:text-xl md:rounded-full md:h-12 md:w-16 md:hover:bg-blue-100 md:mt-72 hidden active:scale-90 transition-all"
           >
             <FaArrowLeft />
           </span>
           <span
             onClick={() => changeImage()}
-            className="md:flex md:justify-center md:items-center md:bg-blue-50 md:text-black md:text-xl md:rounded-full md:h-12 md:w-16 md:hover:bg-blue-100 md:mt-72 hidden md:mr-2"
+            className="md:flex md:justify-center md:items-center md:bg-blue-50 md:text-black md:text-xl md:rounded-full md:h-12 md:w-16 md:hover:bg-blue-100 md:mt-72 hidden md:mr-2 active:scale-90 transition-all"
           >
             <FaArrowRight />
-          </span>
+          </span> */}
+          {/* <div className="flex gap-3 md:mt-72 md:mr-5">
+            <button
+              className="bg-blue-50 h-12 w-12 text-black rounded-full flex justify-center items-center hover:bg-blue-100 active:scale-90  transition-all"
+              onClick={() => changeBack()}
+            >
+              <FaArrowLeft />
+            </button>
+            <button
+              className="bg-blue-50 h-12 w-12 text-black rounded-full flex justify-center items-center hover:bg-blue-100 active:scale-90  transition-all"
+              onClick={() => changeImage()}
+            >
+              <FaArrowRight />
+            </button>
+          </div> */}
         </div>
         <div className="flex flex-row gap-7 ">
           <span

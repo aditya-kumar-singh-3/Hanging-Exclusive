@@ -100,7 +100,7 @@ const CartContent = () => {
         </p>
       </div>
 
-      <div className="md:flex md:h-20 md:items-center md:justify-center md:mb-10 md:ml-36 md:mr-60 shadow-lg flex h-10 items-center justify-center mb-10  mr-10 mt-10 gap-10 md:w-4/5 p-6 w-full ">
+      <div className="md:flex md:h-20 md:items-center md:justify-center md:mb-10 md:ml-36 md:mr-60 shadow-lg flex h-10 items-center justify-center mb-10  mr-10 mt-10 gap-10 md:w-4/5 p-6 w-full select-none">
         <p className="w-1/4 md:text-base md:font-medium md:ml-5 text-sm ">
           Product
         </p>
@@ -124,12 +124,12 @@ const CartContent = () => {
           >
             <div className="md:flex md:items-center md:gap-1 md:w-1/4 w-1/4 ml-5">
               <img src={product.image} className="w-10 h-10 md:ml-5 " alt="" />
-              <p className="md:text-base md:font-normal text-[10px] ">
+              <p className="md:text-base md:font-normal text-[10px] select-none ">
                 {product.name}
               </p>
             </div>
 
-            <p className="w-1/4 md:text-base md:font-normal md:ml-24 h-10  mt-6 md:mb-4 ml-5">
+            <p className="w-1/4 md:text-base md:font-normal md:ml-24 h-10  mt-6 md:mb-4 ml-5 select-none">
               ${product.price}
             </p>
             <div className="flex justify-around w-1/4 items-center md:px-8 box-border md:mr-8 mt-5   mr-2 ">
@@ -146,7 +146,7 @@ const CartContent = () => {
                   max={10}
                   value={product.quantity}
                   onChange={(e) => handleChange(e, product)}
-                  className="md:border md:border-blue-300 md:h-11 md:w-16 w-8 md:ml-10 md:text-center mb-5 "
+                  className="md:border md:border-blue-300 md:h-11 md:w-16 w-8 md:ml-10 md:text-center mb-5  select-none"
                 />
               </p>
               <p
@@ -157,13 +157,13 @@ const CartContent = () => {
               </p>
             </div>
 
-            <p className=" md:text-base md:font-normal md:w-1/4 md:mr-28   ml-4 mt-6 md:mb-7 w-1/4 ">
+            <p className=" md:text-base md:font-normal md:w-1/4 md:mr-28   ml-4 mt-6 md:mb-7 w-1/4 select-none">
               ${product.subtotal}
             </p>
 
             <div className="relative ">
               <span
-                className="md:mr-24 absolute  right-6 -top-4 md:ml-5 md:-top-3 md:-right-8 "
+                className="md:mr-24 absolute  right-6 -top-4 md:ml-5 md:-top-3 md:-right-8 select-none"
                 onClick={() => deletefromcart(product)}
               >
                 <ImCross />
@@ -172,31 +172,31 @@ const CartContent = () => {
           </div>
         ))}
 
-        <div className="md:mt-7 md:flex md:justify-between flex gap-20 ml-7 mr-4 mt-10">
+        <div className="md:mt-7 md:flex md:justify-between flex gap-20 ml-7 mr-4 mt-10 select-none">
           <Link
             href="/"
-            className="rounded h-14 md:text-center border border-blue-300 md:w-52 w-32 text-base font-medium md:flex md:justify-center md:items-center flex justify-center items-center md:ml-16 "
+            className="rounded h-14 md:text-center border border-blue-300 md:w-52 w-32 text-base font-medium md:flex md:justify-center md:items-center flex justify-center items-center md:ml-16 active:scale-105 transition-all "
           >
             Return to Shop
           </Link>
-          <button className="rounded h-14 md:w-52 md:text-center border border-blue-300 w-32 text-base font-medium mr-18 md:mr-4">
+          <button className="rounded h-14 md:w-52 md:text-center border border-blue-300 w-32 text-base font-medium mr-18 md:mr-4 active:scale-105 transition-all">
             Update Cart
           </button>
         </div>
       </div>
 
-      <div className="md:flex md:justify-between md:ml-32 md:mr-28 md:mb-20 md:mt-40 mr-4">
+      <div className="md:flex md:justify-between md:ml-32 md:mr-28 md:mb-20 md:mt-40 mr-4 select-none">
         <div className="md:flex md:gap-3 flex mt-10 ml-5 gap-2">
           <input
             placeholder="Coupon Code"
             type="text"
             className="h-14 md:w-80  rounded border-2 p-1 border-black"
           />
-          <p className="h-14 md:w-52 text-white bg-red-500 flex justify-center items-center text-base font-medium rounded p-2 cursor-pointer">
+          <p className="h-14 md:w-52 text-white bg-red-500 flex justify-center items-center text-base font-medium rounded p-2 cursor-pointer active:scale-105 transition-all">
             Apply Coupon
           </p>
         </div>
-        <div className="md:w-1/2 md:flex md:flex-col flex flex-col mt-20">
+        <div className="md:w-1/2 md:flex md:flex-col flex flex-col mt-20 select-none">
           <p className="md:ml-5 ml-6 md:h-7 text-xl font-medium">Cart Total</p>
           <div className="md:flex md:justify-between md:p-5 flex justify-between p-10">
             <p className="md:text-base md:font-normal">Subtotal:</p>
@@ -213,7 +213,7 @@ const CartContent = () => {
             <p className="md:text-base md:font-normal">${total}</p>
           </div>
           <div className="md:flex md:justify-center md:items-center md:mt-10 flex justify-center items-center">
-            <p className="md:flex md:justify-center md:items-center md:h-14 md:w-64 bg-red-600 mb-20 text-white p-3 rounded">
+            <p className="md:flex md:justify-center md:items-center md:h-14 md:w-64 bg-red-600 mb-20 text-white p-3 rounded select-none active:scale-105 transition-all">
               Proceed to checkout
             </p>
           </div>

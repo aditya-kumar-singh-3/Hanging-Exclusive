@@ -124,23 +124,23 @@ const Today = () => {
     <>
       <div className="mt-36">
         <Toaster />
-        <div className="flex items-center gap-4 justify-items-start ml-6 md:ml-36 ">
+        <div className="flex items-center gap-4 justify-items-start ml-6 md:ml-36 select-none ">
           <img src="/Category Rectangle.png" alt="Category" className="w-auto h-auto"  />
           <p>Today&apos;s</p>
         </div>
 
-        <div className="flex items-center justify-between ml-6 md:ml-36  mr-4 md:mr-40 mt-8">
+        <div className="flex items-center justify-between ml-6 md:ml-36  mr-4 md:mr-40 mt-8 select-none">
           <p className="text-2xl md:text-4xl font-semibold">Flash Sales</p>
 
           <div className="flex gap-3">
             <button
-              className="bg-blue-50 h-12 w-12 rounded-full flex justify-center items-center hover:bg-blue-100"
+              className="bg-blue-50 h-12 w-12 rounded-full flex justify-center items-center hover:bg-blue-100 active:scale-90  transition-all"
               onClick={() => scroll("left")}
             >
               <FaArrowLeft />
             </button>
             <button
-              className="bg-blue-50 h-12 w-12 rounded-full flex justify-center items-center hover:bg-blue-100"
+              className="bg-blue-50 h-12 w-12 rounded-full flex justify-center items-center hover:bg-blue-100 active:scale-90  transition-all"
               onClick={() => scroll("right")}
             >
               <FaArrowRight />
@@ -171,8 +171,8 @@ const Today = () => {
               </div>
 
               <img src={product.image} alt={product.name} className="w-full h-40 object-contain mt-8"  />
-              <div className="border border-black w-full text-white bg-black mt-1  text-center flex justify-center text-base font-medium h-10 ">
-                <button disabled={isProductInCart(product.id)} onClick={() => handleClick(product.id)}>
+              <div onClick={() => handleClick(product.id)} className="border border-black w-full text-white bg-black mt-1  text-center flex justify-center text-base font-medium h-10 active:scale-90 transition-all select-none ">
+                <button disabled={isProductInCart(product.id)} >
                   {isProductInCart(product.id) ? "Already in Cart" : "Add to Cart"}
                 </button>
               </div>
@@ -191,7 +191,7 @@ const Today = () => {
         </div>
 
         <div className="flex justify-center items-center mt-20 h-12">
-          <div className="h-12 md:w-36 rounded-sm flex justify-center md:p-0 p-3 w-40  bg-red-500 text-white">
+          <div className="h-12 md:w-36 rounded-sm flex justify-center md:p-0 p-3 w-40  bg-red-500 text-white active:scale-90  transition-all select-none">
             <button>View All Products</button>
           </div>
         </div>

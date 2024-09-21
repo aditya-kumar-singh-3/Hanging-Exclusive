@@ -116,24 +116,24 @@ const Product: React.FC = () => {
     <>
       <div className="container mx-auto px-4 mt-36 w-full flex flex-col justify-center">
         <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-32 md:mr-0 mr-56 ">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 select-none">
             <img
               src="/Category Rectangle.png"
               alt="Category"
               className="w-auto h-auto" 
             />
-            <p className="text-center md:text-left md:ml-0 ">Our Product</p>
+            <p className="text-center md:text-left md:ml-0 select-none ">Our Product</p>
           </div>
 
           <div className="flex items-center gap-3 mt-8 flex-col md:flex-row md:justify-between md:w-full w-80">
-            <p className="text-2xl md:text-4xl font-semibold text-center md:text-left md:ml-0 ml-32 md:w-auto w-72">
+            <p className="text-2xl md:text-4xl font-semibold text-center md:text-left md:ml-0 ml-32 md:w-auto w-72 select-none">
               Explore Our Products
             </p>
             <div className="flex gap-3 mt-5 mr-44 mb-5 mx-44">
-              <button className="bg-blue-50 h-12 w-12 rounded-full  justify-center items-center hover:bg-blue-100 md:flex hidden">
+              <button className="bg-blue-50 h-12 w-12 rounded-full  justify-center items-center hover:bg-blue-100 md:flex hidden active:scale-90  transition-all">
                 <FaArrowLeft />
               </button>
-              <button className="bg-blue-50 h-12 w-12 rounded-full  justify-center items-center hover:bg-blue-100 md:flex hidden">
+              <button className="bg-blue-50 h-12 w-12 rounded-full  justify-center items-center hover:bg-blue-100 md:flex hidden active:scale-90  transition-all">
                 <FaArrowRight />
               </button>
             </div>
@@ -167,8 +167,8 @@ const Product: React.FC = () => {
                 alt={product.name}
                 className="w-32 h-32 object-contain mt-4"
               />
-              <div className="border border-black w-full text-white bg-black mt-1 text-center flex justify-center text-base font-medium h-10">
-                <button disabled={isProductInCart(product.id)} onClick={() => handleClick(product.id)}>
+              <div onClick={() => handleClick(product.id)} className="border border-black w-full text-white bg-black mt-1 text-center flex justify-center text-base font-medium h-10 active:scale-90 transition-all select-none">
+                <button disabled={isProductInCart(product.id)} >
                   {isProductInCart(product.id) ? "Already in Cart" : "Add to Cart"}
                 </button>
               </div>
@@ -187,7 +187,7 @@ const Product: React.FC = () => {
         </div>
 
         <div className="flex justify-center items-center mt-20 h-12">
-          <div className="h-12 md:w-36 rounded-sm flex justify-center bg-red-500 md:p-0  w-44 text-white">
+          <div className="h-12 md:w-36 rounded-sm flex justify-center bg-red-500 md:p-0  w-44 text-white active:scale-90  transition-all select-none">
             <button>View All Products</button>
           </div>
         </div>

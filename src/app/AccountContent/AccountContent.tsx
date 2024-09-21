@@ -1,20 +1,52 @@
 "use client"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
+import { setPassword } from "@/Redux/SignupSlice";
+import toast, { Toaster } from 'react-hot-toast';
+import { auth } from "../config";
+import { updatePassword } from "firebase/auth";
+import { getCookie } from "cookies-next";
 
 const AccountContent = () => {
   const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
   const useremail = useSelector((state: RootState) => state.auth.user?.email);
- 
 
+  const [Password,setPassword] = useState("");
+  const [confirmPassword,setConfirmPassword] = useState("");
+
+  const ResetPassword = async () =>{
+    const token = getCookie('token');
+    if(token){
+    if(Password != confirmPassword){
+      toast.error("New Password and Confirm-Password does not match!")
+    }
+  }
+    
+     if(!Password){
+      return;
+     }
+     try{
+      const user = auth.currentUser;
+      if(user){
+
+        await updatePassword(user,Password);
+        toast.success("Password Updated Successfully!")
+      }
+     }catch(error){
+      console.log("Error",error);
+     }
+       
+  }
+ 
   useEffect(()=>{
     console.log(useremail);
   })
   return (
     <>
       <div className="md:flex md:justify-between ">
+        <Toaster/>
         <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20 flex justify-center items-center mt-10">
           <Link href="/" className="opacity-50"> Home</Link>/ <b>My Account</b>
         </p>
@@ -51,14 +83,14 @@ const AccountContent = () => {
         </div>
 
         <div className="shadow-2xl md:w-3/4 md:flex md:flex-col md:p-12 mt-10  flex justify-center flex-col item mb-20 md:mb-0 ml-2 md:ml-0 mr-2 md:mr-2">
-          <p className=" md:text-xl text-2xl font-medium text-red-500 flex justify-center mt-7 md:justify-start leading-28 ">
+          <p className=" md:text-xl text-2xl font-medium text-red-500 flex justify-center mt-7 md:justify-start leading-28 select-none ">
             Edit Your Profile
           </p>
-          <div className="md:flex md:justify-between mt-7 flex gap-32 ml-2 md:ml-0 ">
+          <div className="md:flex md:justify-between mt-7 flex gap-32 ml-2 md:ml-0 select-none ">
             <p className="md:text-base md:font-normal leading-24 ">First Name</p>
-            <p className="md:mr-80  md:text-base md:font-normal leading-24 ">Last Name</p>
+            <p className="    md:text-base md:font-normal leading-24 ">Last Name</p>
           </div>
-          <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0">
+          <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0 select-none">
             <input
              placeholder={displayName?.split(" ")[0] || "First Name"}
               className="md:h-12 md:w-96  text-sm bg-whitesmoke p-2   md:text-base  "
@@ -69,45 +101,52 @@ const AccountContent = () => {
             />
           </div>
           <div className="md:flex md:justify-between mt-7 flex gap-32 ml-2 md:ml-0 ">
-            <p className="md:text-base md:font-normal  leading-24 ">Email</p>
-            <p className="md:mr-80  md:text-base md:font-normal leading-24">Address</p>
+            {/* <p className="md:text-base md:font-normal  leading-24 ">Email</p> */}
+            {/* <p className="md:mr-80  md:text-base md:font-normal leading-24">Address</p> */}
           </div>
           <div className="md:flex md:justify-between md:w-full flex gap-3 ml-2 md:ml-0 ">
-            <input
+            {/* <input
               placeholder= { useremail || "Email"}
               className="md:h-12 md:w-96  text-sm p-2 bg-whitesmoke   md:text-base "
-            />
-            <input
+            /> */}
+            {/* <input
               placeholder="Hanging Panda , Sector-63"
-              className="md:h-12 md:w-96  text-sm p-2 bg-whitesmoke md:text-base "
-            />
+              className="md:h-12 md:w-96  text-sm p-2 bg-whitesmoke md:text-base" 
+            /> */}
           </div>
-          <p className=" md:text-base md:font-normal md:mb-2 text-center mt-5  flex justify-center md:justify-start leading-24">
+          <p className=" md:text-base md:font-normal md:mb-2 text-center mt-5  flex justify-center md:justify-start leading-24 select-none">
             Password Changes
           </p>
+         
           <div className="md:flex md:flex-col md:gap-3 flex justify-center items-center flex-col gap-3">
-            <input
+            {/* <input
               type="text"
               className="md:h-12 md:p-5 md:w-full bg-whitesmoke"
               placeholder="Current Password"
-            />
+            /> */}
             <input
               type="password"
-              className="md:h-12 md:p-5 md:w-full bg-whitesmoke"
+              className="md:h-12 md:p-5 md:w-full bg-whitesmoke select-none"
               placeholder="New Password"
+              onChange={(e)=>setPassword(e.target.value)}
+              value={Password} required
             />
             <input
               type="text"
-              className="md:h-12 md:w-full md:p-5 bg-whitesmoke"
+              className="md:h-12 md:w-full md:p-5 bg-whitesmoke select-none"
               placeholder="Confirm New Password"
+              onChange={(e)=>setConfirmPassword(e.target.value)}
+              value={confirmPassword} required
             />
           </div>
           <div className="md:flex md:justify-end  md:gap-10 md:mt-5 flex justify-center gap-4 mt-4 mb-10 w-44 ml-28  md:w-full ">
             <button>Cancel</button>
-            <button className="md:h-12 md:flex md:justify-center md:items-center bg-red-500 text-center md:p-5 md:mr-28 text-white rounded">
+            <button onClick={ResetPassword} className="md:h-12 md:flex md:justify-center md:items-center bg-red-500 text-center md:p-5 md:mr-28 text-white rounded select-none">
               Save Changes
             </button>
+            
           </div>
+          
         </div>
       </div>
     </>

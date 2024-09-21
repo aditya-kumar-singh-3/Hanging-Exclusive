@@ -109,14 +109,14 @@ const Month = () => {
     <>
       <div>
         <Toaster />
-        <div className="flex items-center gap-4 md:justify-items md:start md:ml-36  ml-6">
+        <div className="flex items-center gap-4 md:justify-items md:start md:ml-36  ml-6 select-none">
           <img src="Category Rectangle.png" alt="Category" />
           <p>This Month</p>
         </div>
-        <div className="flex items-center justify-between md:ml-36   md:mr-40 md:mt-8 ml-6 mr-8 mt-10 ">
+        <div className="flex items-center justify-between md:ml-36   md:mr-40 md:mt-8 ml-6 mr-8 mt-10 select-none">
           <p className="md:text-4xl text-2xl font-semibold">Best Selling Products</p>
           <div className="md:flex md:gap-3 ">
-            <button className="h-12 w-20 bg-red-500 text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden">
+            <button className="h-12 w-20 bg-red-500 text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden active:scale-90  transition-all select-none">
               View All
             </button>
           </div>
@@ -149,8 +149,8 @@ const Month = () => {
                 alt={product.name} 
                 className="w-full h-40 object-contain mt-8"
               />
-              <div className="border border-black w-full text-white bg-black mt-1  text-center flex justify-center text-base font-medium h-10 ">
-                <button disabled={isProductInCart(product.id)} onClick={() => handleClick(product.id)}>
+              <div onClick={() => handleClick(product.id)} className="border border-black w-full text-white bg-black mt-1  text-center flex justify-center text-base font-medium h-10 active:scale-90 transition-all select-none ">
+                <button disabled={isProductInCart(product.id)} >
                   {isProductInCart(product.id) ? "Already in Cart" : "Add to Cart"}
                 </button>
               </div>

@@ -26,11 +26,11 @@ const Music = () => {
           
         <div className=" md:w-full h-96  md:mx-0 mx-10  md:ml-32  bg-black mt-12 text-white flex items-center  md:flex-row flex-col-reverse md:mr-20 w-[350px] ">
           <div className="flex flex-col items-center md:h-[250px] md:w-[350px] gap-7 justify-center mb-4 w-96 md:ml-0 ">
-            <div className="flex justify-start  items-center mr-40 text-green-500   ">
+            <div className="flex justify-start  items-center mr-40 text-green-500  select-none ">
               <p>Categories</p>
             </div>
-            <p className="w-42 md:text-3xl text-2xl font-semibold md:leading-[60px] whitespace-nowrap ml-32 mr-40 md:ml-44">Enhance Your <br />Music Experience</p>
-            <a className="mr-24 bg-custom-green w-36 h-10 flex items-center justify-center cursor-pointer">Buy Now</a>
+            <p className="w-42 md:text-3xl text-2xl font-semibold md:leading-[60px] whitespace-nowrap ml-32 mr-40 md:ml-44 select-none">Enhance Your <br />Music Experience</p>
+            <a className="mr-24 bg-custom-green w-36 h-10 flex items-center justify-center cursor-pointer active:scale-90  transition-all select-none">Buy Now</a>
           </div>
         
           <div className="md:mb-16   ">

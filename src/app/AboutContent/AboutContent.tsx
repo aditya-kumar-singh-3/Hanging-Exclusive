@@ -15,7 +15,7 @@ const AboutContent = () => {
 
       {/*Our story */}
       <div className=" md:flex md:items-center md:justify-between md:mt-10 md:mb-32  ">
-        <div className="md:flex md:flex-col md:gap-8 md:ml-40 flex flex-col md:flex-start items-center mt-14">
+        <div className="md:flex md:flex-col md:gap-8 md:ml-36 flex flex-col md:flex-start items-center mt-14">
           <p className="text-5xl font-semibold flex   ">Our Story</p>
           <div>
             <div>
@@ -35,7 +35,7 @@ const AboutContent = () => {
         {/* Image tag*/}
         <div>
           <img
-            className="md:h-[609px] h-[400px] md:w-[705px] p-10 md:mr-44 "
+            className="md:h-[609px] h-[400px] md:w-[705px] p-10 md:mr-52 "
             src="About-images\photo-1.png"
             alt="xxx"
           />

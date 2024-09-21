@@ -59,12 +59,12 @@ const WishlistContent: React.FC = () => {
     <>
       <div className="flex justify-between mt-20 mb-10 md:ml-36 md:mr-16 ml-16 mr-14">
         <Toaster />
-        <p className="whitespace-break-spaces flex justify-center items-center md:ml-1">
+        <p className="whitespace-break-spaces flex justify-center items-center md:ml-1 select-none">
           Wishlist ({totalwish})
         </p>
         <button
           onClick={handlemoveToCart}
-          className="md:w-44 md:h-12 border md:mr-20 border-black rounded-sm h-10 p-2"
+          className="md:w-44 md:h-12 border md:mr-20 border-black rounded-sm h-10 p-2 select-none"
         >
           Move all to bag
         </button>
@@ -93,7 +93,7 @@ const WishlistContent: React.FC = () => {
                 className="flex justify-center items-center h-10 text-xs font-normal md:gap-2 text-white bg-black md:mt-2 md:ml-0 md:mr-0"
                 onClick={() => oneMovetocart(product)}
               >
-                <span className="md:text-2xl md:h-6 md:w-6">
+                <span className="md:text-2xl md:h-6 md:w-6 select-none">
                   <IoCartOutline />
                 </span>
                 Move to cart

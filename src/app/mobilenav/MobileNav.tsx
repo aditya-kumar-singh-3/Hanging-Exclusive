@@ -130,7 +130,7 @@ const MobileNav = () => {
 
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
-        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem]">Exclusive</p>
+        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem] select-none">Exclusive</p>
         <button
           onClick={toggleNavbar}
           className="focus:outline-none absolute -right-12 p-4 cursor-pointer"
@@ -142,23 +142,23 @@ const MobileNav = () => {
       {/* Main navigation for desktop */}
       <div className="lg:flex hidden justify-between items-center gap-4 w-full">
         <div className="flex items-center justify-around space-x-5 whitespace-nowrap text-sm font-normal w-full">
-          <p className="text-2xl font-bold leading-24 tracking-3">Exclusive</p>
+          <p className="text-2xl font-bold leading-24 tracking-3 mr-4 select-none">Exclusive</p>
           <div className="flex gap-12">
             <Link
               href="/"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24 active:scale-90  transition-all select-none"
             >
               Home
             </Link>
             <Link
               href="/Contact"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24 active:scale-90  transition-all select-none"
             >
               Contact
             </Link>
             <Link
               href="/About"
-              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
+              className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24 active:scale-90  transition-all select-none"
             >
               About
             </Link>
@@ -166,23 +166,23 @@ const MobileNav = () => {
             {!loggedIn ? (
               <Link
                 href="/signup"
-                className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24"
+                className="text-base font-normal hover:underline hover:underline-offset-[5px] cursor-pointer leading-24 active:scale-90  transition-all select-none"
               >
                 Sign Up
               </Link>
-            ) :   <Link href='/signup' className=" md:opacity-0 md:text-base md:font-normal md:hover:underline md:hover:underline-offset-[5px]  md:pointer-events-none ">Sign Up</Link>}
+            ) :   <Link href='/signup' className=" md:opacity-0 md:text-base md:font-normal md:hover:underline md:hover:underline-offset-[5px]  md:pointer-events-none  ">Sign Up</Link>}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center w-[250px] h-[38px] bg-[#f5f5f5] rounded-[4px] px-[12px] gap-2">
               <input
                 type="text"
                 placeholder="What are you looking for?"
-                className="flex-grow  bg-[#f5f5f5] rounded-md text-xs border-none focus:outline-none focus:ring-0 font-normal leading-4 font-poppins"
+                className="flex-grow  bg-[#f5f5f5] rounded-md text-xs border-none focus:outline-none focus:ring-0 font-normal leading-4 font-poppins select-none"
               />
               <IoSearch className="text-gray-500 cursor-pointer" />
             </div>
 
-            <div className="relative gap-4">
+            <div className="relative gap-4 active:scale-125 transition-all">
               <Link href="/Wishlist" className="text-2xl">
                 <FiHeart />
               </Link>
@@ -193,7 +193,7 @@ const MobileNav = () => {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative active:scale-125 transition-all">
               <Link href="/Cart" className="text-2xl">
                 <IoCartOutline />
               </Link>
@@ -202,10 +202,12 @@ const MobileNav = () => {
                   {number}
                 </span>
               )}
+              
             </div>
+            
 
-            <div className="relative">
-              <button onClick={toggleDropdown} className="text-2xl">
+            <div className="relative ">
+              <button onClick={toggleDropdown} className="text-2xl active:scale-110 transition-all">
                 <VscAccount />
               </button>
               {dropdownOpen && (
@@ -221,7 +223,7 @@ const MobileNav = () => {
                       {" "}
                       <MdManageAccounts />
                     </span>{" "}
-                    <span className="text-sm font-normal text-white">
+                    <span className="text-sm font-normal text-white select-none">
                       Manage My Account
                     </span>
                   </Link>
@@ -232,7 +234,7 @@ const MobileNav = () => {
                     <span className="text-2xl text-white">
                       <LuShoppingBag />
                     </span>
-                    <span className="text-sm font-normal text-white">
+                    <span className="text-sm font-normal text-white select-none">
                       My Order
                     </span>
                   </Link>
@@ -243,7 +245,7 @@ const MobileNav = () => {
                     <span className="text-2xl text-white">
                       <MdCancel />
                     </span>
-                    <span className="text-sm font-normal text-white">
+                    <span className="text-sm font-normal text-white select-none">
                       My Cancellations
                     </span>
                   </Link>
@@ -254,7 +256,7 @@ const MobileNav = () => {
                     <span className="text-2xl text-white">
                       <IoMdStarOutline />
                     </span>
-                    <span className="text-sm font-normal text-white">
+                    <span className="text-sm font-normal text-white select-none">
                       My Reviews
                     </span>
                   </Link>
@@ -266,7 +268,7 @@ const MobileNav = () => {
                     <span className="text-2xl text-white">
                       <SlLogout />
                     </span>
-                    <span className="text-sm font-normal text-white">
+                    <span className="text-sm font-normal text-white select-none">
                       Logout
                     </span>
                   </Link>
@@ -276,7 +278,7 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
-      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden">Hi! {displayName? displayName.split(" ")[0] : " "}</p>
+      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden ">Hi! {displayName? displayName.split(" ")[0] : " "}</p>
 
       {/* Mobile navigation menu */}
       <div
@@ -285,26 +287,26 @@ const MobileNav = () => {
         } duration-300 ease-in-out w-64`}
       >
         <div className="flex flex-col items-center mt-6 space-y-3">
-          <p className="text-3xl font-semibold text-white">Exclusive</p>
+          <p className="text-3xl font-semibold text-white select-none">Exclusive</p>
 
           <>
             <Link href="/" className="text-lg font-semibold text-white">
               Home
             </Link>
-            <Link href="/Contact" className="text-lg font-semibold text-white">
+            <Link href="/Contact" className="text-lg font-semibold text-white select-none">
               Contact
             </Link>
-            <Link href="/About" className="text-lg font-semibold text-white">
+            <Link href="/About" className="text-lg font-semibold text-white select-none">
               About
             </Link>
-            <Link href="/Wishlist" className="text-lg font-semibold text-white">
+            <Link href="/Wishlist" className="text-lg font-semibold text-white select-none">
               WishList
             </Link>
-            <Link href="/Cart" className="text-lg font-semibold text-white">
+            <Link href="/Cart" className="text-lg font-semibold text-white select-none">
               Cart
             </Link>
             {!loggedIn ? (
-              <Link href="/signup" className="text-lg font-semibold text-white">
+              <Link href="/signup" className="text-lg font-semibold text-white select-none">
                 Sign Up
               </Link>
             ) : null}
