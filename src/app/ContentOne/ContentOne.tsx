@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const ContentOne = () => {
-
   const router = useRouter();
   let [Imagesrc, setImagesrc] = useState([
     "/Month-images/gucci.png",
@@ -43,12 +42,12 @@ const ContentOne = () => {
     );
   }
 
-  const handleSelect = (event) =>{
+  const handleSelect = (event) => {
     const selectedvalue = event.target.value;
-    if(selectedvalue){
+    if (selectedvalue) {
       router.push(selectedvalue);
     }
-  }
+  };
 
   return (
     <>
@@ -61,32 +60,56 @@ const ContentOne = () => {
             <option>Home Appliances (Microwaves, Refrigerators)</option>
             <option>Cameras & Photography Equipment</option>
           </select>
-          <select className="border-none font-poppins md:text-[16px] font-normal outline-none  w-44 ml-1 " onChange={handleSelect}>
-        <option >Men&apos;s Fashion</option>
+          <select
+            className="border-none font-poppins md:text-[16px] font-normal outline-none  w-44 ml-1 "
+            onChange={handleSelect}
+          >
+            <option>Men&apos;s Fashion</option>
             <option value="/About">T-Shirts & Polos</option>
             <option>Jeans & Trousers</option>
             <option>Sunglasses & Eyewear</option>
             <option value="/Contact">Shoes (Sneakers, Formal, Boots)</option>
           </select>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none hover:font-bold"
+          >
             Electronics
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Home & Lifestyle
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Medicine
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Sports and Outdoor
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Baby&apos;s Toys
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Groceries & Pets
           </Link>
-          <Link href='/' className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold">
+          <Link
+            href="/"
+            className="font-poppins md:text-base font-normal cursor-pointer ml-1 leading-24 select-none  hover:font-bold"
+          >
             Health and Beauty
           </Link>
         </div>
@@ -104,7 +127,7 @@ const ContentOne = () => {
             <p className="md:w-[300px] md:text-[48px] font-semibold leading-[60px] md:ml-[35px]">
               {biginfo[count]}
             </p>
-            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px] cursor-pointer ">
+            <a className="md:mr-[160px] hover:underline hover:underline-offset-[5px] cursor-pointer active:scale-90 transition-all ">
               Shop Now &rarr;
             </a>
           </div>

@@ -16,7 +16,6 @@ import {
 } from "@/Redux/CreateSlice";
 import toast, { Toaster } from "react-hot-toast";
 
-
 const delNotify = () => toast.success("Removed from cart!");
 const ExNotify = () => toast.error("Maximum product can be 10!");
 
@@ -96,7 +95,8 @@ const CartContent = () => {
       <div>
         <Toaster />
         <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20 ">
-          <span className="opacity-50">Home / </span><b>Cart</b>
+          <span className="opacity-50">Home / </span>
+          <b>Cart</b>
         </p>
       </div>
 

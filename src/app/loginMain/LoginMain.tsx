@@ -10,7 +10,10 @@ import { AppDispatch, RootState } from "@/Redux/Store";
 import { loginWithEmailPassword, loginWithGoogle } from "@/Redux/LoginThunk";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie } from "cookies-next";
-import { fetchUserCartAndWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
+import {
+  fetchUserCartAndWishlist,
+  saveUserCartAndWishlist,
+} from "@/Redux/CreateSlice";
 
 const welcome = () => toast.success("Welcome to Exclusive!");
 
@@ -34,52 +37,24 @@ const LoginMain = () => {
     dispatch(loginWithGoogle());
   };
 
-
   const wishListData = useSelector(
     (state: RootState) => state.cart.wishListData
   );
   const cartData = useSelector((state: RootState) => state.cart.cartData);
-
-  // async function nclick() {
-  //   console.log("i am c");
-  //   const token = getCookie("token");
-  //   if (token) {
-  //     try {
-  //       console.log(cartData);
-  //       console.log(wishListData);
-
-  //       await dispatch(
-  //         saveUserCartAndWishlist(token, cartData, wishListData) as any
-  //       );
-  //     } catch (error) {
-  //       console.error("Error saving cart and wishlist:", error);
-  //     }
-  //   }
-  // }
 
   useEffect(() => {
     console.log("User", user);
     console.log("Loading", loading);
     const token = getCookie("token");
     if (token) {
-      
-      dispatch(fetchUserCartAndWishlist(token as string)); 
-      
+      dispatch(fetchUserCartAndWishlist(token as string));
+
       setTimeout(() => {
         welcome();
       }, 1000);
       router.push("/");
     }
-  },[user,dispatch,router]);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     welcome();
-  //     setPassword("");
-  //     setEmail("");
-
-  //   }
-  // }, [user, router]);
+  }, [user, dispatch, router]);
 
   return (
     <div className="md:flex md:mb-20 m-10">
@@ -93,12 +68,13 @@ const LoginMain = () => {
       </div>
       <div className="md:flex md:flex-col md:justify-center md:items-start md:w-1/2 md:mt-20 md:gap-14 md:pl-48 md:mr-24 flex flex-col w-full mt-10 gap-7">
         <div className="md:flex md:flex-col md:gap-4 flex flex-col flex-start gap-2">
-          <p className="md:text-5xl text-3xl select-none">Log in to Exclusive</p>
-          <p className="md:text-xl text-base select-none">Enter your details below</p>
+          <p className="md:text-5xl text-3xl select-none">
+            Log in to Exclusive
+          </p>
+          <p className="md:text-xl text-base select-none">
+            Enter your details below
+          </p>
         </div>
-
-        
-        
 
         <form
           onSubmit={handleLogin}
@@ -137,7 +113,10 @@ const LoginMain = () => {
           </div>
         </form>
 
-        <Link href="/ForgotPassword" className="text-red-500 active:scale-90  transition-all select-none">
+        <Link
+          href="/ForgotPassword"
+          className="text-red-500 active:scale-90  transition-all select-none"
+        >
           Forgot Password?
         </Link>
       </div>

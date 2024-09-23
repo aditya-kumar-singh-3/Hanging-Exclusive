@@ -3,14 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Link from "next/link";
-import {app} from "../config";
+import { app } from "../config";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
   updateProfile,
-  sendEmailVerification
+  sendEmailVerification,
 } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { User } from "firebase/auth";
@@ -49,7 +49,6 @@ const SignupMain = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
-
   const signInWithGoogle = async () => {
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
@@ -67,12 +66,16 @@ const SignupMain = () => {
     e.preventDefault();
     const auth = getAuth(app);
     try {
-     const userCredential =   await createUserWithEmailAndPassword(auth, email, password);
-    await updateProfile(userCredential.user , {displayName : name});
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: name });
 
-    await sendEmailVerification(userCredential.user);
+      await sendEmailVerification(userCredential.user);
       router.push("/login");
-      
+
       toast.success("Verfication email sent! Please check your inbox");
     } catch (error: any) {
       dispatch(setError(error.message));
@@ -95,7 +98,9 @@ const SignupMain = () => {
       <div className="md:flex md:flex-col md:justify-center md:items-start md:w-1/2 md:mt-20 md:gap-8 md:pl-52 md:m-10 flex flex-col w-full mt-10 gap-7">
         <div className="md:flex md:flex-col md:gap-4 flex flex-col flex-start gap-2">
           <p className="md:text-5xl text-3xl select-none">Create an account</p>
-          <p className="md:text-xl text-base select-none">Enter your details below</p>
+          <p className="md:text-xl text-base select-none">
+            Enter your details below
+          </p>
         </div>
         <form
           onSubmit={handleSignUp}
@@ -141,7 +146,7 @@ const SignupMain = () => {
             </button>
           </div>
         </form>
-        <div className="md:flex md:gap-2 md:w-9/12 md:justify-center flex items-center justify-center gap-2 select-none" >
+        <div className="md:flex md:gap-2 md:w-9/12 md:justify-center flex items-center justify-center gap-2 select-none">
           <p>Already have an account?</p>
           <Link
             href="/login"

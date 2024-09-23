@@ -6,15 +6,15 @@ interface AuthState {
     uid: string;
     email?: string | null;
     displayName?: string | null;
+    cart?: any[];
+    wishlist?: any[];
   } | null;
   email: string;
   password: string;
   name: string;
   error: string | null;
   loading: boolean;
- 
 }
-
 
 const initialState: AuthState = {
   user: null,
@@ -23,7 +23,6 @@ const initialState: AuthState = {
   name: "",
   error: "",
   loading: false,
- 
 };
 
 const authSlice = createSlice({
@@ -52,17 +51,26 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    loginSuccess(state, action: PayloadAction<{ uid: string; email?: string | null; displayName?: string | null }>) {
+    loginSuccess(
+      state,
+      action: PayloadAction<{
+        uid: string;
+        email?: string | null;
+        displayName?: string | null;
+        cart?: any[];
+        wishlist?: any[];
+      }>
+    ) {
       state.user = {
         uid: action.payload.uid,
         email: action.payload.email,
-        displayName: action.payload.displayName||"",
+        displayName: action.payload.displayName || "",
+        cart: action.payload.cart || [],
+        wishlist: action.payload.wishlist || [],
       };
-    
-      
       state.loading = false;
     },
-    
+
     loginFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;
       state.loading = false;

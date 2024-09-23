@@ -8,7 +8,10 @@ const AboutContent = () => {
       <div className=" whitespace-break-spaces mt-20 md:ml-16  mr-56   ">
         <div className=" md:flex md:justify-start md:items-start md:ml-20  flex  justify-center ">
           <p>
-            <Link href="/" className="opacity-50">Home</Link> / <b>About</b>
+            <Link href="/" className="opacity-50">
+              Home
+            </Link>{" "}
+            / <b>About</b>
           </p>
         </div>
       </div>

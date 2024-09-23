@@ -9,7 +9,11 @@ const ContactInfo = () => {
         <div className=" whitespace-break-spaces mt-20 md:ml-14 md:p-1 ml-5 ">
           <div className=" md:flex md:justify-start md:items-start md:ml-20  flex  ml-0">
             <p>
-              <Link href="/" className="opacity-50"> Home </Link> / <b>Contact</b>
+              <Link href="/" className="opacity-50">
+                {" "}
+                Home{" "}
+              </Link>{" "}
+              / <b>Contact</b>
             </p>
           </div>
         </div>
@@ -26,7 +30,11 @@ const ContactInfo = () => {
                   We are available 24/7, 7 days a week.
                 </p>
                 <p className="md:font-normal md:text-sm">
-                  Phone:<a href="tel:+8801611112222" className="text-blue-700"> +8801611112222</a>
+                  Phone:
+                  <a href="tel:+8801611112222" className="text-blue-700">
+                    {" "}
+                    +8801611112222
+                  </a>
                 </p>
               </div>
             </div>

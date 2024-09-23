@@ -8,7 +8,7 @@ import { FiHeart } from "react-icons/fi";
 import { IoCartOutline } from "react-icons/io5";
 import { VscAccount } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
-import store, { RootState } from "@/Redux/Store";
+import { persistor, RootState } from "@/Redux/Store";
 import { MdManageAccounts } from "react-icons/md";
 import { LuShoppingBag } from "react-icons/lu";
 import { MdCancel } from "react-icons/md";
@@ -18,7 +18,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 
-import { fetchUserCartAndWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
+import {
+  fetchUserCartAndWishlist,
+  saveUserCartAndWishlist,
+} from "@/Redux/CreateSlice";
+import { auth } from "../config";
 
 const logout = () => toast.success("Logged Out Successfully");
 
@@ -36,18 +40,14 @@ const MobileNav = () => {
     if (token) {
       setLoggedIn(true);
     }
-  },[]);
+  }, []);
 
-  
-  
-
-  useEffect(()=>{
+  useEffect(() => {
     const token = getCookie("token");
-    if(token){
-      console.log("JAi shree ram")
-      dispatch(saveUserCartAndWishlist(token,cartData,wishListData) as any);
+    if (token) {
+      dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
     }
-  },[])
+  }, []);
 
   const number = useSelector(
     (state: RootState) => state.cart.totalProductInCart
@@ -69,18 +69,17 @@ const MobileNav = () => {
   async function loggout() {
     console.log("i am c");
     const token = getCookie("token");
-     nclick();
-    deleteCookie("token");
-     router.push('/');
-     logout();
-     
-     setTimeout(()=>{
-       window.location.reload();
 
-    },500)
-    
-    
-   
+    //  nclick();
+    deleteCookie("token");
+    router.push("/");
+    logout();
+    nclick();
+    persistor.purge();
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   }
 
   const wishListData = useSelector(
@@ -88,20 +87,15 @@ const MobileNav = () => {
   );
   const cartData = useSelector((state: RootState) => state.cart.cartData);
 
-  const displayName = useSelector((state: RootState) => state.auth.user?.displayName);
- 
-
- 
- 
+  const displayName = useSelector(
+    (state: RootState) => state.auth.user?.displayName
+  );
 
   async function nclick() {
     console.log("i am c");
     const token = getCookie("token");
     if (token) {
       try {
-        console.log(cartData);
-        console.log(wishListData);
-
         await dispatch(
           saveUserCartAndWishlist(token, cartData, wishListData) as any
         );
@@ -114,7 +108,7 @@ const MobileNav = () => {
   useEffect(() => {
     try {
       const token = getCookie("token");
-     
+
       if (token) {
         dispatch(saveUserCartAndWishlist(token, cartData, wishListData) as any);
       }
@@ -122,7 +116,6 @@ const MobileNav = () => {
       console.error("Error interacting with !!:", error);
     }
   }, [displayName, cartData, wishListData]);
-  
 
   return (
     <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
@@ -130,7 +123,9 @@ const MobileNav = () => {
 
       {/* Logo Section */}
       <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
-        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem] select-none">Exclusive</p>
+        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem] select-none">
+          Exclusive
+        </p>
         <button
           onClick={toggleNavbar}
           className="focus:outline-none absolute -right-12 p-4 cursor-pointer"
@@ -142,7 +137,9 @@ const MobileNav = () => {
       {/* Main navigation for desktop */}
       <div className="lg:flex hidden justify-between items-center gap-4 w-full">
         <div className="flex items-center justify-around space-x-5 whitespace-nowrap text-sm font-normal w-full">
-          <p className="text-2xl font-bold leading-24 tracking-3 mr-4 select-none">Exclusive</p>
+          <p className="text-2xl font-bold leading-24 tracking-3 mr-4 select-none">
+            Exclusive
+          </p>
           <div className="flex gap-12">
             <Link
               href="/"
@@ -170,7 +167,14 @@ const MobileNav = () => {
               >
                 Sign Up
               </Link>
-            ) :   <Link href='/signup' className=" md:opacity-0 md:text-base md:font-normal md:hover:underline md:hover:underline-offset-[5px]  md:pointer-events-none  ">Sign Up</Link>}
+            ) : (
+              <Link
+                href="/signup"
+                className=" md:opacity-0 md:text-base md:font-normal md:hover:underline md:hover:underline-offset-[5px]  md:pointer-events-none  "
+              >
+                Sign Up
+              </Link>
+            )}
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center w-[250px] h-[38px] bg-[#f5f5f5] rounded-[4px] px-[12px] gap-2">
@@ -194,7 +198,7 @@ const MobileNav = () => {
             </div>
 
             <div className="relative active:scale-125 transition-all">
-              <Link href="/Cart" className="text-2xl">
+              <Link href="/Cart" className="text-3xl">
                 <IoCartOutline />
               </Link>
               {number > 0 && (
@@ -202,34 +206,35 @@ const MobileNav = () => {
                   {number}
                 </span>
               )}
-              
             </div>
-            
 
             <div className="relative ">
-              <button onClick={toggleDropdown} className="text-2xl active:scale-110 transition-all">
+              <button
+                onClick={toggleDropdown}
+                className="text-2xl active:scale-110 transition-all"
+              >
                 <VscAccount />
               </button>
               {dropdownOpen && (
                 <div
                   className="absolute right-0 mt-2 w-48  bg-palette-mutedPurple text-white
-                 shadow-lg rounded-lg"
+                 shadow-lg "
                 >
                   <Link
                     href="/Account"
-                    className=" flex gap-2  h-10 justify-start px-2 items-center text-gray-800 hover:bg-gray-500"
+                    className=" flex gap-2  h-10 justify-start px-2 items-center text-gray-800 hover:bg-gray-500 active:scale-95 transition-all"
                   >
                     <span className="text-2xl text-white">
                       {" "}
                       <MdManageAccounts />
                     </span>{" "}
-                    <span className="text-sm font-normal text-white select-none">
+                    <span className="text-sm font-normal text-white select-none ">
                       Manage My Account
                     </span>
                   </Link>
                   <Link
                     href="/"
-                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500 active:scale-95 transition-all"
                   >
                     <span className="text-2xl text-white">
                       <LuShoppingBag />
@@ -240,7 +245,7 @@ const MobileNav = () => {
                   </Link>
                   <Link
                     href="/"
-                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500 active:scale-95 transition-all"
                   >
                     <span className="text-2xl text-white">
                       <MdCancel />
@@ -251,7 +256,7 @@ const MobileNav = () => {
                   </Link>
                   <Link
                     href="/"
-                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500 active:scale-95 transition-all"
                   >
                     <span className="text-2xl text-white">
                       <IoMdStarOutline />
@@ -263,7 +268,7 @@ const MobileNav = () => {
                   <Link
                     href="/"
                     onClick={loggout}
-                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500"
+                    className=" flex gap-2  h-10 justify-start items-center px-2 text-gray-800 hover:bg-gray-500 active:scale-95 transition-all"
                   >
                     <span className="text-2xl text-white">
                       <SlLogout />
@@ -278,7 +283,9 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
-      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden ">Hi! {displayName? displayName.split(" ")[0] : " "}</p>
+      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden font-bold ">
+        Hi! {displayName ? displayName.split(" ")[0] : " "}
+      </p>
 
       {/* Mobile navigation menu */}
       <div
@@ -287,26 +294,43 @@ const MobileNav = () => {
         } duration-300 ease-in-out w-64`}
       >
         <div className="flex flex-col items-center mt-6 space-y-3">
-          <p className="text-3xl font-semibold text-white select-none">Exclusive</p>
+          <p className="text-3xl font-semibold text-white select-none">
+            Exclusive
+          </p>
 
           <>
             <Link href="/" className="text-lg font-semibold text-white">
               Home
             </Link>
-            <Link href="/Contact" className="text-lg font-semibold text-white select-none">
+            <Link
+              href="/Contact"
+              className="text-lg font-semibold text-white select-none"
+            >
               Contact
             </Link>
-            <Link href="/About" className="text-lg font-semibold text-white select-none">
+            <Link
+              href="/About"
+              className="text-lg font-semibold text-white select-none"
+            >
               About
             </Link>
-            <Link href="/Wishlist" className="text-lg font-semibold text-white select-none">
+            <Link
+              href="/Wishlist"
+              className="text-lg font-semibold text-white select-none"
+            >
               WishList
             </Link>
-            <Link href="/Cart" className="text-lg font-semibold text-white select-none">
+            <Link
+              href="/Cart"
+              className="text-lg font-semibold text-white select-none"
+            >
               Cart
             </Link>
             {!loggedIn ? (
-              <Link href="/signup" className="text-lg font-semibold text-white select-none">
+              <Link
+                href="/signup"
+                className="text-lg font-semibold text-white select-none"
+              >
                 Sign Up
               </Link>
             ) : null}

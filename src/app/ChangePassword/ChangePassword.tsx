@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { fetchSignInMethodsForEmail, sendPasswordResetEmail } from "firebase/auth";
+import {
+  fetchSignInMethodsForEmail,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 import { auth } from "@/app/config";
 
 const ResetPassword = () => toast.success("Reset Mail Sent. Check your Inbox!");
@@ -53,7 +56,7 @@ const ChangePassword = () => {
   const handleResend = async () => {
     try {
       await sendPasswordResetEmail(auth, email);
-     
+
       setIsCooldownActive(true); // Start cooldown again
       setCooldown(30); // Reset to 30 seconds again
     } catch (error) {
@@ -74,8 +77,12 @@ const ChangePassword = () => {
       </div>
       <div className="md:flex md:flex-col md:justify-center md:items-start md:w-1/2  md:gap-14 md:pl-36 md:mr-24 flex flex-col w-full mt-10 gap-7 ">
         <div className="md:flex md:flex-col md:gap-4 flex flex-col flex-start gap-2 ">
-          <p className="md:text-5xl text-3xl select-none ">Reset Your Password</p>
-          <p className="md:text-xl text-base select-none">Enter your Registered Mail below</p>
+          <p className="md:text-5xl text-3xl select-none ">
+            Reset Your Password
+          </p>
+          <p className="md:text-xl text-base select-none">
+            Enter your Registered Mail below
+          </p>
         </div>
 
         <form onSubmit={handleReset} className="md:mt-14">
@@ -88,7 +95,10 @@ const ChangePassword = () => {
           />
 
           <div className="md:mt-20 flex mt-10">
-            <button type="submit" className="text-white bg-red-500 w-24 h-12 active:scale-90  transition-all select-none">
+            <button
+              type="submit"
+              className="text-white bg-red-500 w-24 h-12 active:scale-90  transition-all select-none"
+            >
               Send Mail
             </button>
 

@@ -3,10 +3,16 @@ import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteFromWishlist, moveToCart, ProductInCart, productInWishlist, singlemovetocart } from "@/Redux/CreateSlice";
+import {
+  deleteFromWishlist,
+  moveToCart,
+  ProductInCart,
+  productInWishlist,
+  singlemovetocart,
+} from "@/Redux/CreateSlice";
 import toast, { Toaster } from "react-hot-toast";
 import { RootState } from "@/Redux/Store";
-import Image from 'next/image';
+import Image from "next/image";
 
 // Toast notifications
 const notify = () => toast.success("Moved all items to bag");
@@ -19,8 +25,8 @@ interface Product {
   price: number;
   rating: number;
   image: string;
-  quantity: number;   // Added quantity
-  subtotal: number;   // Added subtotal
+  quantity: number; // Added quantity
+  subtotal: number; // Added subtotal
 }
 
 const WishlistContent: React.FC = () => {
@@ -85,7 +91,7 @@ const WishlistContent: React.FC = () => {
               <img
                 src={product.image}
                 className="h-60 w-60 ml-12 mb-10 object-contain md:mt-3"
-                alt={product.name} 
+                alt={product.name}
               />
             </div>
             <div className="cursor-pointer">

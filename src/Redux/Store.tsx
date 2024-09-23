@@ -1,20 +1,44 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
 import cartReducer from "./CreateSlice";
 import authReducer from "./SignupSlice";
+import { persistReducer, persistStore } from "redux-persist";
+import createWebStorage from "redux-persist/es/storage/createWebStorage";
 
-export const makeStore = () => {
-  return configureStore({
-    reducer: {
-      cart: cartReducer,
-      auth: authReducer,
+const rootReducer = combineReducers({
+  cart: cartReducer,
+  auth: authReducer,
+});
+const createNoopStorage = () => {
+  return {
+    getItem() {
+      return Promise.resolve(null);
     },
-  });
+    setItem(_key: string, value: string) {
+      return Promise.resolve(value);
+    },
+    removeItem() {
+      return Promise.resolve();
+    },
+  };
 };
-
-const store = makeStore();
-
-export type AppStore = ReturnType<typeof makeStore>;
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
+const persistConfig = {
+  key: "root",
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+export const persistor = persistStore(store);
+export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
-
-export default store;

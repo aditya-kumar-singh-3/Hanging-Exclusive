@@ -1,24 +1,29 @@
 "use client";
 
-
 import { FaArrowLeft, FaArrowRight, FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
- // Ensure this path is correct for your store
-import { addToCart, addtocartData, ProductInCart, addtoWishlistData, productInWishlist, saveUserCartAndWishlist } from "@/Redux/CreateSlice";
+// Ensure this path is correct for your store
+import {
+  addToCart,
+  addtocartData,
+  ProductInCart,
+  addtoWishlistData,
+  productInWishlist,
+  saveUserCartAndWishlist,
+} from "@/Redux/CreateSlice";
 import { FaHeart } from "react-icons/fa";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 import { RootState } from "@/Redux/Store";
-import Image from 'next/image';
-import { useState,useEffect } from "react";
+import Image from "next/image";
+import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config";
 import { getCookie } from "cookies-next";
 
-
-const notify = () => toast.success('Item added Successfully');
-const wishnotify = () => toast.success('Added to Wishlist');
+const notify = () => toast.success("Item added Successfully");
+const wishnotify = () => toast.success("Added to Wishlist");
 
 // Define Product interface to ensure the type of products is consistent
 interface Product {
@@ -36,17 +41,19 @@ const Product: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const added = useSelector((state: RootState) => state.cart.added);
   const cartdata = useSelector((state: RootState) => state.cart.cartData);
-  const wishlistdata = useSelector((state: RootState) => state.cart.wishListData);
+  const wishlistdata = useSelector(
+    (state: RootState) => state.cart.wishListData
+  );
 
-   // Fetch products from Firebase
-   useEffect(() => {
+  // Fetch products from Firebase
+  useEffect(() => {
     const fetchProducts = async () => {
       const querySnapshot = await getDocs(collection(db, "productsDown"));
       const productsList = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as unknown as Product[];
-      
+
       setProducts(productsList);
     };
 
@@ -63,9 +70,6 @@ const Product: React.FC = () => {
     const token = getCookie("token");
     if (token) {
       try {
-        console.log(cartData);
-        console.log(wishListData);
-
         await dispatch(
           saveUserCartAndWishlist(token, cartData, wishListData) as any
         );
@@ -75,13 +79,9 @@ const Product: React.FC = () => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     nclick();
-  },[cartData,wishListData])
-
-
-
- 
+  }, [cartData, wishListData]);
 
   function handleClick(idx: number) {
     const data = products.find((item) => item.id === idx);
@@ -89,7 +89,6 @@ const Product: React.FC = () => {
       dispatch(addtocartData(data));
       dispatch(addToCart());
       dispatch(ProductInCart());
-      console.log("Hi this nclick");
       nclick();
       notify();
     }
@@ -104,12 +103,23 @@ const Product: React.FC = () => {
     }
   }
 
-  const isProductInWishlist = (productId: number) => {
-    return wishlistdata.some((item: Product) => item.id === productId);
+  const isProductInCart = (productId: number) => {
+    // Ensure cartdata is an array before calling .some()
+    if (Array.isArray(cartdata)) {
+      return cartdata.some((item: Product) => item.id === productId);
+    } else {
+      console.error("cartdata is not an array", cartdata);
+      return false;
+    }
   };
 
-  const isProductInCart = (productId: number) => {
-    return cartdata.some((item: Product) => item.id === productId);
+  const isProductInWishlist = (productId: number) => {
+    if (Array.isArray(wishlistdata)) {
+      return wishlistdata.some((item: Product) => item.id === productId);
+    } else {
+      console.error("wishlistData is not an array", wishlistdata);
+      return false;
+    }
   };
 
   return (
@@ -120,9 +130,11 @@ const Product: React.FC = () => {
             <img
               src="/Category Rectangle.png"
               alt="Category"
-              className="w-auto h-auto" 
+              className="w-auto h-auto"
             />
-            <p className="text-center md:text-left md:ml-0 select-none ">Our Product</p>
+            <p className="text-center md:text-left md:ml-0 select-none ">
+              Our Product
+            </p>
           </div>
 
           <div className="flex items-center gap-3 mt-8 flex-col md:flex-row md:justify-between md:w-full w-80">
@@ -147,11 +159,20 @@ const Product: React.FC = () => {
               className="relative border border-gray-200 rounded-lg p-4 shadow-sm bg-white flex flex-col items-center justify-center w-full h-full max-w-xs mx-auto md:mx-0"
             >
               <div className="absolute top-2 right-2 flex flex-col space-y-2">
-                <div className="bg-white p-1 rounded-full" onClick={() => wishClick(product.id)}>
+                <div
+                  className="bg-white p-1 rounded-full"
+                  onClick={() => wishClick(product.id)}
+                >
                   {isProductInWishlist(product.id) ? (
-                    <FaHeart className="cursor-pointer text-red-500" size={20} />
+                    <FaHeart
+                      className="cursor-pointer text-red-500"
+                      size={20}
+                    />
                   ) : (
-                    <CiHeart className="text-gray-500 cursor-pointer hover:text-black" size={20} />
+                    <CiHeart
+                      className="text-gray-500 cursor-pointer hover:text-black"
+                      size={20}
+                    />
                   )}
                 </div>
                 <div className="bg-white p-1 rounded-full">
@@ -167,9 +188,14 @@ const Product: React.FC = () => {
                 alt={product.name}
                 className="w-32 h-32 object-contain mt-4"
               />
-              <div onClick={() => handleClick(product.id)} className="border border-black w-full text-white bg-black mt-1 text-center flex justify-center text-base font-medium h-10 active:scale-90 transition-all select-none">
-                <button disabled={isProductInCart(product.id)} >
-                  {isProductInCart(product.id) ? "Already in Cart" : "Add to Cart"}
+              <div
+                onClick={() => handleClick(product.id)}
+                className="border border-black w-full text-white bg-black mt-1 text-center flex justify-center text-base font-medium h-10 active:scale-90 transition-all select-none"
+              >
+                <button disabled={isProductInCart(product.id)}>
+                  {isProductInCart(product.id)
+                    ? "Already in Cart"
+                    : "Add to Cart"}
                 </button>
               </div>
               <div className="mt-4 text-center">
@@ -198,102 +224,77 @@ const Product: React.FC = () => {
 
 export default Product;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // const products: Product[] = [
-  //   {
-  //     id: 1,
-  //     name: "ASUS FHD Gaming Laptop",
-  //     price: 700,
-  //     rating: 5,
-  //     image: "/Product-images/laptop.png",
-  //     quantity: 1,
-  //     subtotal: 700,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Quilted Satin Jacket",
-  //     price: 660,
-  //     rating: 5,
-  //     image: "/Product-images/jacket.png",
-  //     quantity: 1,
-  //     subtotal: 660,
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "GP11 USB Gamepad",
-  //     price: 660,
-  //     rating: 5,
-  //     image: "/Product-images/gamepad.png",
-  //     quantity: 1,
-  //     subtotal: 660,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Breed Dry Dog Food",
-  //     price: 100,
-  //     rating: 5,
-  //     image: "/Product-images/dog food.jpeg",
-  //     quantity: 1,
-  //     subtotal: 100,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Curology Product Set",
-  //     price: 500,
-  //     rating: 4,
-  //     image: "/Product-images/curology.png",
-  //     quantity: 1,
-  //     subtotal: 500,
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Kids Electric Car",
-  //     price: 120,
-  //     rating: 5,
-  //     image: "/Product-images/car.png",
-  //     quantity: 1,
-  //     subtotal: 120,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "Canon DSLR Camera",
-  //     price: 360,
-  //     rating: 5,
-  //     image: "/Product-images/camera.png",
-  //     quantity: 1,
-  //     subtotal: 360,
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "Jr. Zoom Soccer Cleats",
-  //     price: 120,
-  //     rating: 5,
-  //     image: "/Product-images/boots.png",
-  //     quantity: 1,
-  //     subtotal: 120,
-  //   },
-  // ];
+//   {
+//     id: 1,
+//     name: "ASUS FHD Gaming Laptop",
+//     price: 700,
+//     rating: 5,
+//     image: "/Product-images/laptop.png",
+//     quantity: 1,
+//     subtotal: 700,
+//   },
+//   {
+//     id: 2,
+//     name: "Quilted Satin Jacket",
+//     price: 660,
+//     rating: 5,
+//     image: "/Product-images/jacket.png",
+//     quantity: 1,
+//     subtotal: 660,
+//   },
+//   {
+//     id: 3,
+//     name: "GP11 USB Gamepad",
+//     price: 660,
+//     rating: 5,
+//     image: "/Product-images/gamepad.png",
+//     quantity: 1,
+//     subtotal: 660,
+//   },
+//   {
+//     id: 4,
+//     name: "Breed Dry Dog Food",
+//     price: 100,
+//     rating: 5,
+//     image: "/Product-images/dog food.jpeg",
+//     quantity: 1,
+//     subtotal: 100,
+//   },
+//   {
+//     id: 5,
+//     name: "Curology Product Set",
+//     price: 500,
+//     rating: 4,
+//     image: "/Product-images/curology.png",
+//     quantity: 1,
+//     subtotal: 500,
+//   },
+//   {
+//     id: 6,
+//     name: "Kids Electric Car",
+//     price: 120,
+//     rating: 5,
+//     image: "/Product-images/car.png",
+//     quantity: 1,
+//     subtotal: 120,
+//   },
+//   {
+//     id: 7,
+//     name: "Canon DSLR Camera",
+//     price: 360,
+//     rating: 5,
+//     image: "/Product-images/camera.png",
+//     quantity: 1,
+//     subtotal: 360,
+//   },
+//   {
+//     id: 8,
+//     name: "Jr. Zoom Soccer Cleats",
+//     price: 120,
+//     rating: 5,
+//     image: "/Product-images/boots.png",
+//     quantity: 1,
+//     subtotal: 120,
+//   },
+// ];
