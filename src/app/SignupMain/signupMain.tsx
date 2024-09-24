@@ -133,7 +133,7 @@ const SignupMain = () => {
           <div className="md:flex md:justify-between md:gap-5 md:w-9/12 flex gap-4">
             <button
               type="submit"
-              className="md:text-white md:bg-red-600 md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm active:scale-90  transition-all select-none"
+              className="md:text-white md:bg-check-red md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm active:scale-90  transition-all select-none"
             >
               Create Account
             </button>

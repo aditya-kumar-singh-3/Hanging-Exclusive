@@ -128,7 +128,7 @@ const Month = () => {
             Best Selling Products
           </p>
           <div className="md:flex md:gap-3 ">
-            <button className="h-12 w-20 bg-red-500 text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden active:scale-90  transition-all select-none">
+            <button className="h-12 w-20 md:w-32 bg-check-red text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden active:scale-90  transition-all select-none">
               View All
             </button>
           </div>

@@ -94,14 +94,14 @@ const AccountContent = () => {
         </div>
 
         <div className="shadow-2xl md:w-3/4 md:flex md:flex-col md:p-12 mt-10  flex justify-center flex-col item mb-20 md:mb-0 ml-2 md:ml-0 mr-2 md:mr-2">
-          <p className=" md:text-xl text-2xl font-medium text-red-500 flex justify-center mt-7 md:justify-start leading-28 select-none ">
+          <p className=" md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:justify-start leading-28 select-none ">
             Edit Your Profile
           </p>
-          <div className="md:flex md:justify-between mt-7 flex gap-32 ml-2 md:ml-0 select-none ">
+          <div className="md:flex  mt-7 flex gap-32 ml-2 md:ml-0 select-none ">
             <p className="md:text-base md:font-normal leading-24 ">
               First Name
             </p>
-            <p className="    md:text-base md:font-normal leading-24 ">
+            <p className="    md:text-base md:font-normal leading-24 md:ml-64">
               Last Name
             </p>
           </div>
@@ -136,11 +136,11 @@ const AccountContent = () => {
           </p>
 
           <div className="md:flex md:flex-col md:gap-3 flex justify-center items-center flex-col gap-3">
-            {/* <input
+            <input
               type="text"
               className="md:h-12 md:p-5 md:w-full bg-whitesmoke"
-              placeholder="Current Password"
-            /> */}
+              placeholder="Current Password" required
+            />
             <input
               type="password"
               className="md:h-12 md:p-5 md:w-full bg-whitesmoke select-none"
@@ -162,7 +162,7 @@ const AccountContent = () => {
             <button>Cancel</button>
             <button
               onClick={ResetPassword}
-              className="md:h-12 md:flex md:justify-center md:items-center bg-red-500 text-center md:p-5 md:mr-28 text-white rounded select-none"
+              className="md:h-12 md:flex md:justify-center md:items-center bg-check-red text-center md:p-5 md:mr-28 text-white rounded select-none"
             >
               Save Changes
             </button>

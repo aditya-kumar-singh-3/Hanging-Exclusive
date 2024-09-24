@@ -97,18 +97,18 @@ const ChangePassword = () => {
           <div className="md:mt-20 flex mt-10">
             <button
               type="submit"
-              className="text-white bg-red-500 w-24 h-12 active:scale-90  transition-all select-none"
+              className="text-white bg-check-red w-24 md:w-32 h-12 active:scale-90  transition-all select-none"
             >
               Send Mail
             </button>
 
             {resend && (
               <button
-                className="text-white bg-red-500 w-32 h-12 ml-12 active:scale-90  transition-all select-none"
+                className="text-white bg-check-red w-32  h-12 ml-12 active:scale-90  transition-all select-none"
                 onClick={handleResend}
                 disabled={isCooldownActive} // Disable button during cooldown
               >
-                {isCooldownActive ? `Resend in ${cooldown}s` : "Resend Mail"}
+                {isCooldownActive ? `Resend in ${cooldown}s` : "Resend Mail "}
               </button>
             )}
           </div>

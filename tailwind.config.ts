@@ -15,6 +15,7 @@ const config: Config = {
         '28': '28px', 
         '24':'24px',
         '21':'21px',
+        '30':'30px',
       },
       colors:{
           'custom-green':'#00FF66',
@@ -27,6 +28,9 @@ const config: Config = {
             deepPurple: '#865F8A',  // Deep purple tone
             darkPurple: '#3A202D',  // Dark purple, near black
           },
+          'check-red': "#DB4444",
+          'footer-white':"#FFFFFF",
+
       },
      
       fontFamily:{
@@ -43,6 +47,10 @@ const config: Config = {
           "newArrival-4":"url('/NewArrival-images/four.png')",
           "signup-1":"url('/signup/main.jpeg')",
           "wishlist-1":"url('/Product-images/laptop.png')",
+          "mastercard":"url('/Card-Images/image 31.svg')",
+          "visa":"url('/Card-Images/Visa.svg')",
+          "nagad":"url('/Card-Images/Nagad.svg')",
+          "paypal":"url('/Card-Images/Paypal.svg')",
          
       },
     },

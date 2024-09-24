@@ -213,7 +213,7 @@ const Product: React.FC = () => {
         </div>
 
         <div className="flex justify-center items-center mt-20 h-12">
-          <div className="h-12 md:w-36 rounded-sm flex justify-center bg-red-500 md:p-0  w-44 text-white active:scale-90  transition-all select-none">
+          <div className="h-12 md:w-52 rounded-sm flex justify-center bg-check-red md:p-0  w-44 text-white active:scale-90  transition-all select-none">
             <button>View All Products</button>
           </div>
         </div>

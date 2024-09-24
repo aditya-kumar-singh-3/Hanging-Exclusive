@@ -105,7 +105,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <hr></hr>
+      <hr className="border border-footer-white opacity-40"></hr>
       <div className="flex justify-center text-white bg-black h-16 md:h-20 items-center text-sm md:text-base w-full ">
         &#169;Copyright Rimel 2022. All right reserved
       </div>

@@ -13,6 +13,8 @@ import MobileNav from "./mobilenav/MobileNav";
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import {app} from '../app/config';
 import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
+import { persistor } from "@/Redux/Store";
 
 
 
@@ -291,6 +293,13 @@ export default function Home() {
   // useEffect(()=>{
   //   upload();
   // },[])
+
+  // useEffect(()=>{
+  //   const token = getCookie('token');
+  //   if(!token){
+  //     persistor.purge();
+  //   }
+  // })
   
   
   return (

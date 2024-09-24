@@ -96,7 +96,7 @@ const LoginMain = () => {
           <div className="flex gap-8">
             <button
               type="submit"
-              className="md:text-white md:bg-red-600 md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm active:scale-90  transition-all select-none"
+              className="md:text-white md:bg-check-red md:h-10 md:rounded-sm bg-red-600 w-36 h-12 text-white rounded-sm text-sm active:scale-90  transition-all select-none"
               disabled={loading}
             >
               {loading ? "Logging in..." : "Login"}
@@ -115,7 +115,7 @@ const LoginMain = () => {
 
         <Link
           href="/ForgotPassword"
-          className="text-red-500 active:scale-90  transition-all select-none"
+          className="text-check-red active:scale-90  transition-all select-none"
         >
           Forgot Password?
         </Link>

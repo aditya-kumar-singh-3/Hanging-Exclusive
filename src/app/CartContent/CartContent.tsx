@@ -192,7 +192,7 @@ const CartContent = () => {
             type="text"
             className="h-14 md:w-80  rounded border-2 p-1 border-black"
           />
-          <p className="h-14 md:w-52 text-white bg-red-500 flex justify-center items-center text-base font-medium rounded p-2 cursor-pointer active:scale-105 transition-all">
+          <p className="h-14 md:w-52 text-white bg-check-red flex justify-center items-center text-base font-medium rounded p-2 cursor-pointer select-none  active:scale-105 transition-all">
             Apply Coupon
           </p>
         </div>
@@ -213,9 +213,9 @@ const CartContent = () => {
             <p className="md:text-base md:font-normal">${total}</p>
           </div>
           <div className="md:flex md:justify-center md:items-center md:mt-10 flex justify-center items-center">
-            <p className="md:flex md:justify-center md:items-center md:h-14 md:w-64 bg-red-600 mb-20 text-white p-3 rounded select-none active:scale-105 transition-all">
+            <Link href='/Checkout' className="md:flex md:justify-center md:items-center md:h-14 md:w-64 bg-check-red mb-20 text-white p-3 rounded select-none active:scale-105 transition-all">
               Proceed to checkout
-            </p>
+            </Link>
           </div>
         </div>
       </div>

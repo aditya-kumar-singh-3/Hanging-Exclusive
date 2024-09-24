@@ -33,31 +33,31 @@ const Category = () => {
           </div>
         </div>
         <div className="flex flex-wrap justify-evenly mt-16 md:ml-16 ml-4 md:mr-20 mr-4 gap-4">
-          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-red-500 hover:text-white select-none active:scale-110 transition-all">
+          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <IoPhonePortraitOutline />
             </span>
             <p>Phones</p>
           </div>
-          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-red-500 hover:text-white select-none active:scale-110 transition-all">
+          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <HiOutlineDesktopComputer />
             </span>
             <p>Computers</p>
           </div>
-          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-red-500 hover:text-white select-none active:scale-110 transition-all">
+          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <BsSmartwatch />
             </span>
             <p>SmartWatch</p>
           </div>
-          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-red-500 hover:text-white select-none active:scale-110 transition-all">
+          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <CiCamera />
             </span>
             <p>Camera</p>
           </div>
-          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-red-500 hover:text-white select-none active:scale-110 transition-all">
+          <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <GrGamepad />
             </span>

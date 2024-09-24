@@ -9,11 +9,11 @@ const ContactInfo = () => {
         <div className=" whitespace-break-spaces mt-20 md:ml-14 md:p-1 ml-5 ">
           <div className=" md:flex md:justify-start md:items-start md:ml-20  flex  ml-0">
             <p>
-              <Link href="/" className="opacity-50">
+              <Link href="/" className="opacity-50 leading-21 font-normal text-sm ">
                 {" "}
-                Home{" "}
+                Home
               </Link>{" "}
-              / <b>Contact</b>
+             <span className="leading-21 font-normal text-sm"> / Contact</span>
             </p>
           </div>
         </div>
@@ -94,7 +94,7 @@ const ContactInfo = () => {
                 placeholder="Your message"
               ></textarea>
               <div className="md:flex md:justify-end md:mt-5  ">
-                <p className="bg-red-500 md:w-36 md:flex md:items-center md:justify-center md:mt-0 mt-8 md:mb-0 mb-10 rounded-sm active:scale-105 cursor-pointer text-white md:h-10 h-12 text-lg justify-center flex md:text-base w-36 items-center md:ml-12 ml-20 text-center select-none">
+                <p className="bg-red-500 md:w-44 md:flex md:items-center md:justify-center md:mt-0 mt-8 md:mb-0 mb-10 rounded-sm active:scale-105 transition-all cursor-pointer text-white md:h-10 h-12 text-lg justify-center flex md:text-base w-36 items-center md:ml-12 ml-20 text-center select-none">
                   Send Message
                 </p>
               </div>
