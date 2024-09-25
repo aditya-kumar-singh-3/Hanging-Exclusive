@@ -17,6 +17,7 @@ import { SlLogout } from "react-icons/sl";
 import toast, { Toaster } from "react-hot-toast";
 import { getCookie, deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { MdOutlinePersonOutline } from "react-icons/md";
 
 import {
   fetchUserCartAndWishlist,
@@ -209,12 +210,13 @@ const MobileNav = () => {
             </div>
 
             <div className="relative ">
-              <button
+              <div
                 onClick={toggleDropdown}
-                className="text-2xl active:scale-110 transition-all"
+                className="text-xl font-bold active:scale-110 transition-all border-2 h-8 border-black rounded-full w-8  flex justify-center cursor-pointer select-none"
               >
-                <VscAccount />
-              </button>
+              {displayName ? displayName.charAt(0) :  <span className="text-2xl translate-y-0.5"><MdOutlinePersonOutline /></span>}
+
+              </div>
               {dropdownOpen && (
                 <div
                   className="absolute right-0 mt-2 w-48  bg-palette-mutedPurple text-white
@@ -283,9 +285,9 @@ const MobileNav = () => {
           </div>
         </div>
       </div>
-      <p className="md:flex md:flex-row md:w-24 md:absolute md:right-10 hidden font-bold ">
-        Hi! {displayName ? displayName.split(" ")[0] : " "}
-      </p>
+      
+       
+      
 
       {/* Mobile navigation menu */}
       <div

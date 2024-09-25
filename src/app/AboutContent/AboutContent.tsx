@@ -6,9 +6,9 @@ const AboutContent = () => {
     <>
       {/* page-Navigation */}
       <div className=" whitespace-break-spaces mt-20 md:ml-16  mr-56   ">
-        <div className=" md:flex md:justify-start md:items-start md:ml-20  flex  justify-center ">
+        <div className=" md:flex md:justify-start md:items-start md:ml-20  flex  ml-6 ">
           <p>
-            <Link href="/" className="opacity-50 leading-21 font-normal text-sm">
+            <Link href="/" className="opacity-50 leading-21 font-normal text-sm ">
               Home
             </Link>{" "}
             / <span className=" leading-21 font-normal text-sm">About</span>

@@ -5,9 +5,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
 import { setPassword } from "@/Redux/SignupSlice";
 import toast, { Toaster } from "react-hot-toast";
-import { auth } from "../config";
-import { updatePassword } from "firebase/auth";
+import { auth, db } from "../config";
+import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { getCookie } from "cookies-next";
+import { FaEdit } from "react-icons/fa";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { EmailAuthProvider } from "firebase/auth";
+
+
+
 
 const AccountContent = () => {
   const displayName = useSelector(
@@ -15,8 +22,53 @@ const AccountContent = () => {
   );
   const useremail = useSelector((state: RootState) => state.auth.user?.email);
 
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [profilePicUrl, setProfilePicUrl] = useState("/next.svg");
+  const [isUploading, setIsUploading] = useState(false);
+
+  const storage = getStorage();
+
+ 
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+ 
+  const handleUpload = async () => {
+    if (!selectedFile) {
+      toast.error("Please select a file.");
+      return;
+    }
+  const token = getCookie('token');
+    const storageRef = ref(storage, `profile-pics/${token}/${selectedFile.name}`);
+
+    try {
+      setIsUploading(true);
+      const snapshot = await uploadBytes(storageRef, selectedFile);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      
+      const userRef = doc(db, "users", token);
+      await setDoc(userRef, { profilePicUrl: downloadURL }, { merge: true });
+
+      setProfilePicUrl(downloadURL);
+      setSelectedFile(null);
+      toast.success("Profile picture updated successfully!");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      toast.error("Failed to upload profile picture.");
+    }finally{
+      setIsUploading(false);
+
+    }
+  };
+
   const [Password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
 
   const ResetPassword = async () => {
     const token = getCookie("token");
@@ -29,9 +81,16 @@ const AccountContent = () => {
     if (!Password) {
       return;
     }
+    
+   const credential = EmailAuthProvider.credential(useremail,currentPassword)
+
     try {
       const user = auth.currentUser;
       if (user) {
+      const credential = EmailAuthProvider.credential(useremail,currentPassword);
+
+      console.log( await reauthenticateWithCredential(user,credential));
+     
         await updatePassword(user, Password);
         toast.success("Password Updated Successfully!");
       }
@@ -44,12 +103,11 @@ const AccountContent = () => {
     <>
       <div className="md:flex md:justify-between ">
         <Toaster />
-        <p className="whitespace-break-spaces md:ml-36 md:mt-20 md:mb-20 flex justify-center items-center mt-10">
-          <Link href="/" className="opacity-50">
-            {" "}
-            Home
-          </Link>
-          / <b>My Account</b>
+        <p className="whitespace-break-spaces md:ml-36 ml-6 md:mt-20 md:mb-20 flex md:justify-center items-center mt-20">
+        <Link href="/" className="opacity-50 leading-21 font-normal text-sm">
+              Home
+            </Link>{" "}
+          /<span className=" leading-21 font-normal text-sm"> My Account</span>
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-sm font-normal leading-21">
           <b>Welcome!</b>
@@ -97,24 +155,62 @@ const AccountContent = () => {
           <p className=" md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:justify-start leading-28 select-none ">
             Edit Your Profile
           </p>
+          <div className="relative">
+      {/* Profile picture */}
+      <img
+        src={profilePicUrl}
+        className="object-contain bg-no-repeat border border-black md:w-44 w-28 md:h-44 h-28 md:translate-x-0 translate-x-36 rounded-full flex mt-10 justify-between items-center"
+        alt="Profile"
+      />
+
+   
+      <input
+        type="file"
+        id="fileInput"
+        className="hidden"
+        accept="image/*"
+        onChange={handleFileChange}
+      />
+
+     
+      <span
+        className="absolute md:left-32 left-56 bg-blue-500 items-center p-1 text-white top-32 md:top-48 md:text-xl cursor-pointer text-base"
+        onClick={() => document.getElementById("fileInput").click()} 
+      >
+        <FaEdit />
+      </span>
+
+      
+      {selectedFile && (
+        <button
+          className="absolute md:left-56 translate-x-64 md:ml-0 ml-2 md:top-28 top-20 bg-check-red text-white p-2 rounded-md"
+          onClick={handleUpload}
+          disabled={isUploading}
+        >
+         {isUploading ? "Uploading..." : "Upload"}
+        </button>
+      )}
+    </div>
+          
+
           <div className="md:flex  mt-7 flex gap-32 ml-2 md:ml-0 select-none ">
-            <p className="md:text-base md:font-normal leading-24 ">
+            <p className="md:text-base md:font-normal leading-24 whitespace-nowrap">
               First Name
             </p>
-            <p className="    md:text-base md:font-normal leading-24 md:ml-64">
+            <p className="    md:text-base md:font-normal leading-24 md:ml-64 md:mr-0  border-radius w-28   whitespace-nowrap -translate-x-6 md:-translate-x-0">
               Last Name
             </p>
           </div>
           <div className="md:flex md:justify-between  md:w-full  flex gap-3 ml-2 md:ml-0 select-none">
             <input
               placeholder={displayName?.split(" ")[0] || "First Name"}
-              className="md:h-12 md:w-96  text-sm bg-whitesmoke p-2   md:text-base  "
+              className="md:h-12 md:w-96 w-44  text-sm bg-whitesmoke md:p-2 p-3   md:text-base  "
             />
             <input
               placeholder={
                 displayName?.split(" ").slice(1).join(" ") || "Last Name"
               }
-              className="md:h-12 md:w-96   text-sm md:text-base p-2  bg-whitesmoke "
+              className="md:h-12 md:w-96 w-48   text-sm md:text-base p-2  bg-whitesmoke "
             />
           </div>
           <div className="md:flex md:justify-between mt-7 flex gap-32 ml-2 md:ml-0 ">
@@ -135,15 +231,16 @@ const AccountContent = () => {
             Password Changes
           </p>
 
-          <div className="md:flex md:flex-col md:gap-3 flex justify-center items-center flex-col gap-3">
+          <div className="md:flex md:flex-col md:gap-3 flex justify-center items-center flex-col gap-3 md:w-auto w-full  md:mt-0 mt-10 md:p-0 p-3">
             <input
               type="text"
-              className="md:h-12 md:p-5 md:w-full bg-whitesmoke"
+              className="md:h-12 md:p-5 md:w-full bg-whitesmoke w-full p-2"
               placeholder="Current Password" required
+              onChange={(e) => setCurrentPassword(e.target.value)}
             />
             <input
               type="password"
-              className="md:h-12 md:p-5 md:w-full bg-whitesmoke select-none"
+              className="md:h-12 md:p-5 md:w-full bg-whitesmoke select-none w-full p-2"
               placeholder="New Password"
               onChange={(e) => setPassword(e.target.value)}
               value={Password}
@@ -151,7 +248,7 @@ const AccountContent = () => {
             />
             <input
               type="text"
-              className="md:h-12 md:w-full md:p-5 bg-whitesmoke select-none"
+              className="md:h-12 md:w-full md:p-5 bg-whitesmoke select-none w-full p-2"
               placeholder="Confirm New Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmPassword}
@@ -162,7 +259,7 @@ const AccountContent = () => {
             <button>Cancel</button>
             <button
               onClick={ResetPassword}
-              className="md:h-12 md:flex md:justify-center md:items-center bg-check-red text-center md:p-5 md:mr-28 text-white rounded select-none"
+              className="md:h-12 h-12 p-3 md:flex md:justify-center md:items-center bg-check-red text-center md:p-5 md:mr-28 text-white rounded select-none active:scale-105 whitespace-nowrap"
             >
               Save Changes
             </button>

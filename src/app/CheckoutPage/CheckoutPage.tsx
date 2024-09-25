@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react"; // Import useState
 import Product from "../Products/Product";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
+import toast, { Toaster } from "react-hot-toast";
+
 
 const CheckoutPage = () => {
   const cartProduct: Product[] = useSelector(
@@ -37,11 +39,11 @@ const CheckoutPage = () => {
           },
           onApprove: async function (data, actions) {
             const details = await actions.order.capture();
-            alert(`Transaction completed by ${details.payer.name.given_name}`);
+            toast.success(`Transaction completed by ${details.payer.name.given_name}`);
           },
           onError: function (err) {
             console.error("Error during transaction:", err);
-            alert("An error occurred during the transaction.");
+            toast.error("An error occurred during the transaction.");
           },
         }).render("#paypal-button-container");
         const paypalButtonContainer = document.getElementById("paypal-button-container");
@@ -68,6 +70,7 @@ const CheckoutPage = () => {
   return (
     <>
       <div className="mt-24 ml-6 md:mt-28 whitespace-break-spaces md:ml-32 md:p-4">
+        <Toaster/>
         <p>
           <span className="font-normal text-sm leading-21 opacity-50">
             Account / My Account / Product / View Cart /
