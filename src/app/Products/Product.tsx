@@ -66,7 +66,6 @@ const Product: React.FC = () => {
   const cartData = useSelector((state: RootState) => state.cart.cartData);
 
   async function nclick() {
-    console.log("i am c");
     const token = getCookie("token");
     if (token) {
       try {

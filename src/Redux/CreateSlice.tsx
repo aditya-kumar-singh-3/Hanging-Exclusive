@@ -369,12 +369,22 @@ export const saveUserCartAndWishlist =
     try {
       const cartRef = doc(db, "users", userId, "cart", "data");
       const wishlistRef = doc(db, "users", userId, "wishlist", "data");
-      if (cartData.length <= 0 || wishListData.length <= 0) {
-        console.log("great ====");
-        return;
+      // // if (cartData.length <= 0 || wishListData.length <= 0) {
+      // //   console.log("great ====");
+      // //   return;
+      // // }
+      // await setDoc(cartRef, { items: cartData });
+     
+      // await setDoc(wishlistRef, { items: wishListData });
+      
+
+      if (cartData.length > 0) {
+        await setDoc(cartRef, { items: cartData });
       }
-      await setDoc(cartRef, { items: cartData });
-      await setDoc(wishlistRef, { items: wishListData });
+
+      if (wishListData.length > 0) {
+        await setDoc(wishlistRef, { items: wishListData });
+      }
 
       console.log("Documents created successfully.");
     } catch (error) {

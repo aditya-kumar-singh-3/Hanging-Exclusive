@@ -294,12 +294,12 @@ export default function Home() {
   //   upload();
   // },[])
 
-  // useEffect(()=>{
-  //   const token = getCookie('token');
-  //   if(!token){
-  //     persistor.purge();
-  //   }
-  // })
+  useEffect(()=>{
+    const token = getCookie('token');
+    if(!token){
+      persistor.purge();
+    }
+  })
   
   
   return (

@@ -30,7 +30,6 @@ export const loginWithEmailPassword =
 
       const { uid, email: userEmail } = userCredential.user;
       setCookie("token", uid);
-      console.log("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii", userCredential);
       dispatch(fetchUserCartAndWishlist(uid));
       dispatch(loginSuccess({ uid, email: userEmail }));
     } catch (error: any) {
