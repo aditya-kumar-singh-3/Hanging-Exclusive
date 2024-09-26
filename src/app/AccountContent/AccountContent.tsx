@@ -10,8 +10,9 @@ import { reauthenticateWithCredential, updatePassword } from "firebase/auth";
 import { getCookie } from "cookies-next";
 import { FaEdit } from "react-icons/fa";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { EmailAuthProvider } from "firebase/auth";
+import { MdAddAPhoto } from "react-icons/md";
 
 
 
@@ -24,7 +25,7 @@ const AccountContent = () => {
 
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [profilePicUrl, setProfilePicUrl] = useState("/next.svg");
+  const [profilePicUrl, setProfilePicUrl] = useState("profile-photo.jpg");
   const [isUploading, setIsUploading] = useState(false);
 
   const storage = getStorage();
@@ -33,6 +34,26 @@ const AccountContent = () => {
   const handleFileChange = (e) => {
     if (e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const token = getCookie('token');
+
+  const fetchProfilePicUrl = async (token: string) => {
+    try {
+      const userRef = doc(db, "users", token);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        if (data && data.profilePicUrl) {
+          setProfilePicUrl(data.profilePicUrl);
+        } else {
+          setProfilePicUrl(profilePicUrl);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching profile picture:", error);
     }
   };
 
@@ -99,6 +120,12 @@ const AccountContent = () => {
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      fetchProfilePicUrl(token);
+    }
+  }, [token]);
+
   return (
     <>
       <div className="md:flex md:justify-between ">
@@ -119,19 +146,19 @@ const AccountContent = () => {
       </div>
 
       <div className="md:flex  md:justify-between md:ml-28 md:gap-10 md:mr-36 md:mb-20  ">
-        <div className=" flex justify-center mt-10">
+        <div className=" flex justify-center mt-10 md:-mt-9">
           <div className="md:p-10 ">
             <p className="text-base font-medium leading-24 ">
               Manage My Account
             </p>
-            <p className="ml-8 text-base font-normal text-red-700 mt-1 cursor-pointer">
+            <p className="ml-8 text-base font-normal text-check-red mt-1 cursor-pointer ">
               My Profile
             </p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24">
-              Address Book
+            <p  className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24">
+             <Link href='/AddressPage'> Address Book</Link>
             </p>
             <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24">
-              My Payment
+             <Link href='/PaymentPage'>My Payment</Link> 
             </p>
             <p className="text-base font-medium md:mt-2 leading-24">
               My Orders
@@ -151,15 +178,15 @@ const AccountContent = () => {
           </div>
         </div>
 
-        <div className="shadow-2xl md:w-3/4 md:flex md:flex-col md:p-12 mt-10  flex justify-center flex-col item mb-20 md:mb-0 ml-2 md:ml-0 mr-2 md:mr-2">
-          <p className=" md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:justify-start leading-28 select-none ">
+        <div className="shadow-2xl md:w-3/4 md:flex md:flex-col md:p-12 mt-10 md:-mt-12  flex justify-center flex-col item mb-20 md:mb-0 ml-2 md:ml-0 mr-2 md:mr-2">
+          <p className=" md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:mt-0 md:justify-start leading-28 select-none ">
             Edit Your Profile
           </p>
           <div className="relative">
       {/* Profile picture */}
       <img
         src={profilePicUrl}
-        className="object-contain bg-no-repeat border border-black md:w-44 w-28 md:h-44 h-28 md:translate-x-0 translate-x-36 rounded-full flex mt-10 justify-between items-center"
+        className="object-cover bg-no-repeat md:w-44 w-28 md:h-44 h-28 md:translate-x-80 translate-x-36 rounded-full flex mt-10 md:-mt-14  justify-between items-center"
         alt="Profile"
       />
 
@@ -174,16 +201,16 @@ const AccountContent = () => {
 
      
       <span
-        className="absolute md:left-32 left-56 bg-blue-500 items-center p-1 text-white top-32 md:top-48 md:text-xl cursor-pointer text-base"
+        className="absolute md:translate-x-44 translate-x-0 left-56 bg-black items-center p-1 text-white top-32 md:top-28 md:text-xl cursor-pointer text-base active:scale-110 transition-all"
         onClick={() => document.getElementById("fileInput").click()} 
       >
-        <FaEdit />
+       <MdAddAPhoto />
       </span>
 
       
       {selectedFile && (
         <button
-          className="absolute md:left-56 translate-x-64 md:ml-0 ml-2 md:top-28 top-20 bg-check-red text-white p-2 rounded-md"
+          className="absolute md:left-56 translate-x-64 md:ml-10 ml-2 md:top-6 top-20 bg-check-red text-white p-2 rounded-md"
           onClick={handleUpload}
           disabled={isUploading}
         >
@@ -193,7 +220,7 @@ const AccountContent = () => {
     </div>
           
 
-          <div className="md:flex  mt-7 flex gap-32 ml-2 md:ml-0 select-none ">
+          <div className="md:flex  mt-7 md:mt-6 flex gap-32 ml-2 md:ml-0 select-none ">
             <p className="md:text-base md:font-normal leading-24 whitespace-nowrap">
               First Name
             </p>
@@ -227,7 +254,7 @@ const AccountContent = () => {
               className="md:h-12 md:w-96  text-sm p-2 bg-whitesmoke md:text-base" 
             /> */}
           </div>
-          <p className=" md:text-base md:font-normal md:mb-2 text-center mt-5  flex justify-center md:justify-start leading-24 select-none">
+          <p className=" md:text-base md:font-normal md:mb-2 text-center mt-0 md:-mt-2   flex justify-center md:justify-start leading-24 select-none">
             Password Changes
           </p>
 

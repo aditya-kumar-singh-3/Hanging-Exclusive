@@ -5,6 +5,9 @@ import Product from "../Products/Product";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
 import toast, { Toaster } from "react-hot-toast";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../config";
+import { getCookie } from "cookies-next";
 
 
 const CheckoutPage = () => {
@@ -24,7 +27,7 @@ const CheckoutPage = () => {
 
     script.onload = () => {
       if (window.paypal) {
-        console.log("PayPal SDK loaded");
+       
         window.paypal.Buttons({
           createOrder: function (data, actions) {
             return actions.order.create({
@@ -37,9 +40,30 @@ const CheckoutPage = () => {
               ],
             });
           },
+
+
           onApprove: async function (data, actions) {
+            console.log("OnApprove Called");
             const details = await actions.order.capture();
+            try{
+              const token = getCookie('token');
+              const cartRef = doc(db, "users", token, "cart", "data");
+               await setDoc(cartRef, { items: [] });
+
+               console.log("Transaction completed:", {
+                payerName: details.payer.name.given_name,
+                payerEmail: details.payer.email_address, // Payer email
+                transactionId: details.id, // Transaction ID
+                amount: details.purchase_units[0].amount.value, // Amount sent
+                currency: details.purchase_units[0].amount.currency_code // Currency
+              });
+
+            }catch(error){
+              console.error("Error clearing the cart after transaction:", error);
+
+            }
             toast.success(`Transaction completed by ${details.payer.name.given_name}`);
+
           },
           onError: function (err) {
             console.error("Error during transaction:", err);
@@ -48,7 +72,7 @@ const CheckoutPage = () => {
         }).render("#paypal-button-container");
         const paypalButtonContainer = document.getElementById("paypal-button-container");
         if (paypalButtonContainer) {
-            paypalButtonContainer.style.display = "block"; // Make the PayPal button container visible
+            paypalButtonContainer.style.display = "block";
           } else {
             console.error("PayPal button container not found");
           }
@@ -209,7 +233,7 @@ const CheckoutPage = () => {
         </div>
             <div className="mt-5 flex justify-center">
               <p>
-                <button  onClick={handlePaymentClick} className="bg-check-red text-white px-6 py-3  md:mb-0 mb-10 mt-10 rounded-md">Proceed to Payment</button>
+                <button  onClick={handlePaymentClick} className="bg-check-red text-white px-6 py-3  md:mb-0 mb-10 mt-10 rounded-md active:scale-105 transition-all">Proceed to Payment</button>
               </p>
             </div>
           </div>
