@@ -107,7 +107,7 @@ const PaymentInfo = () => {
               <th className="p-4 font-semibold text-sm text-gray-600">TransID</th>
               <th className="p-4 font-semibold text-sm text-gray-600">Name</th>
               <th className="p-4 font-semibold text-sm text-gray-600">Amount</th>
-              <th className="p-4 font-semibold text-sm text-gray-600">Time</th>
+              <th className="p-4 font-semibold text-sm text-gray-600">Date</th>
               <th className="p-4 font-semibold text-sm text-gray-600">Status</th>
             </tr>
           </thead>
