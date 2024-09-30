@@ -156,3 +156,15 @@
 .fade-out {
   animation: fadeOut 0.5s ease-out;
 }
+
+
+/* Remove the default spinner (arrows) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}

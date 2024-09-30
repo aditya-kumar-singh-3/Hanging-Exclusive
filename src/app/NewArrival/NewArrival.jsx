@@ -5,7 +5,7 @@ const NewArrival = () => {
   return (
     <>
       <div className="mt-36 md:ml-0 ml-2 md:mr-0 mr-2">
-        <div className="flex items-center gap-4 justify-center md:justify-start md:ml-36  mr-60 md:mr-0 select-none">
+        <div className="flex items-center gap-4 justify-center md:justify-start md:ml-36  -translate-x-36 md:pl-0 pl-2 md:mr-0 select-none">
           <img
             src="/Category Rectangle.png"
             alt="Category"
@@ -14,7 +14,7 @@ const NewArrival = () => {
           <p className="text-center md:text-left select-none">Featured</p>
         </div>
 
-        <div className="flex items-center justify-center md:justify-between md:ml-36  md:mr-40 mt-8 mr-52">
+        <div className="flex items-center justify-center md:justify-between md:ml-36  md:mr-40 mt-8 -translate-x-32 md:pl-0 pl-2 ">
           <p className="text-2xl md:text-4xl font-semibold text-center md:text-left select-none">
             New Arrival
           </p>

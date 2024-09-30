@@ -17,10 +17,10 @@ const wrongMail = () => {
 const ChangePassword = () => {
   let [email, setEmail] = useState("");
   let [resend, setResend] = useState(false);
-  let [cooldown, setCooldown] = useState(30); // Start with a 30 seconds cooldown
-  let [isCooldownActive, setIsCooldownActive] = useState(false); // Cooldown management
+  let [cooldown, setCooldown] = useState(30); 
+  let [isCooldownActive, setIsCooldownActive] = useState(false); 
 
-  // Effect to handle countdown for enabling resend button
+  
   useEffect(() => {
     if (isCooldownActive && cooldown > 0) {
       const timer = setTimeout(() => {

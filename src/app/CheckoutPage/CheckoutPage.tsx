@@ -2,15 +2,21 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react"; // Import useState
 import Product from "../Products/Product";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/Redux/Store";
 import toast, { Toaster } from "react-hot-toast";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../config";
 import { getCookie } from "cookies-next";
+import { Transactions } from "@/Redux/CreateSlice";
+import { useRouter } from "next/navigation";
 
 
 const CheckoutPage = () => {
+
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const cartProduct: Product[] = useSelector(
     (state: RootState) => state.cart.cartData
   );
@@ -48,16 +54,29 @@ const CheckoutPage = () => {
             try{
               const token = getCookie('token');
               const cartRef = doc(db, "users", token, "cart", "data");
+
                await setDoc(cartRef, { items: [] });
+            
 
-               console.log("Transaction completed:", {
+               const transactionRef = collection(db, "users", token, "transactions");
+
+               const transactionData = {
                 payerName: details.payer.name.given_name,
-                payerEmail: details.payer.email_address, // Payer email
-                transactionId: details.id, // Transaction ID
-                amount: details.purchase_units[0].amount.value, // Amount sent
-                currency: details.purchase_units[0].amount.currency_code // Currency
-              });
+                status: details.status,
+                transactionId: details.id,
+                amount: details.purchase_units[0].amount.value,
+                time: details.update_time.split('T')[0],
+              };
 
+              await addDoc(transactionRef, transactionData);
+
+              console.log(details);
+      
+              dispatch(Transactions(transactionData));
+               
+              router.push("/PaymentPage");
+
+              
             }catch(error){
               console.error("Error clearing the cart after transaction:", error);
 
@@ -65,7 +84,7 @@ const CheckoutPage = () => {
             toast.success(`Transaction completed by ${details.payer.name.given_name}`);
 
           },
-          onError: function (err) {
+          onError: function (err: any) {
             console.error("Error during transaction:", err);
             toast.error("An error occurred during the transaction.");
           },
@@ -97,7 +116,7 @@ const CheckoutPage = () => {
         <Toaster/>
         <p>
           <span className="font-normal text-sm leading-21 opacity-50">
-            Account / My Account / Product / View Cart /
+          <Link href='/Account'>My Account</Link> /<span> Product</span> /<span></span><Link href='/Cart'> View Cart/</Link> 
           </span>
           <span className="font-normal text-sm leading-21"> Checkout </span>{" "}
         </p>
@@ -245,4 +264,8 @@ const CheckoutPage = () => {
 
 export default CheckoutPage;
 
+
+function dispatch(arg0: { payload: any; type: "cartItems/Transactions"; }) {
+  throw new Error("Function not implemented.");
+}
 

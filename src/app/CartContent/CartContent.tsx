@@ -146,7 +146,7 @@ const CartContent = () => {
                   max={10}
                   value={product.quantity}
                   onChange={(e) => handleChange(e, product)}
-                  className="md:border md:border-blue-300 md:h-11 md:w-16 w-8 md:ml-10 md:text-center mb-5  select-none"
+                  className="md:border md:border-blue-300 md:h-11 md:w-16 w-8 md:ml-10 md:text-center mb-5  select-none   "
                 />
               </p>
               <p

@@ -17,7 +17,7 @@ const AboutContent = () => {
       </div>
 
       {/*Our story */}
-      <div className=" md:flex md:items-center md:justify-between md:mt-10 md:mb-32  ">
+      <div className=" md:flex md:items-center md:justify-between md:mt-10 md:mb-3 ">
         <div className="md:flex md:flex-col md:gap-8 md:ml-36 flex flex-col md:flex-start items-center mt-14">
           <p className="text-5xl font-semibold flex   ">Our Story</p>
           <div>

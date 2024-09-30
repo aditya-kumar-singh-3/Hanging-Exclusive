@@ -2,12 +2,14 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import cartReducer from "./CreateSlice";
 import authReducer from "./SignupSlice";
+
 import { persistReducer, persistStore } from "redux-persist";
 import createWebStorage from "redux-persist/es/storage/createWebStorage";
 
 const rootReducer = combineReducers({
   cart: cartReducer,
   auth: authReducer,
+ 
 });
 const createNoopStorage = () => {
   return {

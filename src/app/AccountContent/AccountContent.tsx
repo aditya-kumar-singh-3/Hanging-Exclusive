@@ -201,7 +201,7 @@ const AccountContent = () => {
 
      
       <span
-        className="absolute md:translate-x-44 translate-x-0 left-56 bg-black items-center p-1 text-white top-32 md:top-28 md:text-xl cursor-pointer text-base active:scale-110 transition-all"
+        className="absolute md:translate-x-52 translate-x-0 left-56 bg-check-red  items-center p-2 text-white rounded-full top-32 md:top-24 md:text-xl cursor-pointer text-base active:scale-110 transition-all"
         onClick={() => document.getElementById("fileInput").click()} 
       >
        <MdAddAPhoto />

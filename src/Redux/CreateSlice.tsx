@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { db } from "@/app/config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getCookie } from "cookies-next";
@@ -20,6 +21,16 @@ interface CartState {
   added: boolean;
   quantity: number;
   totalProductInWishlist: number;
+  Transaction: Transactions[];
+ 
+}
+
+interface Transactions {
+  payerName: string;
+  status: string;
+  transactionId: string;
+  amount: string;
+  time : string;
 }
 
 const initialState: CartState = {
@@ -29,6 +40,7 @@ const initialState: CartState = {
   added: false,
   quantity: 1,
   totalProductInWishlist: 0,
+  Transaction: [],
 };
 
 const cartSlice = createSlice({
@@ -265,6 +277,7 @@ const cartSlice = createSlice({
           });
       }
     },
+     
 
     UPquantity(state, action: PayloadAction<Product>) {
       const item = action.payload;
@@ -292,6 +305,20 @@ const cartSlice = createSlice({
             });
         }
       }
+    },
+
+    Transactions(state, action: PayloadAction<Transactions>)  {
+      console.log("inside transaction",action.payload);
+      state.Transaction.push(action.payload);
+
+    },
+    setTransactions(state,action){
+      state.Transaction = action.payload;
+    },
+    
+
+    ClearTransaction(state){
+      state.Transaction = [];
     },
 
     DownQuantity(state, action: PayloadAction<Product>) {
@@ -406,6 +433,9 @@ export const {
   info,
   DownQuantity,
   setUserCartAndWishlist,
+  Transactions,
+  ClearTransaction,
+  setTransactions
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

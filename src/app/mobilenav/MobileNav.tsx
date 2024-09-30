@@ -129,7 +129,7 @@ const MobileNav = () => {
         </p>
         <button
           onClick={toggleNavbar}
-          className="focus:outline-none absolute -right-12 p-4 cursor-pointer"
+          className="focus:outline-none absolute -right-20 p-4 cursor-pointer "
         >
           {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>

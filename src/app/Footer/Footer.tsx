@@ -25,7 +25,7 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Enter your email"
-              className="bg-black border border-white text-white p-2 w-full max-w-xs md:ml-0 ml-2"
+              className="bg-black border border-white text-white p-2 w-full max-w-xs md:ml-0 -ml-7"
             />
             <button className="bg-white text-black p-2">
               <svg

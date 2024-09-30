@@ -124,7 +124,7 @@ const Product: React.FC = () => {
   return (
     <>
       <div className="container mx-auto px-4 mt-36 w-full flex flex-col justify-center">
-        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-32 md:mr-0 mr-56 ">
+        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-32 md:mr-0 -translate-x-32 ">
           <div className="flex items-center gap-4 select-none">
             <img
               src="/Category Rectangle.png"

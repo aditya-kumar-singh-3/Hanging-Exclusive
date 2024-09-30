@@ -141,13 +141,13 @@ const AddressInfo = () => {
   return (
     <>
     
-      <div className="md:flex md:justify-between ">
+      <div className="md:flex md:justify-between select-none ">
       <Toaster />
-        <p className="whitespace-break-spaces md:ml-36 ml-6 md:mt-20 md:mb-20 flex md:justify-center items-center mt-20">
+        <p className="whitespace-break-spaces md:ml-36 ml-6 md:mt-20 md:mb-20 flex md:justify-center items-center mt-20 select-none ">
           <Link href="/" className="opacity-50 leading-21 font-normal text-sm">
             Home
           </Link>{" "}
-          /<span className=" leading-21 font-normal text-sm"> My Account</span>
+          /<span className=" leading-21 font-normal text-sm select-none "> My Account</span>
         </p>
         <p className="md:flex md:justify-center md:items-center md:mr-36 whitespace-break-spaces flex justify-center items-center mt-4 text-sm font-normal leading-21">
           <b>Welcome!</b>
@@ -157,61 +157,61 @@ const AddressInfo = () => {
       <div className="md:flex md:justify-between md:ml-28 md:gap-10 md:mr-36 md:mb-20">
         <div className=" flex justify-center mt-10 md:-mt-9">
           <div className="md:p-10 ">
-            <p className="text-base font-medium leading-24 ">Manage My Account</p>
-            <p className="ml-8 text-base font-normal opacity-50 mt-1 cursor-pointer ">
+            <p className="text-base font-medium leading-24 select-none ">Manage My Account</p>
+            <p className="ml-8 text-base font-normal opacity-50 mt-1 cursor-pointer select-none  ">
              <Link href="/Account" > My Profile</Link>
             </p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer text-check-red leading-24">
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer text-check-red leading-24 select-none ">
               Address Book
             </p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24">
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24 select-none ">
              <Link href="PaymentPage"> My Payment</Link>
             </p>
-            <p className="text-base font-medium md:mt-2 leading-24">My Orders</p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24">
+            <p className="text-base font-medium md:mt-2 leading-24 select-none ">My Orders</p>
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 leading-24 select-none ">
               My Returns
             </p>
-            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 md:mb-2 leading-24">
+            <p className="ml-8 text-base font-normal md:mt-1 cursor-pointer opacity-50 md:mb-2 leading-24 select-none ">
               My Cancellations
             </p>
-            <p  className="text-base font-medium leading-24">
+            <p  className="text-base font-medium leading-24 select-none ">
             <Link href="Wishlist"> My WishList</Link> 
             </p>
           </div>
         </div>
 
         <div className="shadow-2xl md:w-3/4 md:flex md:flex-col md:p-12 mt-10 md:-mt-12 flex justify-center flex-col item mb-20 md:mb-0 ml-2 md:ml-0 mr-2 md:mr-2">
-          <p className="md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:mt-0 md:justify-start leading-28 select-none">
+          <p className="md:text-xl text-2xl font-medium text-check-red flex justify-center mt-7 md:mt-0 md:justify-start leading-28 select-none  ">
             All Address
           </p>
 
           {/* Display saved addresses */}
-          <div className="mt-4">
+          <div className="mt-4 ">
             {addressData.length > 0 ? (
               addressData.map((address, index) => (
-                <div key={index} className="p-4 border rounded mb-4 flex justify-between items-center">
+                <div key={index} className="p-4 border-2 border-check-red rounded mb-4 flex justify-between items-center bg-white select-none  ">
                   <div>
                     <p>
-                      <b>{address.name}</b>
+                      <b className="text-black">{address.name}</b>
                     </p>
-                    <p>{address.street}</p>
-                    <p>
+                    <p className="text-black">{address.street}</p>
+                    <p className="text-black">
                       {address.city}, {address.state}, {address.zip}
                     </p>
-                    <p>{address.country}</p>
+                    <p className="text-black">{address.country}</p>
                   </div>
                   <div className="flex gap-4">
-                    <button onClick={() => editAddress(index)} className="text-blue-500">
+                    <button onClick={() => editAddress(index)} className=" text-3xl">
                       <FaEdit />
                     </button>
-                    <button onClick={() => deleteAddress(index)} className="text-red-500">
+                    <button onClick={() => deleteAddress(index)} className="text-black text-2xl">
                       <FaTrash />
                     </button>
                   </div>
                 </div>
               ))
             ) : (
-              <p>No saved addresses.</p>
+              <p className="md:ml-0 ml-32">No saved addresses.</p>
             )}
           </div>
 
@@ -224,14 +224,14 @@ const AddressInfo = () => {
               }}
               className="md:h-12 h-12 p-3 md:flex md:justify-center md:items-center bg-check-red text-center md:gap-2 rounded-md text-white md:-translate-x-28 flex justify-center items-center"
             >
-              <FaPlus className="mr-2" />
+              <FaPlus className="mr-2 select-none " />
               Add New 
             </button>
           </div>
 
           {/* Address Form */}
           {showForm && (
-            <div className="p-6 shadow-md border rounded">
+            <div className="p-6 shadow-md border rounded select-none ">
               <input
                 type="text"
                 name="name"
