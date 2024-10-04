@@ -109,8 +109,8 @@ const Month = () => {
     if (Array.isArray(wishlistdata)) {
       return wishlistdata.some((item: Product) => item.id === productId);
     } else {
-      console.error("wishlistData is not an array", wishlistdata); // Log for debugging
-      return false; // Return false if wishlistData is not an array
+      console.error("wishlistData is not an array", wishlistdata); 
+      return false; 
     }
   };
 
@@ -118,26 +118,26 @@ const Month = () => {
     <>
       <div>
         <Toaster />
-        <div className="flex items-center gap-4 md:justify-items md:start md:ml-36  ml-6 select-none">
+        <div className="flex min-w-full items-center gap-4 md:justify-items md:start   ml-6 select-none">
           <img src="Category Rectangle.png" alt="Category" />
           <p>This Month</p>
         </div>
-        <div className="flex items-center justify-between md:ml-36   md:mr-40 md:mt-8 ml-6 mr-8 mt-10 select-none">
+        <div className=" min-w-full flex items-center justify-between    md:mt-8 ml-6 mr-8 mt-10 select-none">
           <p className="md:text-4xl text-2xl font-semibold">
             Best Selling Products
           </p>
-          <div className="md:flex md:gap-3 ">
-            <button className="h-12 w-20 md:w-32 bg-check-red text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden active:scale-90  transition-all select-none">
+          <div className="md:flex  ">
+            <button className="h-12 -translate-x-12  w-20 md:w-32 bg-check-red text-white md:flex md:justify-center md:items-center md:hover:bg-red-600 hidden active:scale-90  transition-all select-none">
               View All
             </button>
           </div>
         </div>
 
-        <div className="md:flex md:ml-32 md:gap-10 md:mt-16 ml-12  mt-10 ">
+        <div className="md:flex min-w-full md:gap-10 md:mt-16 ml-6 md:ml-6  mt-10 ">
           {monthProducts.map((product, index) => (
             <div
               key={index}
-              className="   relative border border-gray-200 rounded-lg bg-white overflow-hidden flex-shrink-0 md:w-64 md:h-80 my-4 md:ml-5 md:mr-0 mr-10"
+              className="relative border border-gray-200 rounded-lg bg-white overflow-hidden flex-shrink-0 md:w-64 md:h-80 my-4  md:mr-0 mr-10"
             >
               <div className="absolute top-2 right-2 flex flex-col space-y-2">
                 <div

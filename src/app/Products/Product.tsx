@@ -123,9 +123,9 @@ const Product: React.FC = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 mt-36 w-full flex flex-col justify-center">
-        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0 md:ml-32 md:mr-0 -translate-x-32 ">
-          <div className="flex items-center gap-4 select-none">
+      <div className="container   mt-36 min-w-full flex flex-col justify-center">
+        <div className="flex flex-col items-center md:items-start gap-4 md:gap-0  md:mr-0  ">
+          <div className="flex items-center gap-4 select-none  md:px-7 px-0">
             <img
               src="/Category Rectangle.png"
               alt="Category"
@@ -136,8 +136,8 @@ const Product: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 mt-8 flex-col md:flex-row md:justify-between md:w-full w-80">
-            <p className="text-2xl md:text-4xl font-semibold text-center md:text-left md:ml-0 ml-32 md:w-auto w-72 select-none">
+          <div className="flex items-center gap-3 mt-8 flex-col md:flex-row md:justify-between md:w-full min-w-full">
+            <p className="text-2xl md:text-4xl font-semibold text-center md:text-left md:w-auto w-72 select-none">
               Explore Our Products
             </p>
             <div className="flex gap-3 mt-5 mr-44 mb-5 mx-44">

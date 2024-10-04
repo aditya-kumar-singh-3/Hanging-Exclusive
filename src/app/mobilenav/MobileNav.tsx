@@ -119,26 +119,26 @@ const MobileNav = () => {
   }, [displayName, cartData, wishListData]);
 
   return (
-    <nav className="flex justify-between items-center h-14 py-4 px-6 border-2 lg:px-16 bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+    <nav className="flex justify-between items-center h-14 min-w-full py-4 px-6 border-2  bg-white shadow-md fixed top-0 left-0 right-0 z-50">
       <Toaster />
 
       {/* Logo Section */}
-      <div className="lg:hidden flex items-center h-[4rem] py-8 absolute left-5">
-        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-[20rem] select-none">
+      <div className="lg:hidden flex items-center justify-between    min-w-full">
+        <p className="text-2xl font-bold md:hidden tracking-3 leading-24 w-auto border select-none ">
           Exclusive
         </p>
         <button
           onClick={toggleNavbar}
-          className="focus:outline-none absolute -right-20 p-4 cursor-pointer "
+          className="focus:outline-none   p-4 cursor-pointer "
         >
           {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
       </div>
 
       {/* Main navigation for desktop */}
-      <div className="lg:flex hidden justify-between items-center gap-4 w-full">
-        <div className="flex items-center justify-around space-x-5 whitespace-nowrap text-sm font-normal w-full">
-          <p className="text-2xl font-bold leading-24 tracking-3 mr-4 select-none">
+      <div className="lg:flex hidden justify-between border w-full">
+        <div className="flex items-center justify-between  whitespace-nowrap text-sm font-normal min-w-full ">
+          <p className="text-2xl font-bold leading-24 tracking-3  select-none  ">
             Exclusive
           </p>
           <div className="flex gap-12">
@@ -296,7 +296,7 @@ const MobileNav = () => {
         } duration-300 ease-in-out w-64`}
       >
         <div className="flex flex-col items-center mt-6 space-y-3">
-          <p className="text-3xl font-semibold text-white select-none">
+          <p className="text-3xl font-semibold text-white select-none ">
             Exclusive
           </p>
 

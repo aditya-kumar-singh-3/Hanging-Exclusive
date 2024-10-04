@@ -11,12 +11,12 @@ import Image from "next/image";
 const Category = () => {
   return (
     <>
-      <div className="container mx-auto px-4 ">
-        <div className="flex items-center gap-4 justify-start md:ml-32  ml-2  mt-4 select-none ">
+      <div className="container  px-4 min-w-full">
+        <div className="flex items-center gap-4 justify-start   ml-2  mt-4 select-none ">
           <img src="/Category Rectangle.png" alt="Category Rectangle" />
           <p>Categories</p>
         </div>
-        <div className="flex items-center justify-between md:ml-32   md:mr-40 mr-4 mt-8 ml-2  md:w-auto w-full select-none">
+        <div className="flex items-center justify-between    md:mr-40 mr-4 mt-8 ml-2  md:w-auto w-full select-none">
           <p className="md:text-4xl text-2xl font-semibold ">
             Browse By Category
           </p>
@@ -32,7 +32,7 @@ const Category = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-wrap justify-evenly mt-16 md:ml-16 ml-4 md:mr-20 mr-4 gap-4">
+        <div className="flex flex-wrap justify-evenly mt-16  ml-4  mr-4 gap-4">
           <div className="border w-96 md:w-44 h-36 flex flex-col justify-center items-center rounded-md hover:bg-check-red hover:text-white select-none active:scale-110 transition-all">
             <span className="text-5xl">
               <IoPhonePortraitOutline />

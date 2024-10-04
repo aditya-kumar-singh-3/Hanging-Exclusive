@@ -133,7 +133,7 @@ const Today = () => {
     <>
       <div className="mt-36">
         <Toaster />
-        <div className="flex items-center gap-4 justify-items-start ml-6 md:ml-36 select-none ">
+        <div className="flex items-center gap-4 justify-items-start ml-6  select-none ">
           <img
             src="/Category Rectangle.png"
             alt="Category"
@@ -142,10 +142,10 @@ const Today = () => {
           <p>Today&apos;s</p>
         </div>
 
-        <div className="flex items-center justify-between ml-6 md:ml-36  mr-4 md:mr-40 mt-8 select-none">
+        <div className="flex items-center justify-between ml-6   mr-4  mt-8 select-none">
           <p className="text-2xl md:text-4xl font-semibold">Flash Sales</p>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 -translate-x-2">
             <button
               className="bg-blue-50 h-12 w-12 rounded-full flex justify-center items-center hover:bg-blue-100 active:scale-90  transition-all"
               onClick={() => scroll("left")}
@@ -162,7 +162,7 @@ const Today = () => {
         </div>
 
         <div
-          className="flex overflow-x-auto ml-6 md:ml-36 md:p-1 mt-16  mr-4 md:mr-24 gap-4 md:gap-8 scrollbar-hide"
+          className="flex overflow-x-auto ml-6  min-w-full md:p-1 mt-16  mr-4 md:mr-24 gap-4 md:gap-8 scrollbar-hide"
           ref={scrollContainerRef}
         >
           {products.map((product, index) => (
