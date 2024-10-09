@@ -21,9 +21,9 @@ const Music = () => {
   let day = Math.floor(hour / 24);
   return (
     <>
-      <div className="flex justify-center  md:mr-10 md:ml-2 md:p-3  ">
-        <div className=" md:w-full h-96  md:mx-0 mx-10  md:ml-32  bg-black mt-12 text-white flex items-center  md:flex-row flex-col-reverse md:mr-20 w-[350px] ">
-          <div className="flex flex-col items-center md:h-[250px] md:w-[350px] gap-7 justify-center mb-4 w-96 md:ml-0 ">
+      <div className="flex justify-center md:p-7 p-7">
+        <div className=" md:min-w-full h-96 bg-black mt-12  text-white flex items-center  md:flex-row flex-col-reverse  min-w-full ">
+          <div className="flex flex-col items-center md:h-full md:w-1/2  gap-7 justify-center mb-4  md:ml-0 ">
             <div className="flex justify-start  items-center mr-40 text-green-500  select-none ">
               <p>Categories</p>
             </div>

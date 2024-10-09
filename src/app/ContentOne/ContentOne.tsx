@@ -33,7 +33,7 @@ export default function Component() {
   ];
 
   useEffect(() => {
-    let interval;
+    let interval: string | number | NodeJS.Timeout;
     if (isAutoPlaying) {
       interval = setInterval(() => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -53,7 +53,7 @@ export default function Component() {
     });
   };
 
-  const handleSelect = (event) => {
+  const handleSelect = (event: { target: { value: any; }; }) => {
     const selectedvalue = event.target.value;
     if (selectedvalue) {
       router.push(selectedvalue);
@@ -62,9 +62,9 @@ export default function Component() {
 
   return (
     <>
-      <div className="flex justify-around md:mr-40 md:flex-row flex-col gap-10 items-center mt-10 md:mt-0  md:ml-3 ml-1  -mr-1 max:w-dvw  ">
-        <div className="flex flex-col justify-center md:w-[217px]  md:h-[420px] gap-4 md:ml-24 md:p-3 -ml-12  md:border-r  md:border-blue-100 pr-10  mt-10 mr-32 md:mr-0  ">
-          <select className="border-none font-poppins md:text-base font-normal outline-none  w-44  ">
+      <div className="flex justify-around  md:flex-row flex-col  items-center mt-10 md:mt-20       min-w-full ">
+        <div className="flex  flex-col justify-center   md:h-full gap-4     md:border-r md:w-1/2 w-full   md:border-blue-100   mt-10 md:p-0 p-7   ">
+          <select className="border-none font-poppins md:text-base font-normal outline-none w-4/5 md:w-full  ">
             <option>Electronics</option>
             <option>Audio Devices (Headphones, Speakers)</option>
             <option>Chargers & Power Banks</option>
@@ -72,7 +72,7 @@ export default function Component() {
             <option>Cameras & Photography Equipment</option>
           </select>
           <select
-            className="border-none font-poppins md:text-[16px] font-normal outline-none  w-44 "
+            className="border-none font-poppins md:text-[16px] font-normal outline-none  w-4/5 md:w-full "
             onChange={handleSelect}
           >
             <option>Men&apos;s Fashion</option>
@@ -125,8 +125,8 @@ export default function Component() {
           </Link>
         </div>
 
-        <div className="md:w-[850px]  md:h-[360px] bg-black md:mt-12 text-white flex items-center gap-5 md:flex-row flex-col mt:10 ml-5 mr-7 md:ml-10 relative">
-          <div onClick={() => changeImage('prev')} className="flex flex-col items-center md:h-full md:w-[350px] gap-7 justify-center select-none  ">
+        <div className="md:w-2/4 w-full   md:min-h-full bg-black  text-white flex items-center gap-5 md:flex-row flex-col mt:10 ml-5 mr-7  relative">
+          <div onClick={() => changeImage('prev')} className="flex flex-col items-center md:h-full md:w-80 gap-7 justify-center select-none  ">
             <div className="flex justify-center items-center md:mr-[80px] mt-5">
               <img
                 src={slides[currentSlide].icon}
